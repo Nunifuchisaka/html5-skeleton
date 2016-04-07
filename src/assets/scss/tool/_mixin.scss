@@ -1,0 +1,42 @@
+/*
+_mixin.scss
+*/
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -o-flex;
+  display: flex;
+  -webkit-box-pack: justify;// Android
+  -ms-flex-pack: justify;// IE10
+}
+
+@mixin button-reset() {
+  @include appearance(none);
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin select-reset() {
+  @include appearance(none);
+  border-radius: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: none transparent;
+  vertical-align: middle;
+  font-size: inherit;
+  color: inherit;
+  @include box-sizing(content-box);
+  text-indent: 0.01px;
+  text-overflow: "";
+}
+
+@mixin textIndent_9999() {
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}

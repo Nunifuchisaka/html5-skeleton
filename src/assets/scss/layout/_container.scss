@@ -1,0 +1,19 @@
+/*
+## .l-container-1
+*/
+
+.l-container-1 {
+  display: block;
+  margin: 0 auto;
+  @include legacy-pie-clearfix;
+}
+
+.l-container-1__1 {
+  float: left;
+  display: block;
+}
+
+.l-container-1__2 {
+  float: right;
+  display: block;
+}
