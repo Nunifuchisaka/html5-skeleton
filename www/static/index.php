@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title></title>
@@ -13,6 +12,7 @@
 
 <link rel="canonical" href="">
 
+<!-- ogp -->
 <meta property="og:site_name" content="">
 <meta property="og:title" content="">
 <meta property="og:description" content="">
@@ -41,24 +41,24 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<?php include($_SERVER['DOCUMENT_ROOT'].'/assets/html/g-header-1.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/assets/html/header-1.php'); ?>
 
 
 
 
 
-<?php include($_SERVER['DOCUMENT_ROOT'].'/assets/html/g-footer-1.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/assets/html/footer-1.php'); ?>
 
 <!-- javascript library -->
-<script src="/assets/lib/lodash.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/assets/lib/jquery.js"><\/script>')</script>
-<script src="/assets/lib/jquery.easing.js"></script>
-<script src="/assets/lib/jquery.cookie.js"></script>
-<script src="/assets/lib/backbone.js"></script>
+<script src="/assets/libs/underscore.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/libs/jquery.js"><\/script>')</script>
+<script src="/assets/libs/jquery.easing.js"></script>
+<script src="/assets/libs/backbone.js"></script>
 
 <!-- javascript original -->
 <script src="/assets/js/common.js"></script>
+<script src="/assets/js/analytics.js"></script>
 
 </body>
 </html>

@@ -4,16 +4,14 @@
 
 COMMON.SmoothScroll = function(opts) {
   opts = _.extend({
-    target: '.js-smoothScroll-1'
+    target: ".js_smooth-scroll_1"
   }, opts);
   
-  var $html_body = $('html, body');
-  
-  $(opts.target).click(function() {
-    var href = $(this).attr('href');
-    $html_body.stop(true,false).animate({
+  $(opts.target).click(function(){
+    var href = $(this).attr("href");
+    COMMON.$html_body.stop(true,false).animate({
       scrollTop: $(href).offset().top
-    }, 1500, 'easeOutExpo');
+    }, 1500, "easeOutExpo");
     return false;
   });
 }
