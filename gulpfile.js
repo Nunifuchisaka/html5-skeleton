@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 
 gulp.task("browser-sync", function(){
   browserSync.init({
-    proxy: "html5-skeleton.local:8888"
+    proxy: "html5-skeleton.lcl:8888"
   });
 });
 
