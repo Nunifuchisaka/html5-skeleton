@@ -1,13 +1,26 @@
 var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
-    compass = require('gulp-compass'),
+    browserSync = require("browser-sync").create(),
+    sass = require('gulp-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    livereload = require('gulp-livereload'),
     sourcemaps = require('gulp-sourcemaps');
 
 
-gulp.task('default', ['watch']);
+/*
+## browser sync
+*/
+
+gulp.task("browser-sync", function(){
+  browserSync.init({
+    proxy: "html5-skeleton.local:8888"
+  });
+});
+
+gulp.task("bs-reload", function(){
+  browserSync.reload();
+});
 
 
 
@@ -15,17 +28,17 @@ gulp.task('default', ['watch']);
 ## StyleSheet
 */
 
-gulp.task('compass_compile', function(){
-  gulp.src('src/assets/pc/scss/**/*.scss')
-    .pipe(plumber())
-    .pipe(compass({
-      config_file: 'src/assets/config.rb',
-      style: 'compressed',//expanded
-      comments : false,
-      css : 'dst/htdocs/assets/css',
-      sass: 'src/assets/scss',
-      sourcemap: false
-    }));
+gulp.task("scss", function(){
+  return gulp.src('src/assets/scss/**/*.scss')
+    .pipe(sass({
+      outputStyle: 'compressed'
+    }).on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['last 2 version', 'iOS >= 8.1', 'Android >= 4.4'],
+      cascade: false
+    }))
+    .pipe(gulp.dest('www/static/assets/css'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -47,7 +60,8 @@ gulp.task('js_common_compile', function() {
     .pipe(concat('common.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dst/htdocs/assets/js'));
+    .pipe(gulp.dest('www/static/assets/js'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -56,21 +70,14 @@ gulp.task('js_common_compile', function() {
 ## watch
 */
 
-gulp.task('watch', function(){
+gulp.task("default", ["browser-sync"], function(){
   
-  livereload.listen();
-  
-  gulp.watch('src/assets/scss/**/*.scss', function(event){
-    gulp.run('compass_compile');
-  });
+  gulp.watch('src/assets/scss/**/*.scss', ['scss']);
   
   gulp.watch('src/assets/js/common/**/*.js', ['js_common_compile']);
   
-  gulp.watch([
-    'dst/htdocs/**/*.html',
-    'dst/htdocs/**/*.php',
-    'dst/htdocs/**/*.js',
-    'dst/htdocs/**/*.css'
-  ]).on('change', livereload.changed);
-  
+  gulp.watch('www/static/**/*.html', ['bs-reload']);
+  gulp.watch('www/static/**/*.php', ['bs-reload']);
+  //gulp.watch('www/static/**/*.css', ['bs-reload']);
+  //gulp.watch('www/static/**/*.js', ['bs-reload']);
 });

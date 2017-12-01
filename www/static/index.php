@@ -11,6 +11,7 @@
 <meta name="author" content="">
 
 <link rel="canonical" href="">
+<link rel="alternate" href="" media="only screen and (max-width: 640px)">
 
 <!-- ogp -->
 <meta property="og:site_name" content="">
@@ -21,8 +22,8 @@
 <meta property="og:image" content="">
 
 <!-- stylesheet -->
+<link rel="stylesheet" href="/assets/css/reset.css">
 <link rel="stylesheet" href="/assets/css/common.css">
-<link rel="stylesheet" href="/assets/css/index.css">
 <link rel="stylesheet" href="/assets/css/patch.css">
 
 <noscript>

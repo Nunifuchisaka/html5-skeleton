@@ -2,15 +2,22 @@
 _mixin.scss
 */
 
+@mixin appearance(){
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+
 @mixin button-reset() {
-  @include appearance(none);
+  @include appearance;
   border: 0;
   margin: 0;
   padding: 0;
 }
 
 @mixin select-reset() {
-  @include appearance(none);
+  @include appearance;
   border-radius: 0;
   border: 0;
   margin: 0;

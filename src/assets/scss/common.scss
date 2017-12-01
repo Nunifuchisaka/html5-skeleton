@@ -1,11 +1,9 @@
-@import "compass",
-        "tool/font-size/ptp-14",
+@import "tool/font-size/ptp-14",
         "tool/mixin",
         "tool/function",
         "tool/site-setting";
 
-@import "compass/reset",
-        "base/foundation",
+@import "base/foundation",
         "base/font",
         "base/javascript";
 
@@ -42,3 +40,4 @@
         "layout/container";
 
 @import "state/state";
+

@@ -3,7 +3,7 @@
 ## use
 * HTML5, CSS3
 * JavaScript(jQuery, Backbone)
-* Sass, Compass
+* Sass
 * PHP
 * gulp
 * Git(Github)
