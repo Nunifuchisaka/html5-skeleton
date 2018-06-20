@@ -23,6 +23,7 @@
 
 <!-- stylesheet -->
 <link rel="stylesheet" href="/assets/css/reset.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <link rel="stylesheet" href="/assets/css/common.css">
 <link rel="stylesheet" href="/assets/css/patch.css">
 
@@ -42,13 +43,23 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<?php include($_SERVER['DOCUMENT_ROOT'].'/assets/html/header-1.php'); ?>
+<?php include('assets/html/header-1.php'); ?>
 
 
 
+<section>
+  <h2>Modal</h2>
+  <button class="js_add_open">add open button</button>
+  <div class="js_test_opens">
+    <button class="js_modal_1__open" data-str="hoge">modal hoge open</button>
+    <button class="js_modal_1__open" data-str="fuga">modal fuga open</button>
+    <button class="js_modal_1__open" data-str="piyo">modal piyo open</button>
+  </div>
+</section>
 
 
-<?php include($_SERVER['DOCUMENT_ROOT'].'/assets/html/footer-1.php'); ?>
+
+<?php include('assets/html/footer-1.php'); ?>
 
 <!-- javascript library -->
 <script src="/assets/libs/underscore.js"></script>
@@ -56,9 +67,24 @@
 <script>window.jQuery || document.write('<script src="/assets/libs/jquery.js"><\/script>')</script>
 <script src="/assets/libs/jquery.easing.js"></script>
 <script src="/assets/libs/backbone.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.min.js"></script>
 
 <!-- javascript original -->
 <script src="/assets/js/common.js"></script>
+
+<script src="/assets/js/modal.js"></script>
+<script id="modal_1_template" type="text/template">
+  <div class="white-popup">
+    aaa 
+    <div id="<%- str %>">
+      <%- str %>あああ<%- str %>いいい<%- str %>
+    </div>
+    <button type="button" class="js_print_1" data-target="#<%- str %>"><%- str %></button>
+    bbb
+  </div>
+</script>
+
 <script src="/assets/js/analytics.js"></script>
 
 </body>
