@@ -6,6 +6,10 @@ article, aside, dialog, figure, footer, header, hgroup, menu, nav, section, vide
 
 html {
   min-height: 100%;
+  &.is_opened_spHnav {
+    overflow: hidden;
+    height: 100%;
+  }
 }
 
 body {

@@ -9,11 +9,11 @@
   "author": "Nunifuchisaka",
   "devDependencies": {
     "browser-sync": "^2.18.13",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
     "gulp-concat": "^2.6.0",
     "gulp-plumber": "^1.0.1",
-    "gulp-sass": "^3.1.0",
+    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0"
   }

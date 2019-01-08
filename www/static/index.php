@@ -27,6 +27,19 @@
 <link rel="stylesheet" href="assets/css/common.css">
 <link rel="stylesheet" href="assets/css/patch.css">
 
+<style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+</style>
+
 <noscript>
 <link rel="stylesheet" href="assets/css/noscript.css">
 </noscript>
@@ -43,8 +56,10 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<?php include('assets/html/header-1.php'); ?>
 
+<div class="l_wrapper_1">
+
+<?php include('assets/html/header-1.php'); ?>
 
 
 <section>
@@ -58,8 +73,23 @@
 </section>
 
 
+<p>ダミーテキスト。</p>
+<p><img src="dummy/1.jpg" alt="1" width="800" height="533"></p>
+<p>ダミーテキスト。</p>
+<p><img src="dummy/2.jpg" alt="2" width="800" height="533"></p>
+<p>ダミーテキスト。</p>
+<p><img src="dummy/3.jpg" alt="3" width="800" height="533"></p>
+<p>ダミーテキスト。</p>
+<p><img src="dummy/4.jpg" alt="4" width="800" height="450"></p>
+<p>ダミーテキスト。</p>
+<p><img src="dummy/5.jpg" alt="5" width="800" height="450"></p>
+<p>ダミーテキスト。</p>
+
 
 <?php include('assets/html/footer-1.php'); ?>
+
+</div><!-- /.l_wrapper_1 -->
+
 
 <!-- javascript library -->
 <script src="assets/libs/underscore.js"></script>

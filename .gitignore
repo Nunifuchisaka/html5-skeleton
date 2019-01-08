@@ -7,3 +7,4 @@ Thumbs.db
 /node_modules/
 /release.zip
 /release/
+/www/static/dummy/
