@@ -1,8 +1,10 @@
 $(function(){
   
   COMMON.$window = $(window);
+  COMMON.$document = $(document);
   COMMON.$html = $("html");
   COMMON.$html_body = $("html, body");
+  COMMON.$wrapper = $("#wrapper");
   
   new COMMON.GlobalHeader_A();
   
@@ -19,15 +21,18 @@ COMMON.GlobalHeader_A = Backbone.View.extend({
   initialize: function() {
     console.log("GlobalHeader_A");
     var self = this;
-    _.bindAll(this, "toggle", "open", "close", "movefun");
+    _.bindAll(this, "toggle", "open", "close");
     
     this.opened = false;
     this.duration = 1000;
     this.easing = "easeInOutExpo";
     
     this.$spHnav = $("#spHnav");
-    this.$inner = $("#spHnav__1");
+    this.$inner1 = $("#spHnav__inner1");
+    this.$inner2 = $("#spHnav__inner2");
     this.$toggle = this.$(".js_spHnav_toggle");
+    
+    this.scrollTop = 0;
     
     this.$toggle.click(this.toggle);
   },
@@ -43,48 +48,36 @@ COMMON.GlobalHeader_A = Backbone.View.extend({
   },
   
   open: function(){
-    console.group("open");
-    var self = this;
-    
-    //スクロールを無効
-    //window.addEventListener('touchmove', this.movefun ,{ passive: false });
-    COMMON.$html.addClass("is_opened_spHnav");
-    
-    //ナビゲーションを表示
+    console.log("open");
+    this.scrollTop = COMMON.$document.scrollTop();
     this.$spHnav.removeClass("is_none");
-    this.$inner.stop(true,false).slideDown(this.duration, this.easing, function(){
-      //window.removeEventListener('touchmove', self.movefun, { passive: false });
+    this.$inner2.stop(true,false).slideDown(this.duration, this.easing, function(){
+      COMMON.$wrapper.addClass("is_none");
+      COMMON.$html.addClass("is_opened_spHnav");
+      COMMON.$document.scrollTop(0);
     });
     
-    //その他
     this.$toggle.addClass("is_active");
     this.opened = true;
-    console.groupEnd();
     return false;
   },
   
   close: function(){
-    console.group("close");
-    var self = this;
+    console.log("close");
+    var self = this,
+        scrollTop = COMMON.$document.scrollTop();
     
-    //ページ全体のスクロールを有効
-    //window.removeEventListener('touchmove', this.movefun, { passive: false });
     COMMON.$html.removeClass("is_opened_spHnav");
-    
-    //ナビゲーションを非表示
-    this.$inner.slideUp(this.duration, this.easing, function(){
+    this.$inner1.scrollTop(scrollTop);
+    COMMON.$wrapper.removeClass("is_none");
+    COMMON.$document.scrollTop(this.scrollTop);
+    this.$inner2.stop(true,false).slideUp(this.duration, this.easing, function(){
       self.$spHnav.addClass("is_none");
     });
     
-    //その他
     this.$toggle.removeClass("is_active");
     this.opened = false;
-    console.groupEnd();
     return false;
-  },
-  
-  movefun: function( event ){
-    event.preventDefault();
   }
   
 });

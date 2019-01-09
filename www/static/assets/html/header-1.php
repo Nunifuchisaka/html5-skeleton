@@ -8,9 +8,9 @@
 </header><!-- /#header -->
 
 <nav id="spHnav" class="g_nav_1 is_none">
-  <div class="g_nav_1__1">
+  <div id="spHnav__inner1" class="g_nav_1__1">
     <div class="g_nav_1__2"></div>
-    <div id="spHnav__1" class="g_nav_1__3" style="display: none">
+    <div id="spHnav__inner2" class="g_nav_1__3" style="display: none">
       <ul class="g_nav_1__items">
         <li class="g_nav_1__item">
           <a href="#1">1. ダミーテキスト</a>

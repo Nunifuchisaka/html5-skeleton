@@ -57,9 +57,9 @@ img {
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
-<div class="l_wrapper_1">
-
 <?php include('assets/html/header-1.php'); ?>
+
+<div id="wrapper" class="l_wrapper_1">
 
 
 <section>
