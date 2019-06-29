@@ -4,7 +4,7 @@
 
 COMMON.SmoothScroll = function(opts) {
   opts = _.extend({
-    target: ".js_smooth-scroll_1"
+    target: ".js_smoothScroll_1"
   }, opts);
   
   $(opts.target).click(function(){

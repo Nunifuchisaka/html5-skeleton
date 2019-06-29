@@ -1,26 +1,5 @@
-/*
-article, aside, dialog, figure, footer, header, hgroup, menu, nav, section, video {
-  display: block;
-}
-*/
-
 html {
   height: 100%;
-  &.is_opened_spHnav {
-    //overflow: hidden;
-    //height: 100%;
-    .g_nav_1 {
-      overflow-y: visible;
-      position: relative;
-      height: auto;
-      min-height: 100%;
-    }
-    .g_nav_1__1 {
-      overflow-y: visible;
-      height: auto;
-      min-height: 100%;
-    }
-  }
 }
 
 body {
