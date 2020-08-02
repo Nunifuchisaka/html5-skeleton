@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,7 +8,6 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="copyright" content="">
-<meta name="author" content="">
 
 <link rel="canonical" href="">
 <link rel="alternate" href="" media="only screen and (max-width: 640px)">
@@ -20,6 +19,9 @@
 <meta property="og:url" content="">
 <meta property="og:type" content="website">
 <meta property="og:image" content="">
+
+<!-- twitter card -->
+<meta name="twitter:card" content="summary_large_image">
 
 <!-- stylesheet -->
 <link rel="stylesheet" href="assets/css/reset.css">
@@ -43,15 +45,27 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
-<?php include('assets/html/header-1.php'); ?>
+<div id="wrapper">
 
-<div class="l_wrapper_1">
+
+<header id="header" class="g_header_1" role="banner">
+  
+</header><!-- /#header -->
+
+
+<div class="l_container_1">
   
   
   
-  <?php include('assets/html/footer-1.php'); ?>
+</div><!-- /.l_container_1 -->
+
+
+<footer class="g_footer_1" role="contentinfo">
   
-</div><!-- /.l_wrapper_1 -->
+</footer>
+
+
+</div><!-- /#wrapper -->
 
 
 <!-- javascript library -->

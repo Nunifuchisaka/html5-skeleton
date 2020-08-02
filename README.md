@@ -10,4 +10,4 @@
 
 
 ## path
-* Document root：dst/htdocs
+* Document root：www/htdocs
