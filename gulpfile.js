@@ -4,11 +4,6 @@ var gulp = require('gulp'),
     sass = require('gulp-sass');
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
-    mqpacker = require('css-mqpacker'),
-    //cssnano = require('cssnano'),
-    notify  = require('gulp-notify'),
-    uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps');
 
 var path = {
@@ -16,23 +11,15 @@ var path = {
   dst: 'www/htdocs'
 };
 
+
 /*
 ## browser sync
 */
-
-gulp.task('browser-sync', function(done){
-  browserSync.init({
-    //proxy: 'html5-skeleton.lcl:8888'
-    baseDir: path.dst
-  });
-  done();
-});
 
 gulp.task('bs-reload', function(done){
   browserSync.reload();
   done();
 });
-
 
 
 /*
@@ -45,41 +32,21 @@ gulp.task('sass', function(){
     .pipe(sass())
     .pipe(postcss([
       autoprefixer(),
-      mqpacker(),
-      //cssnano({ autoprefixer: false }),
     ]))
     .pipe(gulp.dest(path.dst + '/assets/css'));
 });
-
-
-
-/*
-## JavaScript
-*/
-
-gulp.task('js_common', function(){
-  gulp.src([
-      path.src + '/js/common/110_header.js',
-      path.src + '/js/common/310_SmoothScroll.js',
-      path.src + '/js/common/800_app.js',
-      path.src + '/js/common/990_footer.js'
-    ])
-    .pipe(plumber())
-    .pipe(sourcemaps.init())
-    .pipe(concat('common.js'))
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.dst + '/assets/js'))
-    .pipe(browserSync.stream());
-});
-
 
 
 /*
 ## watch
 */
 
-gulp.task('watch', function(done){
+gulp.task('default', function(done){
+  
+  browserSync.init({
+    //proxy: 'html5-skeleton.lcl:8888'
+    baseDir: path.dst
+  });
   
   gulp.watch(path.dst + '/**/*.html', gulp.task('bs-reload'));
   gulp.watch(path.dst + '/**/*.php', gulp.task('bs-reload'));
@@ -87,11 +54,6 @@ gulp.task('watch', function(done){
   gulp.watch(path.dst + '/**/*.js', gulp.task('bs-reload'));
   
   gulp.watch(path.src + '/scss/**/*.scss', gulp.series('sass'));
-  gulp.watch(path.src + '/js/common/**/*.js', gulp.series('js_common'));
   
   done();
 });
-
-
-gulp.task('default', gulp.series('browser-sync', 'watch'));
-

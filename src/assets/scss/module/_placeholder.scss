@@ -1,0 +1,26 @@
+/*
+## .placeholder_2
+*/
+
+.placeholder_2 {
+  position: relative;
+  textarea {
+    
+  }
+  &__placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+
+/*
+## .placeholder_1
+*/
+
+textarea.placeholder_1 {
+  &.is_placeholder {
+    color: #aaa;
+  }
+}
