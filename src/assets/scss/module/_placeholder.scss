@@ -4,13 +4,24 @@
 
 .placeholder_2 {
   position: relative;
-  textarea {
-    
-  }
-  &__placeholder {
+  display: inline-block;
+  vertical-align: top;
+  .placeholder {
+    overflow-y: auto;
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    color: #aaa;
+    font-weight: normal;
+    box-sizing: border-box;
+  }
+  textarea {
+    position: relative;
+    margin: 0;
+    background-color: transparent;
+    vertical-align: top;
   }
 }
 

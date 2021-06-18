@@ -33,14 +33,24 @@ $(function(){
   console.log(navigator.userAgent);
   
   if( COMMON.is_safari() ){
-    $('textarea.placeholder_1').each(function(index,el){
+    
+    $('.placeholder_2').each(function(index,el){
       console.log(index,el);
-      new COMMON.Placeholder_1({
+      new COMMON.Placeholder_B({
         index: index,
         el: el
       });
     });
-  }
+    
+    $('textarea.placeholder_1').each(function(index,el){
+      console.log(index,el);
+      new COMMON.Placeholder_A({
+        index: index,
+        el: el
+      });
+    });
+    
+  }// COMMON.is_safari()
   
   
   new COMMON.SmoothScroll();
@@ -49,10 +59,67 @@ $(function(){
 
 
 /*
-## COMMON.Placeholder_1
+## COMMON.Placeholder_B
 */
 
-COMMON.Placeholder_1 = function(option){
+COMMON.Placeholder_B = function(option){
+  _.bindAll(this, 'reset', 'click', 'focus', 'blur');
+  this.option = _.extend({
+    
+  }, option);
+  this.$el = $(this.option.el);
+  this.$textarea = this.$el.children('textarea');
+  this.$placeholder = this.$el.children('.placeholder');
+  
+  this.reset();
+  
+  /*
+  this.placeholder = this.$textarea.attr('placeholder');
+  this.$textarea.removeAttr('placeholder');
+  this.$placeholder.text(this.placeholder);
+  */
+  
+  this.$placeholder.click(this.click);
+  this.$textarea.focus(this.focus);
+  this.$textarea.blur(this.blur);
+  
+  COMMON.$window.resize(this.resize);
+  
+  this.blur();
+};
+
+COMMON.Placeholder_B.prototype.reset = function(){
+  this.$placeholder.css({
+    'padding':   this.$textarea.css('padding'),
+    'font-size': this.$textarea.css('font-size'),
+  });
+};
+
+COMMON.Placeholder_B.prototype.click = function(){
+  console.count('click');
+  this.$textarea.focus();
+};
+
+COMMON.Placeholder_B.prototype.focus = function(){
+  console.count('focus');
+  this.$placeholder.hide();
+};
+
+COMMON.Placeholder_B.prototype.blur = function(){
+  console.count('blur');
+  let val = this.$textarea.val();
+  console.log('val', val);
+  if( '' == val ){
+    this.$placeholder.show();
+  }
+};
+
+
+/*
+## COMMON.Placeholder_A
+*/
+
+COMMON.Placeholder_A = function(option){
   _.bindAll(this, 'check', 'focus', 'blur');
   this.option = _.extend({
     
@@ -68,7 +135,7 @@ COMMON.Placeholder_1 = function(option){
     .blur(this.blur);
 }
 
-COMMON.Placeholder_1.prototype.check = function(){
+COMMON.Placeholder_A.prototype.check = function(){
   let val = this.$el.val();
   if( '' == val ){
     this.$el
@@ -77,9 +144,7 @@ COMMON.Placeholder_1.prototype.check = function(){
   }
 };
 
-COMMON.Placeholder_1.prototype.focus = function(e){
-  console.count('Placeholder_1-' + this.option.index);
-  console.log('placeholder', this.placeholder);
+COMMON.Placeholder_A.prototype.focus = function(e){
   if( this.$el.hasClass('is_placeholder') ){
     this.$el
       .val('')
@@ -88,7 +153,7 @@ COMMON.Placeholder_1.prototype.focus = function(e){
   //this.check();
 };
 
-COMMON.Placeholder_1.prototype.blur = function(e){
+COMMON.Placeholder_A.prototype.blur = function(e){
   this.check();
 };
 

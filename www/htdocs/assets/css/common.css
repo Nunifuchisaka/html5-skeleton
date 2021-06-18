@@ -26,11 +26,24 @@ img {
 ## .placeholder_2
 */
 .placeholder_2 {
-  position: relative; }
-  .placeholder_2__placeholder {
+  position: relative;
+  display: inline-block;
+  vertical-align: top; }
+  .placeholder_2 .placeholder {
+    overflow-y: auto;
     position: absolute;
     top: 0;
-    left: 0; }
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #aaa;
+    font-weight: normal;
+    box-sizing: border-box; }
+  .placeholder_2 textarea {
+    position: relative;
+    margin: 0;
+    background-color: transparent;
+    vertical-align: top; }
 
 /*
 ## .placeholder_1
