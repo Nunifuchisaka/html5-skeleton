@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     browserSync = require('browser-sync').create(),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
     sourcemaps = require('gulp-sourcemaps');

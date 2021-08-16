@@ -32,15 +32,15 @@ $(function(){
   
   console.log(navigator.userAgent);
   
-  if( COMMON.is_safari() ){
-    
-    $('.placeholder_2').each(function(index,el){
-      console.log(index,el);
-      new COMMON.Placeholder_B({
-        index: index,
-        el: el
-      });
+  $('.placeholder_2').each(function(index,el){
+    console.log(index,el);
+    new COMMON.Placeholder_B({
+      index: index,
+      el: el
     });
+  });
+  
+  if( COMMON.is_safari() ){
     
     $('textarea.placeholder_1').each(function(index,el){
       console.log(index,el);
