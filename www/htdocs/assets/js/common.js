@@ -164,7 +164,7 @@ COMMON.Placeholder_A.prototype.blur = function(e){
 
 COMMON.SmoothScroll = function(option){
   option = _.extend({
-    target: 'a[data-smooth-scroll]'
+    target: '[data-smooth-scroll]'
   }, option);
   
   const SPEED_DEFAULT = 800, // 最初の速度
@@ -180,7 +180,7 @@ COMMON.SmoothScroll = function(option){
   }
   
   const scrollAnimate = function($this, positionStart, scrollSpeed){
-    TSUBUGUMI.$html.animate({ scrollTop: positionStart }, scrollSpeed, 'swing', function(){
+    COMMON.$html.animate({ scrollTop: positionStart }, scrollSpeed, 'swing', function(){
       // スクロールアニメーション終了時に、目的地のY座標を取得
       const positionEnd = getTargetPositionY($this);
       
@@ -198,7 +198,7 @@ COMMON.SmoothScroll = function(option){
     scrollAnimate($(this), positionStart, SPEED_DEFAULT);
   };
   
-  $('a' + option.target).on('click.smoothScroll', click);
+  $('a' + option.target).on('click', click);
   $(option.target).find('a[href^="#"]').click(click);
   
 }

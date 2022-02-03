@@ -3,11 +3,10 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     sass = require('gulp-sass'),
     postcss = require('gulp-postcss'),
-    autoprefixer = require('autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps');
+    autoprefixer = require('autoprefixer');
 
 var path = {
-  src: 'src/assets',
+  src: 'src',
   dst: 'www/htdocs'
 };
 
@@ -45,7 +44,9 @@ gulp.task('default', function(done){
   
   browserSync.init({
     //proxy: 'html5-skeleton.lcl:8888'
-    baseDir: path.dst
+    https: true,
+    server: { baseDir: path.dst },
+    //startPath: ''
   });
   
   gulp.watch(path.dst + '/**/*.html', gulp.task('bs-reload'));
@@ -53,7 +54,7 @@ gulp.task('default', function(done){
   gulp.watch(path.dst + '/**/*.css', gulp.task('bs-reload'));
   gulp.watch(path.dst + '/**/*.js', gulp.task('bs-reload'));
   
-  gulp.watch(path.src + '/scss/**/*.scss', gulp.series('sass'));
+  gulp.watch(path.src + '/scss/**/*.scss', gulp.task('sass'));
   
   done();
 });

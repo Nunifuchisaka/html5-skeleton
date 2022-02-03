@@ -1,28 +1,21 @@
-@import "tool/font-size/ptp-14",
-        "tool/mixin",
+@import "tool/mixin",
         "tool/function",
-        "tool/site-setting";
-
-@import "base/foundation",
+        "tool/site-setting",
+        
+        "base/foundation",
         "base/font",
-        "base/javascript";
-
-@import "module/banner",
-        "module/border",
+        "base/javascript",
+        
         "module/button",
         "module/div",
         "module/figure",
-        "module/carousel",
         "module/checkbox",
         "module/form",
         "module/header",
         "module/icon",
         "module/input",
         "module/list",
-        "module/modal",
         "module/nav",
-        "module/other",
-        "module/pagetop",
         "module/paragraphs",
         "module/placeholder",
         "module/radio",
@@ -31,13 +24,20 @@
         "module/strong",
         "module/table",
         "module/textarea",
-        "module/video";
-
-@import "global/header",
+        "module/video",
+        
+        "extra/banner",
+        "extra/border",
+        "extra/carousel",
+        "extra/modal",
+        "extra/other",
+        "extra/pagetop",
+        
+        "global/header",
         "global/footer",
-        "global/nav";
-
-@import "layout/wrapper",
-        "layout/container";
-
-@import "state/state";
+        "global/nav",
+        
+        "layout/wrapper",
+        "layout/container",
+        
+        "state/state";
