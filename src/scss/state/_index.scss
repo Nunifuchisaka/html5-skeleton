@@ -1,3 +1,5 @@
+@use "../tool/variable" as *;
+
 .is_none { display: none !important }
 
 @media (min-width: $breakpoint1 + 1) {

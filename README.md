@@ -5,7 +5,8 @@
 * CSS3
 * JavaScript(jQuery, Backbone)
 * Sass
-* gulp
+* Webpack
+* Volta
 * Git(Github)
 
 
