@@ -1,4 +1,6 @@
-<!doctype html>
+<%
+var myValue = 'Hello! EJS!';
+%><!doctype html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -10,15 +12,10 @@
 <link rel="stylesheet" href="../assets/css/patch.css">
 </head>
 <body>
-<header id="header">
-  <h1>大見出し</h1>
-  <figure>
-    <img src="img/howto8.jpg" alt="">
-  </figure>
-</header>
+<%- include('../template/_header.ejs') %>
 
 <div id="main">
-  <p>Hello! EJS!</p>
+  <p><%= myValue %></p>
   <p>hoge</p>
   <figure>
     <img src="../img/howto8.jpg" alt="">
@@ -26,8 +23,6 @@
   <p>eee</p>
 </div>
 
-<footer id="footer">
-  <p>&copy; ぬにふちさか</p>
-</footer>
-<script defer src="../assets/js/vendor.js"></script><script defer src="../assets/js/common.js"></script></body>
+<%- include('../template/_footer.ejs') %>
+</body>
 </html>
