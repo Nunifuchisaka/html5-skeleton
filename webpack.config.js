@@ -5,6 +5,7 @@ const HTML_MINITY = true,
       glob = require('glob'),
       DIST_PATH = path.resolve(__dirname, DIST_DIR),
       SRC_PATH = path.resolve(__dirname, SRC_DIR),
+      { CleanWebpackPlugin } = require('clean-webpack-plugin'),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts'),
       BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
       ssi = require('./node_modules/browsersync-ssi'),
@@ -14,41 +15,50 @@ const HTML_MINITY = true,
       entries = {},
       plugins = [];
 
-glob.sync('*.js', {
-  cwd: SRC_DIR + '/js',
-  ignore: '_*.js',
-}).map(function(key){
-  entries[key.replace('.js', '')] = SRC_PATH + '/js/' + key;
+glob.sync('**/*.js', {
+  cwd: './src/js',
+  ignore: '**/_*.js'
+}).forEach(key => {
+  console.log('key', key);
+  const basename = path.basename(key, '.js');
+  entries[basename] = path.resolve('src', 'js', key);
+  //key.replace('.js', '')
 });
 
 glob.sync('**/*.ejs', {
-  cwd: SRC_DIR + '/html',
-  ignore: '_*.ejs',
-}).map(function(key){
-  //console.log('key', key, key.replace('.ejs', '.html'), SRC_PATH + '/html/' + key);
-  entries[key.replace('.ejs', '.html')] = SRC_PATH + '/html/' + key;
+  cwd: './src/html',
+  ignore: '**/_*.ejs'
+}).forEach(key => {
+  console.log('key', key);
+  const baseName = path.basename(key, '.ejs'),
+        htmlKey = key.replace('.ejs', '.html'),
+        jsKey   = key.replace('.ejs', '.js'),
+        srcPath  = path.resolve('src', 'html', key);
+  //entries[key] = srcPath;
   plugins.push(
     new HtmlWebpackPlugin({
-      template: SRC_PATH + '/html/' + key,
-      filename: key.replace('.ejs', '.html'),
+      template: srcPath,
+      filename: htmlKey,
       inject: 'body',
-      chunks: ['common'],
+      includeSiblingChunks: true,
+      chunks:['vendor', 'common', baseName]
       //hash: true
     })
   );
 });
 
-glob.sync('*.scss', {
-  cwd: SRC_DIR + '/scss',
-  ignore: '_*.scss',
-}).map(function(key){
-  entries[key.replace('.scss', '.css')] = SRC_PATH + '/scss/' + key;
+glob.sync('**/*.scss', {
+  cwd: './src/scss',
+  ignore: '**/_*.scss',
+}).forEach(key => {
+  console.log('key', key);
+  entries[key.replace('.scss', '.css')] = path.resolve('src', 'scss', key);
 });
 
 module.exports = {
   output: {
     path: DIST_PATH,
-    filename: 'assets/js/[name].js',
+    filename: './assets/js/[name].js',
   },
   optimization: {
     minimize: false,
@@ -118,10 +128,6 @@ module.exports = {
     ]
   },
   plugins: plugins.concat([
-    new RemoveEmptyScriptsPlugin(),
-    new MiniCssExtractPlugin({
-      filename: './assets/css/[name]',
-    }),
     new BrowserSyncPlugin({
       //https: true,
       host: 'localhost',
@@ -139,7 +145,12 @@ module.exports = {
         ext: '.html',
         version: '1.4.0'
       })
-    })
+    }),
+    new MiniCssExtractPlugin({
+      filename: './assets/css/[name]',
+    }),
+    new RemoveEmptyScriptsPlugin(),
+    new CleanWebpackPlugin()
   ]),
   entry: entries,
   watchOptions: {
