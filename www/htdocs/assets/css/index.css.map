@@ -1,0 +1,1 @@
+{"version":3,"file":"./assets/css/index.css","mappings":";;;AAEA,OACE,c","sources":["webpack://html5-skeleton/./src/scss/index.scss"],"sourcesContent":["@use \"tool/variable\" as *;\n\n.index {\n  display: block\n}\n"],"names":[],"sourceRoot":""}

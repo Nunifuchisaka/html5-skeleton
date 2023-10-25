@@ -3,13 +3,20 @@ var myValue = 'Hello! EJS!';
 %><!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>webpack Test</title>
+<%- include('template/_head.ejs') %>
 
-<link rel="stylesheet" href="/assets/css/reset.css">
-<link rel="stylesheet" href="/assets/css/common.css">
-<link rel="stylesheet" href="/assets/css/patch.css">
+<title></title>
+<meta name="description" content="">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:url" content="">
+<meta property="og:image" content="#">
+
+<link rel="stylesheet" href="/assets/css/index.css">
+
+<%- include('template/_analytics.ejs') %>
 </head>
 <body>
 <%- include('template/_header.ejs') %>
@@ -24,5 +31,13 @@ var myValue = 'Hello! EJS!';
 </div>
 
 <%- include('template/_footer.ejs') %>
+<%- include('template/_javascript.ejs') %>
+<script src="/assets/js/index.js"></script>
+<script>
+console.log('hoge');
+console.log('$', $);
+console.log('_', _);
+//$();
+</script>
 </body>
 </html>

@@ -1,11 +1,3 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -16,7 +8,42 @@
   \**************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var underscore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! underscore */ \"./node_modules/underscore/modules/index-all.js\");\n/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! slick-carousel */ \"./node_modules/slick-carousel/slick/slick.js\");\n/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ \"./node_modules/slick-carousel/slick/slick.css\");\n/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ \"./node_modules/slick-carousel/slick/slick-theme.css\");\n/* harmony import */ var magnific_popup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! magnific-popup */ \"./node_modules/magnific-popup/dist/jquery.magnific-popup.js\");\n/* harmony import */ var magnific_popup__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(magnific_popup__WEBPACK_IMPORTED_MODULE_5__);\n\n\n\n\n\n\n//import 'magnific-popup/dist/magnific-popup.css';\n\n// import { ignite } from './module/_ignite';\n// import { placeholder } from './module/_placeholder';\n\nwindow.COMMON = new Object();\n\njquery__WEBPACK_IMPORTED_MODULE_0___default()(function(){\n  \n  COMMON.$window = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window);\n  COMMON.$document = jquery__WEBPACK_IMPORTED_MODULE_0___default()(document);\n  COMMON.$html_body = jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body');\n  COMMON.$html = jquery__WEBPACK_IMPORTED_MODULE_0___default()('html');\n  COMMON.$body = jquery__WEBPACK_IMPORTED_MODULE_0___default()('body');\n  \n//   ignite();\n//   placeholder();\n  \n});\n\n\n//# sourceURL=webpack://html5-skeleton/./src/js/common.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var underscore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! underscore */ "./node_modules/underscore/modules/index-all.js");
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
+/* harmony import */ var magnific_popup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! magnific-popup */ "./node_modules/magnific-popup/dist/jquery.magnific-popup.js");
+/* harmony import */ var magnific_popup__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(magnific_popup__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+//import 'magnific-popup/dist/magnific-popup.css';
+
+// import { ignite } from './module/_ignite';
+// import { placeholder } from './module/_placeholder';
+
+window.COMMON = new Object();
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(function(){
+  
+  COMMON.$window = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window);
+  COMMON.$document = jquery__WEBPACK_IMPORTED_MODULE_0___default()(document);
+  COMMON.$html_body = jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body');
+  COMMON.$html = jquery__WEBPACK_IMPORTED_MODULE_0___default()('html');
+  COMMON.$body = jquery__WEBPACK_IMPORTED_MODULE_0___default()('body');
+  
+//   ignite();
+//   placeholder();
+  
+});
+
 
 /***/ })
 
@@ -189,3 +216,4 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var jque
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=common.js.map
