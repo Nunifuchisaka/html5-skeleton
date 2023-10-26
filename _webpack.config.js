@@ -26,30 +26,32 @@ module.exports = (env, argv) => {
   
   //JS
   glob.sync('**/*.js', {
+    //cwd: SRC_DIR + './src/js',
     cwd: SRC_DIR,
     ignore: '**/_*.js'
   }).forEach(key => {
-    config.entry[key.replace('.js', '')] = path.resolve(SRC_DIR, key);
+    const basename = path.basename(key, '.js');
+    config.entry[basename] = path.resolve(SRC_DIR, key);
+    //key.replace('.js', '')
   });
   
   //EJS
   glob.sync('**/*.ejs', {
-    cwd: SRC_DIR,
+    cwd: './src/html',
     ignore: '**/_*.ejs'
   }).forEach(key => {
     const baseName = path.basename(key, '.ejs'),
           htmlKey = key.replace('.ejs', '.html'),
           jsKey   = key.replace('.ejs', '.js'),
-          srcPath  = path.resolve(SRC_DIR, key);
+          srcPath  = path.resolve('src', 'html', key);
     //config.entry[key] = srcPath;
-    console.log('EJS : ', key, htmlKey);
     config.plugins.push(
       new HtmlWebpackPlugin({
         template: srcPath,
         filename: htmlKey,
         inject: false,//'body',
-        //includeSiblingChunks: true,
-        //chunks:['vendor', 'common', baseName],
+        includeSiblingChunks: true,
+        chunks:['vendor', 'common', baseName],
         minify: minify,
         //hash: true
       })
@@ -58,12 +60,10 @@ module.exports = (env, argv) => {
   
   //SCSS
   glob.sync('**/*.scss', {
-    cwd: SRC_DIR,
+    cwd: './src/scss',
     ignore: '**/_*.scss',
   }).forEach(key => {
-    const cssKey = key.replace('scss/', 'css/').replace('.scss', '.css');
-    console.log('CSS : ', key, cssKey);
-    config.entry[cssKey] = path.resolve(SRC_DIR, key);
+    config.entry[key.replace('.scss', '.css')] = path.resolve('src', 'scss', key);
   });
   
   //pluginsを統合
@@ -87,7 +87,7 @@ module.exports = (env, argv) => {
       })
     }),
     new MiniCssExtractPlugin({
-      filename: '[name]',
+      filename: './assets/css/[name]',
     }),
     new RemoveEmptyScriptsPlugin(),
     new CleanWebpackPlugin({
@@ -99,26 +99,13 @@ module.exports = (env, argv) => {
   return Object.assign(config, {
     output: {
       path: DIST_PATH,
-      filename: '[name].js',//'./assets/js/[name].js',
+      filename: './assets/js/[name].js',
     },
     optimization: {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          extractComments: false,
-        })
-      ],
+      minimize: false,
       splitChunks: {
         name: 'vendor',
         chunks: 'initial',
-//         cacheGroups: {
-//          vendor: {
-//            test: /node_modules/,
-//            name: 'vendor',
-//            chunks: 'initial',
-//            enforce: true
-//          },
-//         }
       }
     },
     module: {
@@ -131,7 +118,7 @@ module.exports = (env, argv) => {
               options: {
                 sources: {
                   urlFilter: (attribute, value, resourcePath) => {
-//                     console.log('★', attribute, value, resourcePath);
+                    console.log('★', attribute, value, resourcePath);
                     return false;
                     //return /\.(scss|sass)$/.test(value) || /\.(js)$/.test(value);
                   },
@@ -162,18 +149,11 @@ module.exports = (env, argv) => {
                 //sourceMap: true,
                 implementation: require('sass'),
                 sassOptions: {
-                  includePaths: [
-                    path.resolve(__dirname, 'node_modules')
-                  ],
                   outputStyle: 'compressed',
                 }
               }
             }
           ]
-        },
-        {
-          test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-          type: 'asset/inline'
         },
         {
           test: /node_modules\/(.+)\.css$/,
@@ -189,16 +169,9 @@ module.exports = (env, argv) => {
         },
       ]
     },
-    externals: {
-      //jquery: '$',
-      //underscore: '_',
-    },
     watchOptions: {
       ignored: ['/node_modules', '/gitignore']
     },
     target: ['web', 'es5'],
-    resolve: {
-      extensions: ['.ts', '.js']
-    }
   });
 };
