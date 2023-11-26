@@ -1,5 +1,8 @@
 @use "tool/variable" as *;
 
+@use "../libs/slick/slick";
+@use "../libs/slick/slick-theme";
+
 @use "base";
 @use "module";
 @use "extra";

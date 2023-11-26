@@ -53,11 +53,11 @@ var myValue = 'Hello! EJS!';
 
 <%- include('assets/html/_footer.ejs') %>
 <%- include('assets/html/_javascript.ejs') %>
-<script src="/assets/js/index.js"></script>
+<!-- <script src="/assets/js/index.js"></script> -->
 <script>
 console.log('hoge');
-console.log('$', $);
-console.log('_', _);
+console.log('$', window.$);
+// console.log('_', window._);
 </script>
 </body>
 </html>

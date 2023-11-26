@@ -5,7 +5,6 @@ const HTML_MINITY = true,
       glob = require('glob'),
       DIST_PATH = path.resolve(__dirname, DIST_DIR),
       SRC_PATH = path.resolve(__dirname, SRC_DIR),
-      { CleanWebpackPlugin } = require('clean-webpack-plugin'),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts'),
       BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
       ssi = require('./node_modules/browsersync-ssi'),
@@ -18,9 +17,11 @@ const HTML_MINITY = true,
       };
 
 module.exports = (env, argv) => {
+  /*
   if ('development' === argv.mode) {
     config.devtool = 'source-map';
   }
+  */
   
   const minify = 'production' === argv.mode;
   
@@ -90,9 +91,6 @@ module.exports = (env, argv) => {
       filename: '[name]',
     }),
     new RemoveEmptyScriptsPlugin(),
-    new CleanWebpackPlugin({
-      exclude: ['**/*.jpg']
-    })
   );
   
   //configを統合
@@ -100,6 +98,7 @@ module.exports = (env, argv) => {
     output: {
       path: DIST_PATH,
       filename: '[name].js',//'./assets/js/[name].js',
+      //clean: true,
     },
     optimization: {
       minimize: true,
@@ -107,19 +106,7 @@ module.exports = (env, argv) => {
         new TerserPlugin({
           extractComments: false,
         })
-      ],
-      splitChunks: {
-        name: 'vendor',
-        chunks: 'initial',
-//         cacheGroups: {
-//          vendor: {
-//            test: /node_modules/,
-//            name: 'vendor',
-//            chunks: 'initial',
-//            enforce: true
-//          },
-//         }
-      }
+      ]
     },
     module: {
       rules: [
@@ -188,10 +175,6 @@ module.exports = (env, argv) => {
           ],
         },
       ]
-    },
-    externals: {
-      //jquery: '$',
-      //underscore: '_',
     },
     watchOptions: {
       ignored: ['/node_modules', '/gitignore']
