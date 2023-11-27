@@ -8,16 +8,8 @@
     "dev": "webpack -w --mode=development",
     "prod": "webpack -w --mode=production"
   },
-  "dependencies": {
-    "jquery": "^3.7.1",
-    "magnific-popup": "^1.1.0",
-    "slick-carousel": "^1.8.1",
-    "underscore": "^1.13.6"
-  },
   "devDependencies": {
-    "@babel/preset-env": "^7.18.10",
     "autoprefixer": "^10.4.2",
-    "babel-loader": "^8.2.5",
     "browser-sync": "^2.27.9",
     "browser-sync-webpack-plugin": "^2.3.0",
     "browsersync-ssi": "^0.2.4",
@@ -35,7 +27,6 @@
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2",
-    "webpack-merge": "^5.8.0",
     "webpack-remove-empty-scripts": "^0.8.0"
   },
   "volta": {

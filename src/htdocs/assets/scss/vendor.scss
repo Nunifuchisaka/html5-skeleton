@@ -1,5 +1,4 @@
 @use "base/reset";
 
-@use 'slick-carousel/slick/slick-theme.scss';
-//@import '~magnific-popup/dist/magnific-popup.css';
-@use 'magnific-popup/src/css/main.scss';
+@use "../libs/slick/slick";
+@use "../libs/slick/slick-theme";

@@ -1,11 +1,12 @@
 @use "tool/variable" as *;
 
-@use "../libs/slick/slick";
-@use "../libs/slick/slick-theme";
-
 @use "base";
 @use "module";
 @use "extra";
 @use "global";
 @use "layout";
 @use "state";
+
+body {
+//   background-color: red;
+}
