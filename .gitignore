@@ -4,7 +4,6 @@ Thumbs.db
 *.ai
 /gitignore/
 .sass-cache/
-/node_modules/
-/release.zip
-/release/
-/www/static/dummy/
+node_modules/
+package-lock.json
+/tmp/
