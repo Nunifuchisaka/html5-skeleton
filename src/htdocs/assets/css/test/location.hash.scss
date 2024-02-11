@@ -1,0 +1,9 @@
+@use "../tool/variable" as *;
+
+.test_1 {
+  padding: 1em;
+  height: 50vh;
+  background-color: #ffd9f6;
+  border: solid 10px red;
+  box-sizing: border-box;
+}

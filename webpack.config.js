@@ -49,10 +49,7 @@ module.exports = (env, argv) => {
         template: srcPath,
         filename: htmlKey,
         inject: false,//'body',
-        //includeSiblingChunks: true,
-        //chunks:['vendor', 'common', baseName],
-        minify: minify,
-        //hash: true
+        minify: minify && HTML_MINITY,
       })
     );
   });
@@ -62,7 +59,7 @@ module.exports = (env, argv) => {
     cwd: SRC_DIR,
     ignore: '**/_*.scss',
   }).forEach(key => {
-    const cssKey = key.replace('scss/', 'css/').replace('.scss', '.css');
+    const cssKey = key.replace('.scss', '.css');
     console.log('CSS : ', key, cssKey);
     config.entry[cssKey] = path.resolve(SRC_DIR, key);
   });
@@ -97,7 +94,7 @@ module.exports = (env, argv) => {
   return Object.assign(config, {
     output: {
       path: DIST_PATH,
-      filename: '[name].js',//'./assets/js/[name].js',
+      filename: '[name].js',
       //clean: true,
     },
     optimization: {
@@ -125,9 +122,9 @@ module.exports = (env, argv) => {
                 },
                 minimize: false,
               },
-            }, {
-              loader: 'ejs-plain-loader'
-            }
+            },
+            'template-ejs-loader',
+            //'ejs-plain-loader'
           ]
         },
         {
@@ -152,7 +149,7 @@ module.exports = (env, argv) => {
                   includePaths: [
                     path.resolve(__dirname, 'node_modules')
                   ],
-                  outputStyle: 'compressed',
+                  outputStyle: (minify)?'compressed':'expanded',
                 }
               }
             }
@@ -176,12 +173,14 @@ module.exports = (env, argv) => {
         },
       ]
     },
+    watch: true,
     watchOptions: {
       ignored: ['/node_modules', '/gitignore']
     },
-    target: ['web', 'es5'],
+    target: ['web'],
     resolve: {
       extensions: ['.ts', '.js']
     }
   });
+  
 };
