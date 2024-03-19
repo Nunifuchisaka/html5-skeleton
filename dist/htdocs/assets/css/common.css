@@ -118,7 +118,7 @@ textarea.placeholder_1.is_placeholder {
   top: clamp(130px, 10.83vw, 156px);
   width: 97px;
   height: 100px;
-  background: url(../img/carousel_1__arrow.png) no-repeat 0 0/auto 100%;
+  background: #000;
   cursor: pointer;
   transition: opacity 0.5s;
 }

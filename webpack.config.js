@@ -10,6 +10,7 @@ const HTML_MINITY = true,
       ssi = require('./node_modules/browsersync-ssi'),
       HtmlWebpackPlugin = require('html-webpack-plugin'),
       MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+      //ImageminWebpWebpackPlugin= require('imagemin-webp-webpack-plugin'),
       TerserPlugin = require('terser-webpack-plugin'),
       config = {
         entry: {},
@@ -64,6 +65,17 @@ module.exports = (env, argv) => {
     config.entry[cssKey] = path.resolve(SRC_DIR, key);
   });
   
+  //JPG
+  //glob.sync('**/*.jpg', {
+  //  cwd: SRC_DIR,
+  //  ignore: '**/_*.jpg',
+  //}).forEach(key => {
+  //  const _key = key.replace('.jpg', '.webp');
+  //  console.log('JPG : ', key, _key);
+  //  config.entry[key] = path.resolve(SRC_DIR, key);
+  //  //config.entry[_key] = path.resolve(SRC_DIR, key);
+  //});
+  
   //pluginsを統合
   config.plugins.push(
     new BrowserSyncPlugin({
@@ -96,6 +108,7 @@ module.exports = (env, argv) => {
       path: DIST_PATH,
       filename: '[name].js',
       //clean: true,
+      assetModuleFilename: '[name][ext][query]',
     },
     optimization: {
       minimize: true,
@@ -134,8 +147,7 @@ module.exports = (env, argv) => {
             {
               loader: 'css-loader',
               options: {
-                url: false,
-                //sourceMap: false,
+                //url: false,
                 importLoaders: 2,
               }
             },
@@ -156,21 +168,26 @@ module.exports = (env, argv) => {
           ]
         },
         {
-          test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-          type: 'asset/inline'
+          test: /\.(jpg|png|webp|svg|gif)$/i,
+          type: 'asset',
+          parser: {
+            dataUrlCondition: {
+              maxSize: 100 * 1024,
+            },
+          },
         },
         {
-          test: /node_modules\/(.+)\.css$/,
+          test: /\.(jpe?g|png|gif)$/i,
           use: [
             {
-              loader: 'style-loader',
+              loader: "file-loader",
+              options: {
+                name: "[path][name].[ext].webp",
+              },
             },
-            {
-              loader: 'css-loader',
-              options: { url: false },
-            },
+            "webp-loader?{quality: 75}",
           ],
-        },
+        }
       ]
     },
     watch: true,
