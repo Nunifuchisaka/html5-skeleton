@@ -65,17 +65,6 @@ module.exports = (env, argv) => {
     config.entry[cssKey] = path.resolve(SRC_DIR, key);
   });
   
-  //JPG
-  //glob.sync('**/*.jpg', {
-  //  cwd: SRC_DIR,
-  //  ignore: '**/_*.jpg',
-  //}).forEach(key => {
-  //  const _key = key.replace('.jpg', '.webp');
-  //  console.log('JPG : ', key, _key);
-  //  config.entry[key] = path.resolve(SRC_DIR, key);
-  //  //config.entry[_key] = path.resolve(SRC_DIR, key);
-  //});
-  
   //pluginsを統合
   config.plugins.push(
     new BrowserSyncPlugin({
@@ -176,18 +165,6 @@ module.exports = (env, argv) => {
             },
           },
         },
-        {
-          test: /\.(jpe?g|png|gif)$/i,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[path][name].[ext].webp",
-              },
-            },
-            "webp-loader?{quality: 75}",
-          ],
-        }
       ]
     },
     watch: true,
