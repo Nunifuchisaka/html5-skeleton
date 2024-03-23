@@ -2,6 +2,60 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/htdocs/assets/css/common.scss ***!
   \******************************************************************************************************************************************************************************************************************************/
 @charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 html {
   height: 100%;
 }
@@ -17,6 +71,46 @@ img {
   vertical-align: top;
 }
 
+/*
+## .a_fadein_1
+*/
+.a_fadein_1 {
+  opacity: 0;
+  transition: opacity 1s, transform 1s;
+}
+.a_fadein_1.is_b2t {
+  transform: translateY(20px);
+}
+.a_fadein_1.is_r2l {
+  transform: translateX(40px);
+}
+.a_fadein_1.is_animation {
+  opacity: 1;
+}
+.a_fadein_1.is_animation.is_b2t {
+  transform: translateY(0) !important;
+}
+.a_fadein_1.is_animation.is_r2l {
+  transform: translateX(0) !important;
+}
+/*
+## .a_ignite_2
+*/
+.a_ignite_2.is_animation .a_fadein_1 {
+  opacity: 1;
+}
+.a_ignite_2.is_animation .a_fadein_1.is_b2t {
+  transform: translateY(0) !important;
+}
+.a_ignite_2.is_animation .a_fadein_1.is_r2l {
+  transform: translateX(0) !important;
+}
+
+/*
+## .a_ignite_1
+このclass自体はアニメーションを持たない。
+他のclassのアニメーションを発動させる役割。
+*/
 /*
 ## .placeholder_2
 */
@@ -192,15 +286,6 @@ textarea.placeholder_1.is_placeholder {
 }
 
 /*
-## .g_footer_1
-*/
-/*
-## .g_header_1
-*/
-/*
-## .g_nav_1
-*/
-/*
 ## .l_container_1
 */
 /*
@@ -220,5 +305,22 @@ textarea.placeholder_1.is_placeholder {
   }
   .is_sp_none_1 {
     display: none !important;
+  }
+}
+@media screen and (max-width: 767px){
+  .a_fadein_1.is_b2t {
+    transform: translateY(3vw);
+  }
+  .a_fadein_1.is_r2l {
+    transform: translateX(6vw);
+  }
+}
+@media all and (-ms-high-contrast: none){
+  .a_fadein_1.is_b2t {
+    transform: translateY(20px) !important;
+  }
+
+  .a_fadein_1.is_r2l {
+    transform: translateX(40px) !important;
   }
 }

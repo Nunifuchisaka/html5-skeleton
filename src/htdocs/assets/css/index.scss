@@ -1,12 +1,1 @@
 @use "tool/variable" as *;
-
-.index {
-  display: block
-}
-
-#icon-1 {
-  width: 34px;
-  aspect-ratio: 1;
-  background: url(../img/icon-1.png) no-repeat 0 0 / 100% 100%;
-  border: solid 4px red;
-}

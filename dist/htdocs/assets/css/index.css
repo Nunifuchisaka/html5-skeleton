@@ -1,13 +1,4 @@
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/htdocs/assets/css/index.scss ***!
   \*****************************************************************************************************************************************************************************************************************************/
-.index {
-  display: block;
-}
 
-#icon-1 {
-  width: 34px;
-  aspect-ratio: 1;
-  background: url(data:image/png;base64,ZXhwb3J0IGRlZmF1bHQgX193ZWJwYWNrX3B1YmxpY19wYXRoX18gKyAic3JjL2h0ZG9jcy9hc3NldHMvaW1nL2ljb24tMS5wbmcud2VicCI7) no-repeat 0 0/100% 100%;
-  border: solid 4px red;
-}

@@ -97,7 +97,6 @@ module.exports = (env, argv) => {
       path: DIST_PATH,
       filename: '[name].js',
       //clean: true,
-      assetModuleFilename: '[name][ext][query]',
     },
     optimization: {
       minimize: true,
@@ -158,12 +157,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(jpg|png|webp|svg|gif)$/i,
-          type: 'asset',
-          parser: {
-            dataUrlCondition: {
-              maxSize: 100 * 1024,
-            },
-          },
+          type: 'asset/inline',
         },
       ]
     },

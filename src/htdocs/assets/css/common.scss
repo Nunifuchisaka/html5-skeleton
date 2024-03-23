@@ -1,12 +1,36 @@
 @use "tool/variable" as *;
 
-@use "base";
-@use "module";
-@use "extra";
-@use "global";
-@use "layout";
-@use "state";
+@use "base/reset";
+@use "base/font";
+@use "base/foundation";
+@use "base/javascript";
 
-body {
-//   background-color: red;
-}
+@use "animation/fadein";
+@use "animation/ignite";
+
+@use "module/button";
+@use "module/div";
+@use "module/figure";
+@use "module/header";
+@use "module/input";
+@use "module/list";
+@use "module/nav";
+@use "module/paragraphs";
+@use "module/placeholder";
+@use "module/section";
+@use "module/select";
+@use "module/table";
+@use "module/video";
+
+@use "extra/banner";
+@use "extra/border";
+@use "extra/carousel";
+@use "extra/icon";
+@use "extra/modal";
+@use "extra/other";
+@use "extra/pagetop";
+
+@use "layout/container";
+@use "layout/wrapper";
+
+@use "state";
