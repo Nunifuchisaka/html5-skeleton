@@ -33,9 +33,41 @@
 <!-- 解析タグ -->
 </head>
 <body>
+<input type="checkbox" id="hnav" class="nav_1__checkbox">
+
 <header id="header">
 	<h1></h1>
 </header>
+
+<label for="hnav" class="nav_1__toggle"><span></span><span></span><span></span></label>
+
+<nav class="nav_1">
+	<div class="nav_1__1">
+		<ul class="nav_1__items">
+			<li class="is_1"><a href="#">TOP</a></li>
+			<li class="is_1"><a href="#">ページ１</a></li>
+			<li class="is_1"><a href="#">ページ２</a></li>
+			<li class="is_2">
+				<input type="checkbox" id="hnav-1">
+				<label for="hnav-1">コンテンツ１<span></span></label>
+				<a href="#">コンテンツ１</a>
+				<ul>
+					<li><a href="#">ページ３</a></li>
+					<li><a href="#">ページ４</a></li>
+				</ul>
+			</li>
+			<li class="is_2">
+				<input type="checkbox" id="hnav-2">
+				<label for="hnav-2">コンテンツ２<span></span></label>
+				<a href="#">コンテンツ２</a>
+				<ul>
+					<li><a href="#">ページ５</a></li>
+					<li><a href="#">ページ６</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav><!-- /.nav_1 -->
 
 <main>
   

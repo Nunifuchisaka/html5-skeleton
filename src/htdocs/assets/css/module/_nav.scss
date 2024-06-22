@@ -1,1 +1,270 @@
+@use "sass:math";
 @use "../tool/variable" as *;
+
+
+/*
+## .nav_1
+使用箇所：
+内容：
+*/
+
+.nav_1 {
+	$self: &;
+	$width_: 1017;
+	$width2_: 776;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 100vh;
+	padding-top: $header_1__height--pc;
+	font-size: 2rem;
+	font-weight: 700;
+	background: rgba(255,255,255,.95);
+	box-sizing: border-box;
+	transition: width .5s;
+	z-index: 100;
+	&__checkbox {
+		display: none;
+		&:checked {
+			~ #{$self} {
+				width: px2vw1($width_);
+			}
+			~ #header #{$self}__toggle {
+				span {
+					&:nth-of-type(1) {
+						transform: translateY(14px) rotate(25deg);
+					}
+					&:nth-of-type(2) {
+						opacity: 0;
+					}
+					&:nth-of-type(3) {
+						transform: translateY(-14px) rotate(-25deg);
+					}
+				}
+			}
+		}
+	}
+	&__toggle {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 80px;
+		aspect-ratio: 1.2;
+		padding: 20px;
+		box-sizing: border-box;
+		cursor: pointer;
+		z-index: 1001;
+		span {
+			flex: 0 0 2px;
+			display: block;
+			background: #000;
+			transition: all .5s;
+		}
+	}
+	a {
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	&__logo {
+		a {
+			transition: opacity .5s;
+			&:hover {
+				opacity: .7;
+			}
+		}
+		img {
+			width: auto;
+			height: 56px;
+			vertical-align: top;
+		}
+	}
+	&__1 {
+		overflow: auto;
+		width: px2vw1($width_);
+		min-width: $width2_ + 0px;
+		max-height: 100%;
+		padding: clamp1(86) 0 clamp1(86) clamp1(40);
+		box-sizing: border-box;
+	}
+	&__2 {
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		max-width: 1116px;
+		margin: 0 auto;
+		padding: clamp1(52) $padding1--pc clamp1(64);
+	}
+	&__items {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		width: 100%;
+		max-width: $width2_ + 0px;
+		height: 16em;//30rem
+		margin: -1em auto 0;
+		#{$self}__2 & {
+			margin: -1em 0 0 auto;
+		}
+		> li {
+			> input[type=checkbox],
+			> label {
+				display: none;
+			}
+		}
+		ul {
+			padding-left: 1em;
+			font-weight: 400;
+			font-size: 1.8rem;
+		}
+	}
+	li {
+		margin-top: 1em;
+		&.is_1 {
+			padding-right: 2em;
+		}
+	}
+	@media (max-width: $breakpoint1) {
+		padding-top: $header_1__height--sp;
+		font-size: px2vw2(34);
+		font-weight: 500;
+		&__checkbox {
+			&:checked {
+				~ #{$self} {
+					width: 100vw;
+				}
+				~ #header #{$self}__toggle {
+					span {
+						&:nth-of-type(1) {
+							transform: translateY(2.8vw) rotate(25deg);
+						}
+						&:nth-of-type(2) {
+							opacity: 0;
+						}
+						&:nth-of-type(3) {
+							transform: translateY(-2.8vw) rotate(-25deg);
+						}
+					}
+				}
+			}
+		}
+		&__toggle {
+			width: px2vw2(154);
+			padding: px2vw2(24) px2vw2(32) px2vw2(33);
+		}
+		&__1 {
+			width: 100vw;
+			min-width: unset;
+			padding: 0;
+		}
+		&__2 {
+			display: block;
+			margin: 0;
+			padding: 0;
+		}
+		&__items {
+			display: block;
+			height: auto;
+			margin: 0 !important;
+			> li {
+				> input[type=checkbox] {
+					&:checked {
+						~ ul {
+							max-height: 200vh;
+						}
+						+ label span::after {
+							display: none;
+						}
+					}
+				}
+				> label {
+					display: flex;
+					+ a { display: none }
+				}
+				> a {
+					
+				}
+				+ li {
+					border-top: solid 1px #b2b2b2;
+					#footer & {
+						border-top-color: #808080;
+					}
+				}
+			}
+			ul {
+				overflow: hidden;
+				position: relative;
+				max-height: 0;
+				padding-left: 0;
+				font-size: px2vw2(28);
+				font-weight: 400;
+				transition: max-height .5s;
+				> li {
+					&:last-of-type {
+						padding-bottom: px2vw2(25);
+					}
+				}
+				a {
+					justify-content: flex-start;
+					height: px2vw2(100);
+					padding: 0 px2vw2(98);
+				}
+			}
+		}
+		li {
+			margin-top: 0;
+			padding: 0 !important;
+			&.is_3 {
+				flex: 0 0 auto;
+				//width: auto;
+			}
+		}
+		a, label {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			height: px2vw2(149);
+		}
+		label {
+			span {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 50%;
+				right: px2vw2(48);
+				width: px2vw2(60);
+				aspect-ratio: 1;
+				border: solid 1px #000;
+				border-radius: 50%;
+				transform: translateY(-50%);
+				&::before, &::after {
+					content: "";
+					display: block;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					background: #000;
+					transform: translate(-50%,-50%);
+				}
+				&::before {
+					width: px2vw2(23);
+					height: 2px;
+				}
+				&::after {
+					width: 2px;
+					height: px2vw2(23);
+				}
+				#footer & {
+					filter: brightness(0) invert(1);
+				}
+			}
+		}
+	}
+}

@@ -49,7 +49,7 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         template: srcPath,
         filename: htmlKey,
-        inject: false,//'body',
+        inject: false,
         minify: minify && HTML_MINITY,
       })
     );

@@ -1,10 +1,13 @@
+@use "sass:math";
 @use "../tool/variable" as *;
 
 .is_none { display: none !important }
 
 @media (min-width: $breakpoint1 + 1) {
-  .is_pc_none_1 { display: none !important }
+	br.sp,
+	.is_pc_none_1 { display: none !important }
 }
 @media (max-width: $breakpoint1) {
-  .is_sp_none_1 { display: none !important }
+	br.pc
+	.is_sp_none_1 { display: none !important }
 }
