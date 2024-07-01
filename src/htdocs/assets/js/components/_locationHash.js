@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export default function() {
 	console.count('locationHash.js');
 	

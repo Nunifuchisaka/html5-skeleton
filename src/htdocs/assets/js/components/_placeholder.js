@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export function placeholder(){
 	console.count('placeholder');
 	

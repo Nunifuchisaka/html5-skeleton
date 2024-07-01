@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import 'slick-carousel';
+
 export default class Carousel_1 {
 	
 	#slick;

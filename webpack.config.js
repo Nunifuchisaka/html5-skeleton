@@ -41,9 +41,7 @@ module.exports = (env, argv) => {
   }).forEach(key => {
     const baseName = path.basename(key, '.ejs'),
           htmlKey = key.replace('.ejs', '.html'),
-          jsKey   = key.replace('.ejs', '.js'),
           srcPath  = path.resolve(SRC_DIR, key);
-    //config.entry[key] = srcPath;
     console.log('EJS : ', key, htmlKey);
     config.plugins.push(
       new HtmlWebpackPlugin({
@@ -96,7 +94,6 @@ module.exports = (env, argv) => {
     output: {
       path: DIST_PATH,
       filename: '[name].js',
-      //clean: true,
     },
     optimization: {
       minimize: true,
@@ -104,7 +101,11 @@ module.exports = (env, argv) => {
         new TerserPlugin({
           extractComments: false,
         })
-      ]
+      ],
+      splitChunks: {
+        name: 'assets/js/vendor',
+        chunks: 'initial',
+      }
     },
     module: {
       rules: [
@@ -125,7 +126,6 @@ module.exports = (env, argv) => {
               },
             },
             'template-ejs-loader',
-            //'ejs-plain-loader'
           ]
         },
         {
@@ -143,7 +143,6 @@ module.exports = (env, argv) => {
             {
               loader: 'sass-loader',
               options: {
-                //sourceMap: true,
                 implementation: require('sass'),
                 sassOptions: {
                   includePaths: [

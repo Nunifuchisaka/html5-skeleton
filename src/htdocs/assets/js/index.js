@@ -1,9 +1,11 @@
+import $ from 'jquery';
+
 console.count('index.js');
 
 $(function(){
 	
-	$('.index').hide();
+// 	$('.index').hide();
 	
-	$('#min').css('border', 'solid 10px red');
+// 	$('#min').css('border', 'solid 10px red');
 	
 });

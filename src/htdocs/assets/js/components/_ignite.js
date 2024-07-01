@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export function ignite(){
 	console.count('ignite');
 	
@@ -34,5 +36,4 @@ export function ignite(){
 		observer1.observe(this);
 	});
 	
-	console.count('ignite');
 }

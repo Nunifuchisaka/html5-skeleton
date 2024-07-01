@@ -8,12 +8,12 @@ var meta = {
 };
 %>
 <%- include('assets/html/_head.ejs',{meta:meta}) %>
-
 <link rel="stylesheet" href="/assets/css/index.css">
 
 <%- include('assets/html/_analytics.ejs') %>
 </head>
 <body>
+<%- include('assets/html/_body_before.ejs') %>
 <%- include('assets/html/_header.ejs') %>
 
 <!--#include virtual="/assets/html/test.html" -->
@@ -24,8 +24,8 @@ var meta = {
 	<div id="icon-1"></div>
 	
   <picture>
-    <source srcset="img/photo1.jpeg" media="(max-width: 767px)">
-    <img src="img/photo1.jpeg" alt="" loading="lazy">
+    <source srcset="img/photo1.webp" media="(max-width: 767px)">
+    <img src="img/photo1.webp" alt="" loading="lazy" style="width: 400px">
   </picture>
 	
 	<figure>
@@ -38,7 +38,7 @@ var meta = {
 	</ul>
 	
 	<div class="carousel_1">
-		<div class="carousel_1__main">
+		<div class="carousel_1__items">
 			<div class="carousel_1__item">
 				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
 			</div>
@@ -65,11 +65,8 @@ var meta = {
 
 <%- include('assets/html/_footer.ejs') %>
 <%- include('assets/html/_javascript.ejs') %>
-<!-- <script src="/assets/js/index.js"></script> -->
-<script>
-console.log('hoge');
-console.log('$', window.$);
-// console.log('_', window._);
-</script>
+<script src="/assets/js/index.js"></script>
+
+<%- include('assets/html/_body_after.ejs') %>
 </body>
 </html>

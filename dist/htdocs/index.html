@@ -23,19 +23,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <link rel="stylesheet" href="/assets/css/common.css">
 <link rel="stylesheet" href="/assets/css/patch.css">
-
 
 <link rel="stylesheet" href="/assets/css/index.css">
 
 <!-- 解析タグ -->
 </head>
 <body>
+<!-- body_before -->
 <input type="checkbox" id="hnav" class="nav_1__checkbox">
 
 <header id="header">
@@ -80,8 +76,8 @@
 	<div id="icon-1"></div>
 	
   <picture>
-    <source srcset="img/photo1.jpeg" media="(max-width: 767px)">
-    <img src="img/photo1.jpeg" alt="" loading="lazy">
+    <source srcset="img/photo1.webp" media="(max-width: 767px)">
+    <img src="img/photo1.webp" alt="" loading="lazy" style="width: 400px">
   </picture>
 	
 	<figure>
@@ -94,7 +90,7 @@
 	</ul>
 	
 	<div class="carousel_1">
-		<div class="carousel_1__main">
+		<div class="carousel_1__items">
 			<div class="carousel_1__item">
 				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
 			</div>
@@ -120,18 +116,12 @@
 </main>
 
 <footer id="footer">
-	<p>&copy; </p>
+  <p>&copy; </p>
 </footer>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="/assets/js/vendor.js" defer></script>
 <script src="/assets/js/common.js" defer></script>
-<!-- <script src="/assets/js/index.js"></script> -->
-<script>
-console.log('hoge');
-console.log('$', window.$);
-// console.log('_', window._);
-</script>
+<script src="/assets/js/index.js"></script>
+
+<!-- body_after -->
 </body>
 </html>
