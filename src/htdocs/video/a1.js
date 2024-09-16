@@ -1,46 +1,11 @@
+import Article_1 from './components/_Article_1.js';
+
 gsap.registerPlugin(ScrollTrigger);
 
-// 演出対象となる要素を取得
-gsap.utils.toArray(".c_video_1 > div").forEach((el) => {
-  gsap.fromTo(el, {
-    width: "280px",//'0vw',
-    height: "280px",//'0vh',
-  }, {
-    width: '100vw',
-    height: '100vh',
-    //scale: .5,
-    ease: Power0.easeNone,
-    scrollTrigger: {
-      trigger: el,
-      scrub: true,
-      start: "center center",
-    },
-  });
-
-});
-
-gsap.utils.toArray(".c_video_1 > div > div").forEach((el) => {
-  gsap.fromTo(el, {
-    //scale: .65
-    width: "400px",//'0vw',
-    height: "400px",//'0vh',
-  }, {
-    //scale: 1,
-    width: '100vw',
-    height: '100vh',
-    ease: Power0.easeNone,
-    scrollTrigger: {
-      trigger: el,
-      scrub: true,
-      start: "center center",
-    },
-  });
-});
-
-//
+// 動画を自動ストリーミング再生
 gsap.utils.toArray(".js_video_1").forEach((el) => {
   const ID = el.dataset.id;
-  console.log('ID', ID);
+  // console.log('ID', ID);
   if ( !ID ) return;
   const videoSrc = 'src/' + ID + '.m3u8';
   if (Hls.isSupported()) {
@@ -50,4 +15,60 @@ gsap.utils.toArray(".js_video_1").forEach((el) => {
   } else if (el.canPlayType('application/vnd.apple.mpegurl')) {
     video.src = videoSrc;
   }
+});
+
+// スクロールに応じて動画を拡大 1/2 外側
+gsap.utils.toArray(".c_video_1__1").forEach((el) => {
+  gsap.fromTo(el, {
+    width: "280px",
+    height: "280px",
+  }, {
+    width: "100vw",
+    height: "100vh",
+    ease: Power0.easeNone,
+    scrollTrigger: {
+      trigger: el,
+      scrub: true,
+      start: "center center",
+    },
+  });
+});
+
+// スクロールに応じて動画を拡大 2/2 内側
+gsap.utils.toArray(".c_video_1__2").forEach((el) => {
+  gsap.fromTo(el, {
+    //scale: .65
+    width: "400px",
+    height: "400px",
+  }, {
+    //scale: 1,
+    width: "100vw",
+    height: "100vh",
+    ease: Power0.easeNone,
+    scrollTrigger: {
+      trigger: el,
+      scrub: true,
+      start: "center center",
+    },
+  });
+});
+
+// 
+let player,
+    playerSet = false,
+    isYoutube = false;
+
+gsap.utils.toArray(".c_article_1").forEach((el) => {
+  new Article_1({
+    el: el
+  });
+});
+
+$(".c_section_1").click(function(e){
+  e.preventDefault();
+  const $me = $(e.currentTarget);
+  console.count(".c_section_1 click");
+  player.pauseVideo();
+  playerSet = false;
+  $me.hide();
 });
