@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head><%
+const siteURL = "http://example.com/";
+const path = "../";
+const meta = {
+  title: "video a1",
+  description: "",
+};
+%>
+<%- include(path+"assets/html/_head.ejs",{siteURL:siteURL,path:path,meta:meta}) %>
+<link href="//cdn.jsdelivr.net/npm/yakuhanjp@3.3.1/dist/css/yakuhanjp.min.css" rel="stylesheet">
+<link href="a1.css" rel="stylesheet">
+</head>
+<body>
+<%- include(path+"assets/html/_body_before.ejs") %>
+<%- //include(path+"assets/html/_header.ejs",{path:path}) %>
+
+<header class="header_1">
+
+</header>
+<!-- /.header_1 -->
+
+<div class="c_wrapper_1">
+
+  <article class="c_article_1 is_1">
+    <div class="c_video_1">
+      <div><div>
+        <video class="js_video_1" data-id="howto-25_pre" muted autoplay loop></video>
+      </div></div>
+    </div>
+  </article>
+  <!-- /.c_article_1.is_ -->
+
+  <article class="c_article_1 is_2">
+    <div class="c_video_1">
+      <div><div>
+        <video class="js_video_1" data-id="howto-22_pre" muted autoplay loop></video>
+      </div></div>
+    </div>
+  </article>
+  <!-- /.c_article_1 is_2 -->
+
+  <article class="c_article_1 is_3">
+    <div class="c_video_1">
+      <div><div>
+        <video class="js_video_1" data-id="howto-21_pre" muted autoplay loop></video>
+      </div></div>
+    </div>
+  </article>
+  <!-- /.c_article_1 is_3 -->
+
+  <article class="c_article_1 is_4">
+    <div class="c_video_1">
+      <div><div>
+        <video class="js_video_1" data-id="dance20240811" muted autoplay loop></video>
+      </div></div>
+    </div>
+  </article>
+  <!-- /.c_article_1 is_3 -->
+
+</div>
+<!-- /.c_wrapper_1 -->
+
+<%- include(path+"assets/html/_footer.ejs",{path:path}) %>
+
+<script src="//www.youtube.com/iframe_api"></script>
+<script src="//cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/hls.js@1.5.15/dist/hls.min.js" defer></script>
+<script src="a1.js" defer></script>
+<%- include(path+"assets/html/_body_after.ejs") %>
+</body>
+</html>

@@ -18,11 +18,6 @@ const HTML_MINITY = true,
       };
 
 module.exports = (env, argv) => {
-  /*
-  if ('development' === argv.mode) {
-    config.devtool = 'source-map';
-  }
-  */
   
   const minify = 'production' === argv.mode;
   
@@ -48,7 +43,16 @@ module.exports = (env, argv) => {
         template: srcPath,
         filename: htmlKey,
         inject: false,
-        minify: minify && HTML_MINITY,
+        //cache: false,
+        minify: {
+          collapseWhitespace: minify && HTML_MINITY,
+          keepClosingSlash: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true
+        }
       })
     );
   });
@@ -94,9 +98,10 @@ module.exports = (env, argv) => {
     output: {
       path: DIST_PATH,
       filename: '[name].js',
+      assetModuleFilename: 'assets/[name][ext][query]',
     },
     optimization: {
-      minimize: true,
+      minimize: minify,
       minimizer: [
         new TerserPlugin({
           extractComments: false,
@@ -125,7 +130,7 @@ module.exports = (env, argv) => {
                 minimize: false,
               },
             },
-            'template-ejs-loader',
+            'ejs-plain-loader',
           ]
         },
         {
@@ -153,11 +158,15 @@ module.exports = (env, argv) => {
               }
             }
           ]
-        },
-        {
-          test: /\.(jpg|png|webp|svg|gif)$/i,
-          type: 'asset/inline',
-        },
+        }, {
+          test: /\.(jpg|png|webp|svg|gif|eot|ttf|woff)$/i,
+          type: 'asset',
+          parser: {
+            dataUrlCondition: {
+              maxSize: 50 * 1024,
+            },
+          },
+        }
       ]
     },
     watch: true,
@@ -167,6 +176,9 @@ module.exports = (env, argv) => {
     target: ['web'],
     resolve: {
       extensions: ['.ts', '.js']
+    },
+    stats: {
+      errorDetails: true
     }
   });
   

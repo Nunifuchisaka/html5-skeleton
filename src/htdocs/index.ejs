@@ -1,72 +1,67 @@
 <!doctype html>
 <html lang="ja">
 <head><%
-var meta = {
-	type: 'website',
-	title: '',
-	description: '',
+const siteURL = "http://example.com/";
+const path = "./";
+const meta = {
+  type: "website",
+  title: "",
+  description: "",
 };
 %>
-<%- include('assets/html/_head.ejs',{meta:meta}) %>
-<link rel="stylesheet" href="/assets/css/index.css">
-
-<%- include('assets/html/_analytics.ejs') %>
+<%- include(path+"assets/html/_head.ejs",{siteURL:siteURL,path:path,meta:meta}) %>
+<link rel="stylesheet" href="<%= path %>assets/css/index.css">
+<script src="<%= path %>assets/js/index.js" defer></script>
 </head>
 <body>
-<%- include('assets/html/_body_before.ejs') %>
-<%- include('assets/html/_header.ejs') %>
 
 <!--#include virtual="/assets/html/test.html" -->
 
 <main id="main">
-	<p>test: hoge</p>
-	
-	<div id="icon-1"></div>
-	
+  <p>test: hoge</p>
+  
+  <div id="icon-1"></div>
+  
   <picture>
     <source srcset="img/photo1.webp" media="(max-width: 767px)">
     <img src="img/photo1.webp" alt="" loading="lazy" style="width: 400px">
   </picture>
-	
-	<figure>
-		<!-- <img src="img/howto8.jpg" alt=""> -->
-	</figure>
-	<p>eee</p>
-	
-	<ul>
-		<li><a href="carousel/">carousel/</a></li>
-	</ul>
-	
-	<div class="carousel_1">
-		<div class="carousel_1__items">
-			<div class="carousel_1__item">
-				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
-			</div>
-			<div class="carousel_1__item">
-				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
-			</div>
-			<div class="carousel_1__item">
-				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
-			</div>
-			<div class="carousel_1__item">
-				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
-			</div>
-			<div class="carousel_1__item">
-				<img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
-			</div>
-		</div>
-	</div><!-- /.carousel_1 -->
-	
-	<ul>
-		<li><a href="test/">test/</a></li>
-	</ul>
-	
+  
+  <figure>
+    <!-- <img src="img/howto8.jpg" alt=""> -->
+  </figure>
+  <p>eee</p>
+  
+  <ul>
+    <li><a href="carousel/">carousel/</a></li>
+    <li><a href="video/a1.html">video/a1.html</a></li>
+  </ul>
+  
+  <div class="carousel_1">
+    <div class="carousel_1__items">
+      <div class="carousel_1__item">
+        <img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
+      </div>
+      <div class="carousel_1__item">
+        <img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
+      </div>
+      <div class="carousel_1__item">
+        <img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
+      </div>
+      <div class="carousel_1__item">
+        <img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
+      </div>
+      <div class="carousel_1__item">
+        <img src="https://placehold.jp/150x150.png" alt="" loading="lazy">
+      </div>
+    </div>
+  </div><!-- /.carousel_1 -->
+  
+  <ul>
+    <li><a href="test/">test/</a></li>
+  </ul>
+  
 </main>
 
-<%- include('assets/html/_footer.ejs') %>
-<%- include('assets/html/_javascript.ejs') %>
-<script src="/assets/js/index.js"></script>
-
-<%- include('assets/html/_body_after.ejs') %>
 </body>
 </html>

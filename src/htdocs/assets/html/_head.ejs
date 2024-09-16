@@ -1,32 +1,58 @@
 <%
-const url = '';
-const site_name = '';
+if ( !path ) path = "../";
+if ( !meta.siteName ) meta.siteName = "サイト名";
+if ( !meta.titleSeparator && "" != meta.titleSeparator ) meta.titleSeparator = "｜";
 
-if ( !meta.description ) meta.description = '';
-if ( !meta.type ) meta.type = 'article';
-if ( !meta.url ) meta.url = '';
-if ( !meta.image ) meta.image = 'img/og.png';
+if( "" === meta.titleSeparator ) {
+  meta.titleAfter = "";
+} else {
+  meta.titleAfter = meta.titleSeparator + meta.siteName;
+}
+
+if ( !meta.keywords ) meta.keywords = "";
+if ( !meta.type ) meta.type = "article";
+if ( !meta.url ) meta.url = "";
+if ( !meta.image ) meta.image = "img/og.png";
+
 %><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="<%= siteURL %>favicon.ico">
+<link rel="apple-touch-icon" href="<%= siteURL %>apple-touch-icon.png">
+<link rel="android_icon" href="<%= siteURL %>apple-touch-icon.png">
 
-<title><%= meta.title %></title>
+<title><%= meta.title %><%= meta.titleAfter %></title>
 <meta name="description" content="<%= meta.description %>">
+<meta name="keywords" content="<%= meta.keywords %>">
 
-<meta property="og:site_name" content="<%= site_name %>">
+<meta property="og:site_name" content="<%= meta.siteName %>">
 <meta property="og:type" content="<%= meta.type %>">
 <meta property="og:title" content="<%= meta.title %>">
 <meta property="og:description" content="<%= meta.description %>">
-<meta property="og:url" content="<%= url %><%= meta.url %>">
-<meta property="og:image" content="<%= url %><%= meta.image %>">
+<meta property="og:url" content="<%= siteURL %><%= meta.url %>">
+<meta property="og:image" content="<%= siteURL %><%= meta.image %>">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<%= meta.title %>">
 <meta name="twitter:description" content="<%= meta.description %>">
-<meta name="twitter:image" content="<%= url %><%= meta.image %>">
+<meta name="twitter:image" content="<%= siteURL %><%= meta.image %>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/common.css">
-<link rel="stylesheet" href="/assets/css/patch.css">
+<link rel="stylesheet" href="<%= path %>assets/css/base.css">
+<link rel="stylesheet" href="<%= path %>assets/css/common.css">
+
+<script src="<%= path %>assets/js/vendor.js" defer></script>
+<script src="<%= path %>assets/js/common.js" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "<%= meta.title %><%= meta.titleAfter %>",
+  "url": "<%= siteURL %><%= meta.url %>",
+  "description": "<%= meta.description %>"
+}
+</script>
