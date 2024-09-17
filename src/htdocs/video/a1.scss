@@ -72,9 +72,21 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 2em;
+  color: #fff;
   background-color: rgba(0,0,0,.8);
-  box-sizing: border-box;
+  &__1 {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2em;
+    box-sizing: border-box;
+    > p {
+      margin-top: 1em;
+    }
+  }
+  &__h1 {
+    margin-bottom: 1em;
+    font-size: 24px;
+  }
 }
 
 .c_video_2 {

@@ -13,7 +13,7 @@ gsap.utils.toArray(".js_video_1").forEach((el) => {
     hls.loadSource(videoSrc);
     hls.attachMedia(el);
   } else if (el.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = videoSrc;
+    el.src = videoSrc;
   }
 });
 
