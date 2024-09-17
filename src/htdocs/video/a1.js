@@ -63,12 +63,3 @@ gsap.utils.toArray(".c_article_1").forEach((el) => {
     el: el
   });
 });
-
-$(".c_section_1").click(function(e){
-  e.preventDefault();
-  const $me = $(e.currentTarget);
-  console.count(".c_section_1 click");
-  player.pauseVideo();
-  playerSet = false;
-  $me.hide();
-});
