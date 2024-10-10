@@ -2,13 +2,13 @@
 @use "../tool" as *;
 
 html {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: subpixel-antialiased; //antialiased;
-  height: 100%;
+  min-height: 100%;
   font: 14px/1.4 $gothic;
 }
 

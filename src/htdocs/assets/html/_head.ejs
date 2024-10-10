@@ -4,9 +4,9 @@ if ( !meta.siteName ) meta.siteName = "サイト名";
 if ( !meta.titleSeparator && "" != meta.titleSeparator ) meta.titleSeparator = "｜";
 
 if( "" === meta.titleSeparator ) {
-  meta.titleAfter = "";
+	meta.titleAfter = "";
 } else {
-  meta.titleAfter = meta.titleSeparator + meta.siteName;
+	meta.titleAfter = meta.titleSeparator + meta.siteName;
 }
 
 if ( !meta.keywords ) meta.keywords = "";
@@ -49,10 +49,10 @@ if ( !meta.image ) meta.image = "img/og.png";
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "<%= meta.title %><%= meta.titleAfter %>",
-  "url": "<%= siteURL %><%= meta.url %>",
-  "description": "<%= meta.description %>"
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	"name": "<%= meta.title %><%= meta.titleAfter %>",
+	"url": "<%= siteURL %><%= meta.url %>",
+	"description": "<%= meta.description %>"
 }
 </script>
