@@ -472,7 +472,6 @@ textarea.placeholder_1.is_placeholder {
   .a_fadein_1.is_b2t {
     transform: translateY(20px) !important;
   }
-
   .a_fadein_1.is_r2l {
     transform: translateX(40px) !important;
   }
