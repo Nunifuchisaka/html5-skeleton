@@ -1,10 +1,8 @@
 import $ from 'jquery';
 import 'magnific-popup';
-// import 'slick-carousel';
+import 'slick-carousel';
 import Carousel_1 from './components/_Carousel_1.js';
 import locationHash from './components/_locationHash.js';
-
-console.count('common.js');
 
 window.COMMON = new Object();
 

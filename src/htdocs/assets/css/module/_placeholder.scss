@@ -6,27 +6,27 @@
 */
 
 .placeholder_2 {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  .placeholder {
-    overflow-y: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #aaa;
-    font-weight: normal;
-    box-sizing: border-box;
-  }
-  textarea {
-    position: relative;
-    margin: 0;
-    width: 100%;
-    background-color: transparent;
-    vertical-align: top;
-  }
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	.placeholder {
+		overflow-y: auto;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		color: #aaa;
+		font-weight: normal;
+		box-sizing: border-box;
+	}
+	textarea {
+		position: relative;
+		margin: 0;
+		width: 100%;
+		background-color: transparent;
+		vertical-align: top;
+	}
 }
 
 
@@ -35,7 +35,7 @@
 */
 
 textarea.placeholder_1 {
-  &.is_placeholder {
-    color: #aaa;
-  }
+	&.is_placeholder {
+		color: #aaa;
+	}
 }

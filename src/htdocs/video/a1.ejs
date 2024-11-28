@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="ja">
 <head><%
-const siteURL = "http://example.com/";
 const path = "../";
 const meta = {
-  title: "video a1",
-  description: "",
+	title: "video a1",
+	description: "",
 };
 %>
-<%- include(path+"assets/html/_head.ejs",{siteURL:siteURL,path:path,meta:meta}) %>
+<%- include("../assets/html/_head",{path:path,meta:meta}) %>
 <!-- <link href="//cdn.jsdelivr.net/npm/yakuhanjp@3.3.1/dist/css/yakuhanjp.min.css" rel="stylesheet"> -->
 <link href="a1.css" rel="stylesheet">
 
@@ -21,99 +20,99 @@ const meta = {
 <script src="a1.js" defer></script>
 </head>
 <body>
-<%- include(path+"assets/html/_body_before.ejs") %>
-<%- //include(path+"assets/html/_header.ejs",{path:path}) %>
+<%- include("../assets/html/_body_before") %>
+<%- //include("../assets/html/_header",{path:path}) %>
 
 <header class="header_1">
-  <p>はじまり</p>
+	<p>はじまり</p>
 </header>
 
 <div class="c_wrapper_1">
 
-  <article class="c_article_1 is_1">
-    <div class="c_video_1">
-      <div class="c_video_1__1">
-        <a href="#howto-25" class="c_video_1__2">
-          <video class="js_video_1" data-id="howto-25_pre" muted autoplay loop></video>
-        </a>
-      </div>
-      <section id="howto-25" class="c_section_1">
-        <div class="c_section_1__1">
-          <h3 class="c_section_1__h1">
-            セクション１：見出し
-          </h3>
-          <div class="c_video_2" data-youtube="TLwuhjlmRE4">
-            <div id="howto-25__eyecatch"></div>
-          </div>
-          <p>test 2</p>
-        </div>
-      </section><!-- /#howto-25.c_section_1 -->
-    </div>
-  </article>
-  <!-- /.c_article_1.is_ -->
+	<article class="c_article_1 is_1">
+		<div class="c_video_1">
+			<div class="c_video_1__1">
+				<a href="#howto-25" class="c_video_1__2">
+					<video class="js_video_1" data-id="howto-25_pre" muted autoplay loop></video>
+				</a>
+			</div>
+			<section id="howto-25" class="c_section_1">
+				<div class="c_section_1__1">
+					<h3 class="c_section_1__h1">
+						セクション１：見出し
+					</h3>
+					<div class="c_video_2" data-youtube="TLwuhjlmRE4">
+						<div id="howto-25__eyecatch"></div>
+					</div>
+					<p>test 2</p>
+				</div>
+			</section><!-- /#howto-25.c_section_1 -->
+		</div>
+	</article>
+	<!-- /.c_article_1.is_ -->
 
-  <article class="c_article_1 is_2">
-    <div class="c_video_1">
-      <div class="c_video_1__1">
-        <a href="#howto-22" class="c_video_1__2">
-          <video class="js_video_1" data-id="howto-22_pre" muted autoplay loop></video>
-        </a>
-      </div>
-      <section id="howto-22" class="c_section_1">
-        <div class="c_section_1__1">
-          <h3 class="c_section_1__h1">
-            セクション２：見出し
-          </h3>
-          <div class="c_video_2" data-youtube="5apn_TwGTKA">
-            <div id="howto-22__eyecatch"></div>
-          </div>
-          <p>test 2</p>
-        </div>
-      </section><!-- /#howto-22.c_section_1 -->
-    </div>
-  </article>
-  <!-- /.c_article_1 is_2 -->
+	<article class="c_article_1 is_2">
+		<div class="c_video_1">
+			<div class="c_video_1__1">
+				<a href="#howto-22" class="c_video_1__2">
+					<video class="js_video_1" data-id="howto-22_pre" muted autoplay loop></video>
+				</a>
+			</div>
+			<section id="howto-22" class="c_section_1">
+				<div class="c_section_1__1">
+					<h3 class="c_section_1__h1">
+						セクション２：見出し
+					</h3>
+					<div class="c_video_2" data-youtube="5apn_TwGTKA">
+						<div id="howto-22__eyecatch"></div>
+					</div>
+					<p>test 2</p>
+				</div>
+			</section><!-- /#howto-22.c_section_1 -->
+		</div>
+	</article>
+	<!-- /.c_article_1 is_2 -->
 
-  <article class="c_article_1 is_3">
-    <div class="c_video_1">
-      <div class="c_video_1__1">
-        <a href="#howto-21" class="c_video_1__2">
-          <video class="js_video_1" data-id="howto-21_pre" muted autoplay loop></video>
-        </a>
-      </div>
-      <section id="howto-21" class="c_section_1">
-        <div class="c_section_1__1">
-          <h3 class="c_section_1__h1">
-            セクション２：見出し
-          </h3>
-          <div class="c_video_2" data-youtube="jKFpaI5Wy3A">
-            <div id="howto-21__eyecatch"></div>
-          </div>
-          <p>test 2</p>
-        </div>
-      </section><!-- /#howto-21.c_section_1 -->
-    </div>
-  </article>
-  <!-- /.c_article_1 is_3 -->
+	<article class="c_article_1 is_3">
+		<div class="c_video_1">
+			<div class="c_video_1__1">
+				<a href="#howto-21" class="c_video_1__2">
+					<video class="js_video_1" data-id="howto-21_pre" muted autoplay loop></video>
+				</a>
+			</div>
+			<section id="howto-21" class="c_section_1">
+				<div class="c_section_1__1">
+					<h3 class="c_section_1__h1">
+						セクション２：見出し
+					</h3>
+					<div class="c_video_2" data-youtube="jKFpaI5Wy3A">
+						<div id="howto-21__eyecatch"></div>
+					</div>
+					<p>test 2</p>
+				</div>
+			</section><!-- /#howto-21.c_section_1 -->
+		</div>
+	</article>
+	<!-- /.c_article_1 is_3 -->
 
-  <article class="c_article_1 is_4">
-    <div class="c_video_1">
-      <div class="c_video_1__1">
-        <div class="c_video_1__2">
-          <video class="js_video_1" data-id="dance20240811" muted autoplay loop></video>
-        </div>
-      </div>
-    </div>
-  </article>
-  <!-- /.c_article_1 is_3 -->
+	<article class="c_article_1 is_4">
+		<div class="c_video_1">
+			<div class="c_video_1__1">
+				<div class="c_video_1__2">
+					<video class="js_video_1" data-id="dance20240811" muted autoplay loop></video>
+				</div>
+			</div>
+		</div>
+	</article>
+	<!-- /.c_article_1 is_3 -->
 
 </div><!-- /.c_wrapper_1 -->
 
 <footer class="footer_1">
-  <p>おわり</p>
+	<p>おわり</p>
 </footer>
 
-<%- include(path+"assets/html/_footer.ejs",{path:path}) %>
-<%- include(path+"assets/html/_body_after.ejs") %>
+<%- include("../assets/html/_footer") %>
+<%- include("../assets/html/_body_after") %>
 </body>
 </html>

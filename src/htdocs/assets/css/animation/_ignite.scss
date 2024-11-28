@@ -6,19 +6,18 @@
 */
 
 .a_ignite_2 {
-  &.is_animation {
-    .a_fadein_1 {
-      opacity: 1;
-      &.is_b2t {
-        transform: translateY(0) !important;
-      }
-      &.is_r2l {
-        transform: translateX(0) !important;
-      }
-    }
-  }
+	&.is_animation {
+		.a_fadein_1 {
+			opacity: 1;
+			&.is_b2t {
+				transform: translateY(0) !important;
+			}
+			&.is_r2l {
+				transform: translateX(0) !important;
+			}
+		}
+	}
 }
-
 
 
 /*

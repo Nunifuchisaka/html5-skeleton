@@ -10,94 +10,94 @@ $first_duration: .8s;
 */
 
 @keyframes first1--pc {
-    0% { width: px2vw1(524); opacity: 0 }
-   25% { width: px2vw1(1154); opacity: 1 }
-  100% { width: px2vw1(1154); opacity: 1 }
+		0% { width: px2vw1(524); opacity: 0 }
+	 25% { width: px2vw1(1154); opacity: 1 }
+	100% { width: px2vw1(1154); opacity: 1 }
 }
 @keyframes first2--pc {
-    0% { margin-top: px2vw1(150) }
-   20% { margin-top: 0 }
+		0% { margin-top: px2vw1(150) }
+	 20% { margin-top: 0 }
 }
 
 @keyframes first1--sp {
-    0% { width: px2vw2(476); opacity: 0 }
-   20% { width: px2vw2(805); opacity: 1 }
-  100% { width: px2vw2(805); opacity: 1 }
+		0% { width: px2vw2(476); opacity: 0 }
+	 20% { width: px2vw2(805); opacity: 1 }
+	100% { width: px2vw2(805); opacity: 1 }
 }
 @keyframes first2--sp {
-    0% { margin-top: px2vw2(198) }
-   20% { margin-top: 0 }
+		0% { margin-top: px2vw2(198) }
+	 20% { margin-top: 0 }
 }
 
 @keyframes hurueru {
-    0% { transform: translate(0px, 0px) }
-   25% { transform: translate(4px, 4px) }
-   50% { transform: translate(0px, 4px) }
-   75% { transform: translate(4px, 0px) }
-  100% { transform: translate(0px, 0px) }
+		0% { transform: translate(0px, 0px) }
+	 25% { transform: translate(4px, 4px) }
+	 50% { transform: translate(0px, 4px) }
+	 75% { transform: translate(4px, 0px) }
+	100% { transform: translate(0px, 0px) }
 }
 
 @keyframes first0 {
-    0% { height: 100%; opacity: 1 }
-   68% { height: 100%; opacity: 1 }
-   79% { height: 100%; opacity: 0 }
-   99% { height: 100%; opacity: 0 }
-  100% { height:   0%; opacity: 0 }
+		0% { height: 100%; opacity: 1 }
+	 68% { height: 100%; opacity: 1 }
+	 79% { height: 100%; opacity: 0 }
+	 99% { height: 100%; opacity: 0 }
+	100% { height:   0%; opacity: 0 }
 }
 
 #first {
-  $delay: .6s;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  //height: 0;
-  height: 100%;
-  color: #fff;
-  font-size: 20vw;
-  text-align: center;
-  //background: rgba(0,0,0,.7);
-  background: #000;
-  animation: first0 (3*$first_duration) linear $delay forwards;
-  opacity: 1;
-  z-index: 5000;
-  &__1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    border-left: solid px2vw1(5) transparent;
-    box-sizing: border-box;
-  }
-  &__2 {
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    //forwards
-    //infinite
-    animation: first1--pc $first_duration linear $delay forwards,
-               first2--pc $first_duration linear $delay forwards;
-  }
-  img {
-    width: 100%;
-    height: auto;
-    vertical-align: top;
-    animation: hurueru .1s linear .1s infinite;
-  }
-  @media (max-width: $breakpoint1) {
-    &__1 {
-      border-left-width: px2vw2(14);
-    }
-    &__2 {
-      //width: px2vw2(476);
-      //width: px2vw2(805);
-      animation: first1--sp $first_duration linear $delay forwards,
-                 first2--sp $first_duration linear $delay forwards;
-    }
-  }
+	$delay: .6s;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	//height: 0;
+	height: 100%;
+	color: #fff;
+	font-size: 20vw;
+	text-align: center;
+	//background: rgba(0,0,0,.7);
+	background: #000;
+	animation: first0 (3*$first_duration) linear $delay forwards;
+	opacity: 1;
+	z-index: 5000;
+	&__1 {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		height: 100%;
+		transform: translate(-50%, -50%);
+		border-left: solid px2vw1(5) transparent;
+		box-sizing: border-box;
+	}
+	&__2 {
+		opacity: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		//forwards
+		//infinite
+		animation: first1--pc $first_duration linear $delay forwards,
+							 first2--pc $first_duration linear $delay forwards;
+	}
+	img {
+		width: 100%;
+		height: auto;
+		vertical-align: top;
+		animation: hurueru .1s linear .1s infinite;
+	}
+	@media (max-width: $breakpoint1) {
+		&__1 {
+			border-left-width: px2vw2(14);
+		}
+		&__2 {
+			//width: px2vw2(476);
+			//width: px2vw2(805);
+			animation: first1--sp $first_duration linear $delay forwards,
+								 first2--sp $first_duration linear $delay forwards;
+		}
+	}
 }

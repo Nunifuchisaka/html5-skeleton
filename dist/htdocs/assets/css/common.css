@@ -199,10 +199,9 @@ textarea.placeholder_1.is_placeholder {
 */
 .video_1 {
   position: relative;
-  height: 0;
-  padding-bottom: 56.25%;
+  aspect-ratio: 1.7777777778;
 }
-.video_1 iframe {
+.video_1 iframe, .video_1 video {
   position: absolute;
   top: 0;
   left: 0;
@@ -333,10 +332,10 @@ textarea.placeholder_1.is_placeholder {
 }
 
 /*
-## .l_container_1
+## .container_1
 */
 /*
-## .l_wrapper_1
+## .wrapper_1
 */
 @media (max-width: 767px){
   .nav_1 {

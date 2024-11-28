@@ -2,6 +2,10 @@
 @use "tool" as *;
 
 @use "base/reset";
+
+@use "../../../../node_modules/magnific-popup/dist/magnific-popup.css";
+@use "../../../../node_modules/slick-carousel/slick/slick.scss";
+
 @use "base/font";
 @use "base/foundation";
 @use "base/javascript";

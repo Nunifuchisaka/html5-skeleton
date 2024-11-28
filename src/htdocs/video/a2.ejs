@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="ja">
 <head><%
-const siteURL = "http://example.com/";
 const path = "../";
 const meta = {
 	title: "video a2",
 	description: "",
 };
 %>
-<%- include(path+"assets/html/_head.ejs",{siteURL:siteURL,path:path,meta:meta}) %>
+<%- include("../assets/html/_head",{path:path,meta:meta}) %>
 <link href="a2.css" rel="stylesheet">
 
 <script src="//cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" defer></script>
@@ -16,8 +15,8 @@ const meta = {
 <script src="a2.js" defer></script>
 </head>
 <body>
-<%- include(path+"assets/html/_body_before.ejs") %>
-<%- //include(path+"assets/html/_header.ejs",{path:path}) %>
+<%- include("../assets/html/_body_before") %>
+<%- //include("../assets/html/_header",{path:path}) %>
 
 <div class="c_video_1">
 	<a href="https://youtu.be/TLwuhjlmRE4" id="video-1">「アポロの光」篇</a>
@@ -39,7 +38,7 @@ const meta = {
 	</ul>
 </div>
 
-<%- include(path+"assets/html/_footer.ejs",{path:path}) %>
-<%- include(path+"assets/html/_body_after.ejs") %>
+<%- include("../assets/html/_footer") %>
+<%- include("../assets/html/_body_after") %>
 </body>
 </html>
