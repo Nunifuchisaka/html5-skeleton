@@ -3,6 +3,7 @@ import 'magnific-popup';
 import 'slick-carousel';
 import Carousel_1 from './components/_Carousel_1.js';
 import locationHash from './components/_locationHash.js';
+import SmoothScroll from './components/_SmoothScroll.js';
 
 window.COMMON = new Object();
 
@@ -26,6 +27,8 @@ $(function(){
 //	 placeholder();
 	
 	locationHash();
+
+	new SmoothScroll();
 	
 });
 

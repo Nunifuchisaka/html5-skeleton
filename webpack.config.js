@@ -2,7 +2,7 @@ const HTML_MINITY = true,
 			DIST_DIR = './dist/htdocs',
 			SRC_DIR = './src/htdocs',
 			START_PATH = '',
-			SITE_URL = 'https://example.com/' + START_PATH + '/',
+			SITE_URL = 'https://example.com/' + START_PATH,
 			SITE_NAME = 'ダミーサイト名',
 			path = require('path'),
 			glob = require('glob'),
@@ -110,6 +110,11 @@ module.exports = (env, argv) => {
 			minimizer: [
 				new TerserPlugin({
 					extractComments: false,
+					terserOptions: {
+						compress: {
+							drop_console: true, // console.* を削除
+						},
+					},
 				})
 			],
 			splitChunks: {
@@ -179,7 +184,17 @@ module.exports = (env, argv) => {
 							maxSize: 50 * 1024,
 						},
 					},
-				}
+				}, {
+					test: /node_modules\/(.+)\.css$/,
+					use: [
+						{
+							loader: 'style-loader',
+						}, {
+							loader: 'css-loader',
+							options: { url: false },
+						},
+					],
+				},
 			]
 		},
 		externals: {

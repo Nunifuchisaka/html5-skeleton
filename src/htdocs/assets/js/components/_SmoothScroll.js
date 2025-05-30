@@ -1,45 +1,59 @@
 import $ from 'jquery';
 
-export default function(option) {
+export default class {
 	
-	option = $.extend({
-		target: '[data-smooth-scroll]'
-	}, option);
-	
-	const SPEED_DEFAULT = 800, // 最初の速度
-				SPEED_REPEAT = 800; // 繰り返し時の速度
-	
-	const getTargetPositionY = function($this){
-		// 移動先を取得
-		const href = $this.attr('href');
-		const target = $(href == '#' || href == '' ? 'html' : href);
-		
-		// 移動先のY座標を返却
-		return target.offset().top;
+	#option;
+	#$html;
+	#SPEED_DEFAULT = 800; // 最初の速度
+	#SPEED_REPEAT = 800; // 繰り返し時の速度
+
+	constructor(opts) {
+		this.#option = $.extend({
+			target: '[data-smooth-scroll]',
+			gnav: null,
+		}, opts);
+
+		this.#$html = $('html');
+
+		$('a' + this.#option.target).on('click', this.#click);
+		$(this.#option.target).find('a[href*="#"]').click(this.#click);
 	}
 	
-	const scrollAnimate = function($this, positionStart, scrollSpeed){
-		COMMON.$html.animate({ scrollTop: positionStart }, scrollSpeed, 'swing', function(){
+	#scrollAnimate = ($this, positionStart, scrollSpeed) => {
+		const self = this;
+		this.#$html.animate({
+			scrollTop: positionStart
+		}, scrollSpeed, 'swing', function(){
 			// スクロールアニメーション終了時に、目的地のY座標を取得
-			const positionEnd = getTargetPositionY($this);
+			const positionEnd = $this.offset().top;
 			
 			// 処理を繰り返すかの判定
 			// 目的地のY座標が変わっていたらやり直し
 			if(positionStart !== positionEnd) {
-				scrollAnimate($this, positionEnd, SPEED_REPEAT);
+				self.#scrollAnimate($this, positionEnd, self.#SPEED_REPEAT);
 			}
 		});
 	}
 	
-	function click(e){
-		e.preventDefault();
-		const positionStart = getTargetPositionY($(this));
-		scrollAnimate($(this), positionStart, SPEED_DEFAULT);
-	};
-	
-	//console.log("$('a' + option.target)", $('a' + option.target));
-	
-	$('a' + option.target).on('click', click);
-	$(option.target).find('a[href^="#"]').click(click);
+	#click = (e) => {
+		const $me = $(e.currentTarget),
+					href = $me.attr('href'),
+					hash = this.#extractHash(href),
+					$hash = $(hash);
+		console.log('hash', hash);
+		if ( $hash.length ) {
+			e.preventDefault();
+			if ( this.#option.gnav ) {
+				this.#option.gnav.close();
+			}
+			const positionStart = $hash.offset().top;
+			this.#scrollAnimate($hash, positionStart, this.#SPEED_DEFAULT);
+		}
+	}
+
+	#extractHash(href) {
+		const hash = href.match(/#(.*)/);
+		return hash ? hash[0] : null;
+	}
 	
 }
