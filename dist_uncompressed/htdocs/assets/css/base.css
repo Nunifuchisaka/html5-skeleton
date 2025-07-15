@@ -1,6 +1,6 @@
-/*!********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[3]!./src/htdocs/assets/css/base.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/htdocs/assets/css/base.scss ***!
+  \****************************************************************************************************************************************************************************************************************************/
 @charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -61,9 +61,7 @@ html {
 }
 
 body {
-  -webkit-text-size-adjust: 100%;
-     -moz-text-size-adjust: 100%;
-          text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -webkit-font-smoothing: subpixel-antialiased;
   min-height: 100%;
   font: 1.6rem/1.6 "ヒラギノ角ゴシック", "Hiragino Sans", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", meiryo, "ＭＳ Ｐゴシック", helvetica, arial, verdana, sans-serif;
@@ -85,14 +83,13 @@ a:hover {
   display: none !important;
 }
 
-@media (width >= 768px){
+@media (width >= 768px) {
   br.sp,
   .is_pc_none_1 {
     display: none !important;
   }
 }
-
-@media (width <= 767px){
+@media (width <= 767px) {
   br.pc,
   .is_sp_none_1 {
     display: none !important;
