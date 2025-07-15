@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export function ignite () {
+export default function () {
   //observer2を作成
   const observer2 = new IntersectionObserver(function(entries){
     for(let i = 0; i < entries.length; i++) {

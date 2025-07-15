@@ -33,7 +33,7 @@ export default class {
         self.#scrollAnimate($this, positionEnd, self.#SPEED_REPEAT);
       }
     });
-  }
+  };
 
   #click = (e) => {
     const $me = $(e.currentTarget),
@@ -49,7 +49,7 @@ export default class {
       const positionStart = $hash.offset().top;
       this.#scrollAnimate($hash, positionStart, this.#SPEED_DEFAULT);
     }
-  }
+  };
 
   #extractHash(href) {
     const hash = href.match(/#(.*)/);

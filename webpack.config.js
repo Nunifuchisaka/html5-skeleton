@@ -19,6 +19,7 @@ const HTML_MINITY = true,
       imagemin = require('imagemin'),
       imageminWebp = require('imagemin-webp'),
       StylelintPlugin = require('stylelint-webpack-plugin'),
+      ESLintPlugin = require('eslint-webpack-plugin'),
       TerserPlugin = require('terser-webpack-plugin');
 
 const createConfig = ({ mode, outputPath, useMinify, useOncePlugins = false }) => {
@@ -29,6 +30,7 @@ const createConfig = ({ mode, outputPath, useMinify, useOncePlugins = false }) =
       new StylelintPlugin({
         files: [SRC_DIR + '/**/*.scss'],
       }),
+      new ESLintPlugin(),
       new RemoveEmptyScriptsPlugin(),
     ],
   };

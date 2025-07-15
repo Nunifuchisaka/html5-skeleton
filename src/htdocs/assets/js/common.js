@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import SmoothScroll from './components/_SmoothScroll.js';
+import ignite from './components/_ignite';
+import SmoothScroll from './components/_SmoothScroll';
 
 $(function(){
 
