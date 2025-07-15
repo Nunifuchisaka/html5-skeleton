@@ -1,216 +1,231 @@
 const HTML_MINITY = true,
-			DIST_DIR = './dist/htdocs',
-			SRC_DIR = './src/htdocs',
-			START_PATH = '',
-			SITE_URL = 'https://example.com/' + START_PATH,
-			SITE_NAME = 'ダミーサイト名',
-			path = require('path'),
-			glob = require('glob'),
-			DIST_PATH = path.resolve(__dirname, DIST_DIR),
-			SRC_PATH = path.resolve(__dirname, SRC_DIR),
-			RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts'),
-			BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
-			ssi = require('./node_modules/browsersync-ssi'),
-			HtmlWebpackPlugin = require('html-webpack-plugin'),
-			MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-			//ImageminWebpWebpackPlugin= require('imagemin-webp-webpack-plugin'),
-			TerserPlugin = require('terser-webpack-plugin'),
-			config = {
-				entry: {},
-				plugins: [],
-			};
+      DIST_DIR = './dist/htdocs',
+      DIST2_DIR = './dist_uncompressed/htdocs',
+      SRC_DIR = './src/htdocs',
+      START_PATH = '',
+      SITE_URL = 'https://example.com/' + START_PATH,
+      SITE_NAME = 'ダミーサイト名',
+      path = require('path'),
+      glob = require('glob'),
+      DIST_PATH = path.resolve(__dirname, DIST_DIR),
+      DIST2_PATH = path.resolve(__dirname, DIST2_DIR),
+      SRC_PATH = path.resolve(__dirname, SRC_DIR),
+      RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts'),
+      BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+      ssi = require('browsersync-ssi'),
+      HtmlWebpackPlugin = require('html-webpack-plugin'),
+      MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+      CopyPlugin = require('copy-webpack-plugin'),
+      imagemin = require('imagemin'),
+      imageminWebp = require('imagemin-webp'),
+      StylelintPlugin = require('stylelint-webpack-plugin'),
+      TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = (env, argv) => {
-	
-	const minify = 'production' === argv.mode;
-	
-	//JS
-	glob.sync('**/*.js', {
-		cwd: SRC_DIR,
-		ignore: '**/_*.js'
-	}).forEach(key => {
-		config.entry[key.replace('.js', '')] = path.resolve(SRC_DIR, key);
-	});
-	
-	//EJS
-	glob.sync('**/*.ejs', {
-		cwd: SRC_DIR,
-		ignore: '**/_*.ejs'
-	}).forEach(key => {
-		const baseName = path.basename(key, '.ejs'),
-					htmlKey = key.replace('.ejs', '.html'),
-					srcPath  = path.resolve(SRC_DIR, key);
-		console.log('EJS : ', key, htmlKey);
-		config.plugins.push(
-			new HtmlWebpackPlugin({
-				template: srcPath,
-				filename: htmlKey,
-				inject: false,
-				//cache: false,
-				minify: {
-					collapseWhitespace: minify && HTML_MINITY,
-					keepClosingSlash: true,
-					removeComments: true,
-					removeRedundantAttributes: true,
-					removeScriptTypeAttributes: true,
-					removeStyleLinkTypeAttributes: true,
-					useShortDoctype: true
-				}
-			})
-		);
-	});
-	
-	//SCSS
-	glob.sync('**/*.scss', {
-		cwd: SRC_DIR,
-		ignore: '**/_*.scss',
-	}).forEach(key => {
-		const cssKey = key.replace('.scss', '.css');
-		console.log('CSS : ', key, cssKey);
-		config.entry[cssKey] = path.resolve(SRC_DIR, key);
-	});
-	
-	//pluginsを統合
-	config.plugins.push(
-		new BrowserSyncPlugin({
-			//https: true,
-			host: 'localhost',
-			port: 3000,
-			server: { baseDir: [DIST_DIR] },
-			//startPath: '/hoge',
-			files: [
-				DIST_DIR + "/**/*.html",
-				DIST_DIR + "/**/*.css",
-				DIST_DIR + "/**/*.js",
-				DIST_DIR + "/**/*.json",
-			],
-			'middleware': ssi({
-				baseDir: DIST_DIR,
-				ext: '.html',
-				version: '1.4.0'
-			})
-		}, {
-			reload: false,
-		}),
-		new MiniCssExtractPlugin({
-			filename: '[name]',
-		}),
-		new RemoveEmptyScriptsPlugin(),
-	);
-	
-	//configを統合
-	return Object.assign(config, {
-		output: {
-			path: DIST_PATH,
-			filename: '[name].js',
-			assetModuleFilename: START_PATH + 'assets/[name][ext][query]',
-		},
-		optimization: {
-			minimize: minify,
-			minimizer: [
-				new TerserPlugin({
-					extractComments: false,
-					terserOptions: {
-						compress: {
-							drop_console: true, // console.* を削除
-						},
-					},
-				})
-			],
-			splitChunks: {
-				name: START_PATH + 'assets/js/vendor',
-				chunks: 'initial',
-			}
-		},
-		module: {
-			rules: [
-				{
-					test: /\.ejs$/i,
-					use: [
-						{
-							loader: 'html-loader',
-							options: {
-								sources: {
-									urlFilter: (attribute, value, resourcePath) => {
-//                     console.log('★', attribute, value, resourcePath);
-										return false;
-										//return /\.(scss|sass)$/.test(value) || /\.(js)$/.test(value);
-									},
-								},
-								minimize: false,
-							},
-						}, {
-							loader: 'ejs-plain-loader',
-							options: {
-								data: {
-									START_PATH: START_PATH,
-									SITE_URL: SITE_URL,
-									SITE_NAME: SITE_NAME,
-								},
-							},
-						},
-					]
-				},
-				{
-					test: /\.scss$/,
-					use: [
-						MiniCssExtractPlugin.loader,
-						{
-							loader: 'css-loader',
-							options: {
-								//url: false,
-								importLoaders: 2,
-							}
-						},
-						'postcss-loader',
-						{
-							loader: 'sass-loader',
-							options: {
-								implementation: require('sass'),
-								sassOptions: {
-									includePaths: [
-										path.resolve(__dirname, 'node_modules')
-									],
-									outputStyle: (minify)?'compressed':'expanded',
-								}
-							}
-						}
-					]
-				}, {
-					test: /\.(jpg|png|webp|svg|gif|eot|ttf|woff)$/i,
-					type: 'asset',
-					parser: {
-						dataUrlCondition: {
-							maxSize: 50 * 1024,
-						},
-					},
-				}, {
-					test: /node_modules\/(.+)\.css$/,
-					use: [
-						{
-							loader: 'style-loader',
-						}, {
-							loader: 'css-loader',
-							options: { url: false },
-						},
-					],
-				},
-			]
-		},
-		externals: {
-			// jquery: 'jQuery',
-		},
-		watch: true,
-		watchOptions: {
-			ignored: ['/node_modules', '/gitignore']
-		},
-		target: ['web'],
-		resolve: {
-			extensions: ['.ts', '.js']
-		},
-		stats: {
-			errorDetails: true
-		}
-	});
-	
+const createConfig = ({ mode, outputPath, useMinify, useOncePlugins = false }) => {
+  const config = {
+    entry: {},
+    plugins: [
+      new MiniCssExtractPlugin({ filename: '[name]' }),
+      new StylelintPlugin({
+        files: [SRC_DIR + '/**/*.scss'],
+      }),
+      new RemoveEmptyScriptsPlugin(),
+    ],
+  };
+
+  glob.sync('**/*.ejs', { cwd: SRC_DIR, ignore: '**/_*.ejs' }).forEach(key => {
+    const htmlKey = key.replace('.ejs', '.html');
+    const srcPath  = path.resolve(SRC_DIR, key);
+    config.plugins.push(
+      new HtmlWebpackPlugin({
+        template: srcPath,
+        filename: htmlKey,
+        inject: false,
+        minify: useMinify ? {
+          collapseWhitespace: HTML_MINITY,
+          keepClosingSlash: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true,
+          minifyJS: true,
+          processScripts: ['application/ld+json'],
+        } : false
+      })
+    );
+  });
+
+  glob.sync('**/*.scss', { cwd: SRC_DIR, ignore: '**/_*.scss' }).forEach(key => {
+    config.entry[key.replace('.scss', '.css')] = path.resolve(SRC_DIR, key);
+  });
+
+  if ('production' == mode) {
+    glob.sync('**/*.js', { cwd: SRC_DIR, ignore: '**/_*.js' }).forEach(key => {
+      config.entry[key.replace('.js', '')] = path.resolve(SRC_DIR, key);
+    });
+
+    config.plugins.push(
+      new CopyPlugin({
+        patterns: [{
+          context: 'img2webp',
+          from: '**/*.{jpg,jpeg,png}',
+          to(pathData) { return pathData.absoluteFilename.replace(/\.(jpe?g|png)$/i, '.webp'); },
+          transform(content) { return imagemin.buffer(content, { plugins: [imageminWebp({ quality: 90 })] }); },
+          noErrorOnMissing: true,
+        }],
+      }),
+      new BrowserSyncPlugin({
+        host: 'localhost',
+        port: 3000,
+        server: { baseDir: [DIST_DIR] },
+        files: [
+          DIST_DIR + "/**/*.html",
+          DIST_DIR + "/**/*.css",
+          DIST_DIR + "/**/*.js"
+        ],
+        middleware: ssi({
+          baseDir: DIST_DIR,
+          ext: '.html'
+        })
+      }, { reload: true })
+    );
+  }
+
+  return {
+    ...config,
+    mode: mode,
+    output: {
+      path: outputPath,
+      filename: '[name].js',
+      assetModuleFilename: START_PATH + 'assets/[name][ext][query]',
+    },
+    optimization: {
+      minimize: useMinify,
+      minimizer: useMinify
+        ? [
+            new TerserPlugin({
+              extractComments: false,
+              terserOptions: {
+                compress: {
+                  drop_console: true
+                }
+              }
+            }),
+          ]
+        : [],
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'assets/js/vendor',
+            chunks: 'all',
+          }
+        }
+      }
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader'
+          }
+        },
+        {
+          test: /\.ejs$/i,
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+                sources: false,
+                minimize: false
+              }
+            },
+            {
+              loader: 'ejs-plain-loader',
+              options: {
+                data: {
+                  START_PATH,
+                  SITE_URL,
+                  SITE_NAME
+                }
+              }
+            },
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { importLoaders: 2 } },
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    require('postcss-sort-media-queries')({
+                      sort: 'mobile-first'
+                    }),
+                    require('autoprefixer'),
+                  ]
+                }
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                implementation: require('sass'),
+                sassOptions: {
+                  includePaths: [path.resolve(__dirname, 'node_modules')],
+                  outputStyle: useMinify ? 'compressed' : 'expanded',
+                }
+              }
+            }
+          ]
+        },
+        {
+          test: /\.(jpg|png|webp|svg|gif|eot|ttf|woff)$/i,
+          type: 'asset/inline',
+          exclude: /(--pc|--sp)\.(jpg|png|webp|svg|gif|eot|ttf|woff)$/i,
+        },
+        {
+          test: /node_modules\/(.+)\.css$/,
+          use: [
+            {
+              loader: 'style-loader',
+            }, {
+              loader: 'css-loader',
+              options: { url: false },
+            },
+          ],
+        },
+      ]
+    },
+    watch: true,
+    watchOptions: {
+      ignored: ['/node_modules', '/gitignore']
+    },
+    target: ['web'],
+    resolve: {
+      extensions: ['.ts', '.js']
+    },
+    stats: {
+      // errorDetails: true
+    }
+  };
 };
+
+module.exports = [
+  createConfig({
+    mode: 'production',
+    outputPath: DIST_PATH,
+    useMinify: true,
+  }),
+  createConfig({
+    mode: 'development',
+    outputPath: DIST2_PATH,
+    useMinify: false,
+  })
+];

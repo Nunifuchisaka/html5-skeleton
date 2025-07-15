@@ -1,54 +1,16 @@
 <%
 let headerTag, h1Tag;
 if ( "" === path ) {
-	headerTag = "header";
-	h1Tag = "h1";
+  headerTag = "header";
+  h1Tag = "h1";
 } else {
-	headerTag = "div";
-	h1Tag = "p";
+  headerTag = "div";
+  h1Tag = "p";
 }
 %>
 
-<input type="checkbox" id="hnav" class="nav_1__checkbox">
-
 <<%= headerTag %> id="header">
-	<<%= h1Tag %>>
-		サイト名
-	</<%= h1Tag %>>
+  <<%= h1Tag %>>
+    サイト名
+  </<%= h1Tag %>>
 </<%= headerTag %>>
-
-<label for="hnav" class="nav_1__toggle"><span></span><span></span><span></span></label>
-
-<nav class="nav_1">
-	<div class="nav_1__1">
-		<ul class="nav_1__items">
-			<li class="is_1">
-				<a href="<%= SITE_URL %>">TOP</a>
-			</li>
-			<li class="is_1">
-				<a href="<%= SITE_URL %>">ページ１</a>
-			</li>
-			<li class="is_1">
-				<a href="#">ページ２</a>
-			</li>
-			<li class="is_2">
-				<input type="checkbox" id="hnav-1">
-				<label for="hnav-1">コンテンツ１<span></span></label>
-				<a href="<%= SITE_URL %>">コンテンツ１</a>
-				<ul>
-					<li><a href="<%= SITE_URL %>">ページ３</a></li>
-					<li><a href="<%= SITE_URL %>">ページ４</a></li>
-				</ul>
-			</li>
-			<li class="is_2">
-				<input type="checkbox" id="hnav-2">
-				<label for="hnav-2">コンテンツ２<span></span></label>
-				<a href="<%= SITE_URL %>">コンテンツ２</a>
-				<ul>
-					<li><a href="<%= SITE_URL %>">ページ５</a></li>
-					<li><a href="<%= SITE_URL %>">ページ６</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-</nav><!-- /.nav_1 -->

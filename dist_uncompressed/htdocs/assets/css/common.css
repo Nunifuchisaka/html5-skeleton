@@ -1,0 +1,68 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[3]!./src/htdocs/assets/css/common.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/*
+## .a_fadein_1
+*/
+.a_fadein_1 {
+  opacity: 0;
+  transition: opacity 1s, transform 1s;
+}
+.a_fadein_1.is_b2t {
+  transform: translateY(20px);
+}
+.a_fadein_1.is_r2l {
+  transform: translateX(40px);
+}
+.a_fadein_1.is_animation {
+  opacity: 1;
+}
+.a_fadein_1.is_animation.is_b2t {
+  transform: translateY(0) !important;
+}
+.a_fadein_1.is_animation.is_r2l {
+  transform: translateX(0) !important;
+}
+
+/*
+## .a_ignite_2
+*/
+.a_ignite_2.is_animation .a_fadein_1 {
+  opacity: 1;
+}
+.a_ignite_2.is_animation .a_fadein_1.is_b2t {
+  transform: translateY(0) !important;
+}
+.a_ignite_2.is_animation .a_fadein_1.is_r2l {
+  transform: translateX(0) !important;
+}
+
+/*
+## .a_ignite_1
+このclass自体はアニメーションを持たない。
+他のclassのアニメーションを発動させる役割。
+*/
+/*
+## .video_1
+使用箇所：
+内容：
+*/
+.video_1 {
+  position: relative;
+}
+.video_1 iframe, .video_1 video {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1.7777777778;
+}
+@media (width <= 767px){
+  .a_fadein_1.is_b2t {
+    transform: translateY(3vw);
+  }
+  .a_fadein_1.is_r2l {
+    transform: translateX(6vw);
+  }
+}

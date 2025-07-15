@@ -3,11 +3,12 @@
 
 .is_none { display: none !important }
 
-@media (min-width: $breakpoint1 + 1) {
-	br.sp,
-	.is_pc_none_1 { display: none !important }
+@include pc {
+  br.sp,
+  .is_pc_none_1 { display: none !important }
 }
-@media (max-width: $breakpoint1) {
-	br.pc,
-	.is_sp_none_1 { display: none !important }
+
+@include sp {
+  br.pc,
+  .is_sp_none_1 { display: none !important }
 }

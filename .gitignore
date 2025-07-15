@@ -5,7 +5,10 @@ Thumbs.db
 /gitignore/
 .sass-cache/
 /node_modules/
-/package-lock.json
 /tmp/
 /release.zip
 /release/
+img2webp/**/*.webp
+img2webp/**/*.jpg
+img2webp/**/*.jpeg
+img2webp/**/*.png

@@ -1,8 +1,8 @@
 <%
 if( meta.titleSeparator ) {
-	meta.titleAfter = meta.titleSeparator + SITE_NAME;
+  meta.titleAfter = meta.titleSeparator + SITE_NAME;
 } else {
-	meta.titleAfter = "";
+  meta.titleAfter = "";
 }
 
 if ( !meta.keywords ) meta.keywords = "";
@@ -45,10 +45,10 @@ if ( !meta.image ) meta.image = "img/og.png";
 
 <script type="application/ld+json">
 {
-	"@context": "https://schema.org",
-	"@type": "WebPage",
-	"name": "<%= meta.title %><%= meta.titleAfter %>",
-	"url": "<%= SITE_URL %><%= meta.url %>",
-	"description": "<%= meta.description %>"
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "<%= meta.title %><%= meta.titleAfter %>",
+  "url": "<%= SITE_URL %><%= meta.url %>",
+  "description": "<%= meta.description %>"
 }
 </script>

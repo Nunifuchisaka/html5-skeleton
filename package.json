@@ -1,30 +1,37 @@
 {
   "author": "",
   "scripts": {
-    "dev": "webpack --mode=development",
-    "prod": "webpack --mode=production"
+    "start": "webpack"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
     "autoprefixer": "^10.4.20",
+    "babel-loader": "^10.0.0",
     "browser-sync": "^2.29.1",
     "browser-sync-webpack-plugin": "^2.3.0",
     "browsersync-ssi": "^0.2.4",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
+    "cssnano": "^7.0.7",
     "ejs-plain-loader": "^1.4.1",
     "file-loader": "^6.2.0",
     "glob": "^11.0.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
-    "imagemin-webp": "^8.0.0",
-    "imagemin-webp-webpack-plugin": "^3.3.6",
-    "imagemin-webpack-plugin": "^2.4.2",
+    "imagemin": "^7.0.1",
+    "imagemin-webp": "^6.1.0",
+    "imagemin-webp-webpack-plugin": "^2.0.0",
+    "imagemin-webpack-plugin": "^1.5.2",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss-loader": "^8.1.1",
     "postcss-sort-media-queries": "^5.2.0",
     "sass": "^1.89.0",
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
+    "stylelint": "^16.21.1",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-webpack-plugin": "^5.0.1",
     "terser-webpack-plugin": "^5.3.10",
     "webp-loader": "^0.6.0",
     "webpack": "^5.96.1",
@@ -32,8 +39,6 @@
     "webpack-remove-empty-scripts": "^1.0.4"
   },
   "dependencies": {
-    "jquery": "^3.7.1",
-    "magnific-popup": "^1.2.0",
-    "slick-carousel": "^1.8.1"
+    "jquery": "^3.7.1"
   }
 }
