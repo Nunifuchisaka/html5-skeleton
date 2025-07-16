@@ -1,48 +1,34 @@
-const validator = require('html-validator');
-const glob = require('glob');
-const fs = require('fs');
+const { HtmlValidate } = require('html-validate');
+const path = require('path');
+
+// .htmlvalidate.json ファイルを読み込む
+const config = require('./.htmlvalidate.json');
+const htmlvalidate = new HtmlValidate(config);
 
 async function validateAllHtml() {
-  const files = glob.sync('dist_uncompressed/htdocs/**/*.html', {
-    ignore: ['dist_uncompressed/htdocs/assets/html/**/*.html'],
-  });
+  try {
+    // 設定ファイルで指定された全てのファイルを一括で検証
+    const report = await htmlvalidate.validate();
 
-  if (files.length === 0) {
-    console.log('\x1b[33m%s\x1b[0m', '検証対象のHTMLファイルが見つかりません。');
-    return;
-  }
+    if (report.valid) {
+      console.log('\x1b[32m%s\x1b[0m', 'All HTML files are valid!');
+    } else {
+      console.error('\x1b[31m%s\x1b[0m', `HTML validation failed with ${report.errorCount} error(s).`);
 
-  console.log(`Validating ${files.length} HTML file(s)...`);
-  let hasErrors = false;
-
-  for (const file of files) {
-    try {
-      const htmlContent = fs.readFileSync(file, 'utf-8');
-      
-      const options = {
-        data: htmlContent,
-        format: 'text',
-      };
-
-      const result = await validator(options);
-
-      if (result.includes('Error:')) {
-        hasErrors = true;
-        console.log(`\n--- Validation results for: \x1b[36m${file}\x1b[0m ---`);
-        console.log(result);
-      }
-    } catch (error) {
-      hasErrors = true;
-      console.error(`Error validating ${file}:`, error);
+      // ファイルごとに結果を整形して出力
+      report.results.forEach(result => {
+        // process.cwd() は現在の作業ディレクトリの絶対パスを返す
+        const relativePath = path.relative(process.cwd(), result.filePath);
+        console.log(`\n--- Validation results for: \x1b[36m${relativePath}\x1b[0m ---`);
+        result.messages.forEach(msg => {
+          console.log(`  - [L${msg.line}:${msg.column}] ${msg.message} (${msg.ruleId})`);
+        });
+      });
+      process.exit(1);
     }
-  }
-
-  console.log('\n--- Validation Summary ---');
-  if (hasErrors) {
-    console.error('\x1b[31m%s\x1b[0m', 'HTML validation failed with errors.');
+  } catch (error) {
+    console.error('An unexpected error occurred during validation:', error);
     process.exit(1);
-  } else {
-    console.log('\x1b[32m%s\x1b[0m', 'All HTML files are valid!');
   }
 }
 
