@@ -14,8 +14,8 @@ const BROWSER_SYNC_CONFIG = {
 };
 
 const IMAGE_OPTIMIZATION_CONFIG = {
-  IMG_TO_WEBP_SRC_DIR: 'src/htdocs/img2webp', // WebPに変換する元画像の場所
-  WEBP_QUALITY: 90, // WebPの品質
+  IMG_TO_WEBP_SRC_DIR: './img2webp',
+  WEBP_QUALITY: 90,
 };
 
 
@@ -24,16 +24,15 @@ const path = require('path');
 const glob = require('glob');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const imagemin = require('imagemin');
-const imageminWebp = require('imagemin-webp');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const htmlMinifier = require('html-minifier-terser');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const sharp = require('sharp');
 const postcss = require('postcss');
 const cssnano = require('cssnano');
-const htmlMinifier = require('html-minifier-terser');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const SRC_PATH = path.resolve(__dirname, SRC_DIR);
 const DIST_PATH = path.resolve(__dirname, DIST_DIR);
 const DIST_UNCOMPRESSED_PATH = path.resolve(__dirname, DIST_UNCOMPRESSED_DIR);
@@ -52,7 +51,14 @@ const createConfig = ({ outputPath, mode }) => {
     },
     module: {
       rules: [
-        { test: /\.(jpg|png|webp|svg|gif|eot|ttf|woff)$/i, type: 'asset/resource', exclude: /node_modules/ },
+        {
+          test: /\.(jpg|jpeg|png|webp|svg|gif|eot|ttf|woff)$/i,
+          type: 'asset/resource',
+          exclude: [
+            /node_modules/,
+            path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
+          ],
+        },
       ]
     },
     plugins: [
@@ -60,7 +66,12 @@ const createConfig = ({ outputPath, mode }) => {
     ],
     watch: 'production' == mode,
     watchOptions: {
-      ignored: ['**/node_modules/**', '**/.DS_Store', '**/Thumbs.db'],
+      ignored: [
+        '**/node_modules/**',
+        '**/.DS_Store',
+        '**/Thumbs.db',
+       path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.webp'),
+      ],
     },
     target: ['web'],
     resolve: { extensions: ['.js'] },
@@ -115,17 +126,24 @@ const createConfig = ({ outputPath, mode }) => {
       new CopyPlugin({
         patterns: [
           {
-            context: IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR,
-            from: '**/*.{jpg,jpeg,png}',
-            to: path.join(DIST_PATH, 'assets/img'),
-            transform: (content) => imagemin.buffer(content, { plugins: [imageminWebp({ quality: IMAGE_OPTIMIZATION_CONFIG.WEBP_QUALITY })] }),
+            from: path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.{jpg,jpeg,png}'),
+            to(pathData) {
+              const sourceDir = path.dirname(pathData.absoluteFilename);
+              const sourceName = path.parse(pathData.absoluteFilename).name;
+              return path.join(sourceDir, `${sourceName}.webp`);
+            },
+            async transform(content) {
+              return await sharp(content)
+                .webp({ quality: IMAGE_OPTIMIZATION_CONFIG.WEBP_QUALITY })
+                .toBuffer();
+            },
             noErrorOnMissing: true,
           },
           {
             from: DIST_UNCOMPRESSED_PATH,
             to: DIST_PATH,
             globOptions: {
-              ignore: ['**/*.js', '**/.DS_Store'],
+              ignore: ['**/*.js', '**/.DS_Store', '**/Thumbs.db'],
             },
             transform: async (content, absoluteFrom) => {
               if (absoluteFrom.endsWith('.html')) {
