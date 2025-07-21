@@ -61,7 +61,9 @@ html {
 }
 
 body {
-  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+          text-size-adjust: 100%;
   -webkit-font-smoothing: subpixel-antialiased;
   min-height: 100%;
   font: 1.6rem/1.6 "ヒラギノ角ゴシック", "Hiragino Sans", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", meiryo, "ＭＳ Ｐゴシック", helvetica, arial, verdana, sans-serif;
@@ -83,15 +85,16 @@ a:hover {
   display: none !important;
 }
 
-@media (width >= 768px) {
-  br.sp,
-  .is_pc_none_1 {
+@media (width <= 767px){
+  br.pc,
+  .is_sp_none_1 {
     display: none !important;
   }
 }
-@media (width <= 767px) {
-  br.pc,
-  .is_sp_none_1 {
+
+@media (width >= 768px){
+  br.sp,
+  .is_pc_none_1 {
     display: none !important;
   }
 }

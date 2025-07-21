@@ -1,6 +1,7 @@
-const SRC_DIR = './src/htdocs';
-const DIST_DIR = './dist/htdocs'; // 最終的な圧縮版の出力先
-const DIST_UNCOMPRESSED_DIR = './dist_uncompressed/htdocs'; // 作業用の中間的な非圧縮版の出力先
+const SRC_DIR = './src';
+const DIST_DIR = './dist';
+const START_PATH = '';
+const DIST_UNCOMPRESSED_DIR = './dist_uncompressed';
 
 const SITE_DATA = {
   START_PATH: '',
@@ -53,7 +54,7 @@ const createConfig = ({ outputPath, mode }) => {
       rules: [
         {
           test: /\.(jpg|jpeg|png|webp|svg|gif|eot|ttf|woff)$/i,
-          type: 'asset/resource',
+          type: 'asset/inline',
           exclude: [
             /node_modules/,
             path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
@@ -75,6 +76,9 @@ const createConfig = ({ outputPath, mode }) => {
     },
     target: ['web'],
     resolve: { extensions: ['.js'] },
+    externals: {
+      // jquery: 'jQuery',
+    },
   };
 
   if ('production' == mode) {
@@ -82,12 +86,22 @@ const createConfig = ({ outputPath, mode }) => {
     glob.sync('**/*.js', { cwd: SRC_PATH, ignore: '**/_*.js' }).forEach(key => {
       config.entry[key.replace('.js', '')] = path.resolve(SRC_PATH, key);
     });
-    config.module.rules.push({ test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' });
+    config.module.rules.push({
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: 'babel-loader'
+    });
     config.optimization = {
       minimize: true,
       minimizer: [ new TerserPlugin({ extractComments: false }) ],
       splitChunks: {
-        cacheGroups: { vendor: { test: /[\\/]node_modules[\\/]/, name: 'assets/js/vendor', chunks: 'all' } }
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'htdocs/assets/js/vendor',
+            chunks: 'all'
+          }
+        }
       }
     };
   }
@@ -99,10 +113,46 @@ const createConfig = ({ outputPath, mode }) => {
     });
     config.module.rules.push({
       test: /\.scss$/,
-      use: [ MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { importLoaders: 2 } }, 'postcss-loader', { loader: 'sass-loader', options: { implementation: require('sass'), sassOptions: { outputStyle: 'expanded' } } } ],
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2,
+            url: {
+              filter: (url, resourcePath) => {
+                // URLが --pc または --sp で終わる画像の場合、webpackでの処理をスキップ
+                if (/(--pc|--sp)\.(jpg|jpeg|png|webp|svg|gif)$/i.test(url)) {
+                  return false;
+                }
+                return true;
+              },
+            },
+          }
+        },
+        'postcss-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            implementation: require('sass'),
+            sassOptions: {
+              outputStyle: 'expanded'
+            }
+          }
+        }
+      ],
     });
-    config.plugins.push(new MiniCssExtractPlugin({ filename: '[name]' }));
-    config.plugins.push(new StylelintPlugin({ files: [`${SRC_DIR}/**/*.scss`], fix: true }));
+    config.plugins.push(
+      new MiniCssExtractPlugin({
+        filename: '[name]'
+      })
+    );
+    config.plugins.push(
+      new StylelintPlugin({
+        files: [`${SRC_DIR}/**/*.scss`],
+        fix: true
+      })
+    );
 
     // HTML
     glob.sync('**/*.ejs', { cwd: SRC_PATH, ignore: '**/_*.ejs' }).forEach(key => {
@@ -117,7 +167,20 @@ const createConfig = ({ outputPath, mode }) => {
     });
     config.module.rules.push({
       test: /\.ejs$/i,
-      use: [ { loader: 'html-loader', options: { sources: false, minimize: false } }, { loader: 'ejs-plain-loader', options: { data: SITE_DATA } } ]
+      use: [
+        {
+          loader: 'html-loader',
+          options: {
+            sources: false,
+            minimize: false
+          }
+        }, {
+          loader: 'ejs-plain-loader',
+          options: {
+            data: SITE_DATA
+          }
+        }
+      ]
     });
   }
   
@@ -147,12 +210,22 @@ const createConfig = ({ outputPath, mode }) => {
             },
             transform: async (content, absoluteFrom) => {
               if (absoluteFrom.endsWith('.html')) {
-                return await htmlMinifier.minify(content.toString(), {
-                  collapseWhitespace: true, removeComments: true, removeRedundantAttributes: true, removeScriptTypeAttributes: true, removeStyleLinkTypeAttributes: true, useShortDoctype: true, minifyJS: true, minifyCSS: true, processScripts: ['application/ld+json'],
+                return await htmlMinifier.minify(
+                  content.toString(), {
+                  collapseWhitespace: true,
+                  removeComments: true,
+                  removeRedundantAttributes: true,
+                  removeScriptTypeAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  useShortDoctype: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  processScripts: ['application/ld+json'],
                 });
               }
               if (absoluteFrom.endsWith('.css')) {
-                return (await postcss([cssnano({ preset: ['default', { discardComments: { removeAll: true } }] })]).process(content, { from: undefined })).css;
+                return (
+                  await postcss([cssnano({ preset: ['default', { discardComments: { removeAll: true } }] })]).process(content, { from: undefined })).css;
               }
               return content;
             },
@@ -161,8 +234,14 @@ const createConfig = ({ outputPath, mode }) => {
       }),
       new BrowserSyncPlugin({
         ...BROWSER_SYNC_CONFIG,
-        server: { baseDir: [DIST_DIR] },
-        files: [ `${DIST_DIR}/**/*.html`, `${DIST_DIR}/**/*.css`, `${DIST_DIR}/**/*.js` ],
+        server: {
+          baseDir: [DIST_DIR + '/htdocs']
+        },
+        files: [
+          `${DIST_DIR}/**/*.html`,
+          `${DIST_DIR}/**/*.css`,
+          `${DIST_DIR}/**/*.js`
+        ],
       }, { reload: true })
     );
   }
