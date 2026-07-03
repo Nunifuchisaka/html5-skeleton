@@ -1,14 +1,69 @@
-# HTML5 Skeleton
+ # HTML5開発スケルトン
 
-## use
-* HTML5
-* CSS3
-* JavaScript(jQuery, Backbone)
-* Sass
-* Webpack
-* Volta
-* Git(Github)
+このプロジェクトは、モダンな開発ツールを使用した静的Webサイトのフロントエンド開発環境です。
+EJS、SCSS、ES6+ JavaScriptを利用して効率的に開発を進め、本番公開用に最適化されたファイルを生成します。
 
+---
 
-## path
-* Document root：www/htdocs
+## ✨ 主な機能
+
+*   **ビルドツール**: Webpack 5 を中心に構築されています。
+*   **JavaScript**:
+    *   BabelによるES6+のトランスパイルに対応。
+    *   `node_modules` からインポートしたライブラリは `vendor.js` として分割出力。
+    *   本番ビルド時にはTerserでコードを圧縮。
+*   **CSS**:
+    *   Sass (SCSS) をCSSにコンパイル。
+    *   PostCSSによるベンダープレフィックスの自動付与。
+    *   本番ビルド時にはコードを圧縮。
+*   **HTML**:
+    *   EJSテンプレートエンジンを利用して、HTMLの共通パーツ化やデータの埋め込みが可能。
+*   **画像最適化**:
+    *   `img2webp` ディレクトリに置かれたJPG/PNG画像を、より軽量なWebP形式に自動変換。
+*   **開発サーバー**:
+    *   BrowserSyncによるローカルサーバー機能。
+    *   ファイルの変更を監視し、ブラウザを自動でリロード。
+    *   SSI (Server Side Includes) にも対応。
+*   **コード品質**:
+    *   ESLintとStylelintを導入し、コードの品質と一貫性を維持。
+
+## 📂 ディレクトリ構成
+
+```
+├── dist/                   # 本番公開用の圧縮ファイル
+├── dist_uncompressed/      # 変更差分確認用の非圧縮ファイル
+├── img2webp/               # WebPに変換したい画像を配置
+├── node_modules/
+├── src/                    # ソースファイル
+├── .babelrc
+├── package.json
+├── postcss.config.js
+└── webpack.config.js
+```
+
+*   **ドキュメントルート**: `dist/htdocs`
+
+## 🚀 使い方
+
+### 1. 依存パッケージのインストール
+
+```bash
+npm install
+```
+
+### 2. 開発・ビルド
+
+以下のコマンドを実行すると、`src` ディレクトリ内のファイル変更を監視し、開発サーバーが起動します。
+ファイルが変更されると、`dist` ディレクトリに本番用のファイルが自動的に生成され、ブラウザがリロードされます。
+
+```bash
+npm start
+```
+
+### 3. HTMLの構文チェック
+
+HTMLファイルの構文をチェックします。
+
+```bash
+npm run validate:html
+```
