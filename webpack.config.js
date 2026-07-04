@@ -34,9 +34,56 @@ const path = require('path'),
       DIST_PATH = path.resolve(__dirname, DIST_DIR),
       DIST_UNCOMPRESSED_PATH = path.resolve(__dirname, DIST_UNCOMPRESSED_DIR);
 
+const CSS_URL_SKIP_PATTERN = /(--pc|--sp|--exc)\.(jpg|jpeg|png|webp|svg|gif)(\?\d+)?$/i;
+
+// URLが --pc/--sp/--exc で終わる画像や、/から始まる画像はwebpackでの処理をスキップする
+const cssUrlFilter = (url) => !(CSS_URL_SKIP_PATTERN.test(url) || url.startsWith('/'));
+
+const getScssEntries = () => {
+  const entries = {};
+  glob.sync('**/*.scss', { cwd: SRC_PATH, ignore: '**/_*.scss' }).forEach(key => {
+    entries[key.replace('.scss', '.css')] = path.resolve(SRC_PATH, key);
+  });
+  return entries;
+};
+
+const createScssRule = ({ sourceMap, outputStyle }) => ({
+  test: /\.scss$/,
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 3,
+        url: {
+          filter: cssUrlFilter,
+        },
+      }
+    },
+    'postcss-loader',
+    {
+      loader: 'resolve-url-loader',
+      options: {
+        sourceMap
+      }
+    },
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap,
+        implementation: require('sass'),
+        sassOptions: {
+          outputStyle
+        }
+      }
+    }
+  ],
+});
+
 const createConfig_development = ({ outputPath }) => {
 
   const config = {
+    name: 'uncompressed',
     mode: 'development',
     devtool: false,
     entry: {},
@@ -65,51 +112,8 @@ const createConfig_development = ({ outputPath }) => {
   };
 
   // CSS
-  glob.sync('**/*.scss', { cwd: SRC_PATH, ignore: '**/_*.scss' }).forEach(key => {
-    config.entry[key.replace('.scss', '.css')] = path.resolve(SRC_PATH, key);
-  });
-  config.module.rules.push({
-    test: /\.scss$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      {
-        loader: 'css-loader',
-        options: {
-          importLoaders: 3,
-          url: {
-            filter: (url, resourcePath) => {
-              // URLが --pc または --sp で終わる画像の場合、webpackでの処理をスキップ
-              if (/(--pc|--sp|--exc)\.(jpg|jpeg|png|webp|svg|gif)(\?\d+)?$/i.test(url)) {
-                return false;
-              }
-              // URLが/から始まる画像の場合、webpackでの処理をスキップ
-              if (url.startsWith('/')) {
-                return false;
-              }
-              return true;
-            },
-          },
-        }
-      },
-      'postcss-loader',
-      {
-        loader: 'resolve-url-loader',
-        options: {
-          sourceMap: true
-        }
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-          implementation: require('sass'),
-          sassOptions: {
-            outputStyle: 'expanded'
-          }
-        }
-      }
-    ],
-  });
+  Object.assign(config.entry, getScssEntries());
+  config.module.rules.push(createScssRule({ sourceMap: true, outputStyle: 'expanded' }));
   config.plugins.push(
     new MiniCssExtractPlugin({
       filename: '[name]'
@@ -122,14 +126,12 @@ const createConfig_development = ({ outputPath }) => {
       apply: (compiler) => {
         // 圧縮しないCSSの最初のコメントを削除
         compiler.hooks.emit.tap('RemoveCssBannerPlugin', (compilation) => {
-          for (const assetName in compilation.assets) {
+          const { RawSource } = compiler.webpack.sources;
+          for (const assetName of Object.keys(compilation.assets)) {
             if (assetName.endsWith('.css')) {
               const originalSource = compilation.assets[assetName].source().toString();
               const cleanedSource = originalSource.replace(/\/\*![\s\S]*?\*\//g, '');
-              compilation.assets[assetName] = {
-                source: () => cleanedSource,
-                size: () => cleanedSource.length
-              };
+              compilation.updateAsset(assetName, new RawSource(cleanedSource));
             }
           }
         });
@@ -171,6 +173,8 @@ const createConfig_development = ({ outputPath }) => {
 
 const createConfig_production = ({ outputPath }) => {
   const config = {
+    name: 'production',
+    dependencies: ['uncompressed'],
     mode: 'production',
     entry: {},
     output: {
@@ -204,11 +208,11 @@ const createConfig_production = ({ outputPath }) => {
         '**/node_modules/**',
         '**/.DS_Store',
         '**/Thumbs.db',
-       path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.webp'),
+        path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.webp').replace(/\\/g, '/'),
       ],
     },
     target: ['web'],
-    resolve: { extensions: ['.js','.ts'] },
+    resolve: { extensions: ['.js'] },
   };
 
   // JS
@@ -222,43 +226,8 @@ const createConfig_production = ({ outputPath }) => {
   });
 
   // CSS
-  glob.sync('**/*.scss', { cwd: SRC_PATH, ignore: '**/_*.scss' }).forEach(key => {
-    config.entry[key.replace('.scss', '.css')] = path.resolve(SRC_PATH, key);
-  });
-  config.module.rules.push({
-    test: /\.scss$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      {
-        loader: 'css-loader',
-        options: {
-          importLoaders: 3,
-          url: {
-            filter: (url, resourcePath) => {
-              if (/(--pc|--sp|--exc)\.(jpg|jpeg|png|webp|svg|gif)(\?\d+)?$/i.test(url)) {
-                return false;
-              }
-              if (url.startsWith('/')) {
-                return false;
-              }
-              return true;
-            },
-          },
-        }
-      },
-      'postcss-loader',
-      'resolve-url-loader',
-      {
-        loader: 'sass-loader',
-        options: {
-          implementation: require('sass'),
-          sassOptions: {
-            outputStyle: 'compressed'
-          }
-        }
-      }
-    ],
-  });
+  Object.assign(config.entry, getScssEntries());
+  config.module.rules.push(createScssRule({ sourceMap: false, outputStyle: 'compressed' }));
   config.plugins.push(new MiniCssExtractPlugin({ filename: '[name]' }));
 
   config.plugins.push(
