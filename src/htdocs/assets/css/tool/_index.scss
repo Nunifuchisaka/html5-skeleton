@@ -79,9 +79,3 @@ $header_1__height--sp: 0;
     @content;
   }
 }
-
-@mixin landscape {
-  @media (aspect-ratio >= 16 / 7.5) {
-    @content;
-  }
-}
