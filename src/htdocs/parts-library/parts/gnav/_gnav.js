@@ -94,7 +94,7 @@ if (gnavHeader) {
 
       closeTimer = setTimeout(() => {
         closeMega(item);
-      }, 150);
+      }, 300);
     });
 
     item.addEventListener("focusin", () => {

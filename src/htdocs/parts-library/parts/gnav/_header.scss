@@ -1,0 +1,80 @@
+@use "../../../assets/css/tool" as *;
+
+.header_1 {
+  position: relative;
+  z-index: 100;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+
+    @include pc {
+      padding: 0 40px;
+    }
+  }
+
+  &__logo {
+    margin: 0;
+    font-size: 0;
+
+    a {
+      display: inline-block;
+    }
+  }
+
+  &__trigger-bar {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: currentcolor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:nth-child(1) {
+      top: 0;
+    }
+
+    &:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:nth-child(3) {
+      bottom: 0;
+    }
+  }
+
+  &__trigger {
+    position: relative;
+    z-index: 110;
+    width: 32px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    @include pc {
+      display: none;
+    }
+
+    &[aria-expanded="true"] {
+      .header_1__trigger-bar:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      .header_1__trigger-bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .header_1__trigger-bar:nth-child(3) {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+      }
+    }
+  }
+}
