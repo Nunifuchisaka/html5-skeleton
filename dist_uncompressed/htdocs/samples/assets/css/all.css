@@ -134,18 +134,19 @@ body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_awar
   margin: 0;
   flex: 1 1 auto;
   min-width: 0;
+  font-size: 75%;
 }
 .nav_4.is_scrolled .nav_4__sub {
   flex: 0 0 auto;
+  font-size: 75%;
 }
 .nav_4__main {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 14px;
+  grid-gap: 1em;
   max-width: 1200px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 25px;
   list-style: none;
   box-sizing: border-box;
 }

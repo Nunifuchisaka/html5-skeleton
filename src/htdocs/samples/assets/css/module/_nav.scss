@@ -57,10 +57,12 @@
       margin: 0;
       flex: 1 1 auto;
       min-width: 0;
+      font-size: math.div(12, $font-size) * 100%;
     }
 
     #{$block}__sub {
       flex: 0 0 auto;
+      font-size: math.div(12, $font-size) * 100%;
     }
   }
   @include sp {
@@ -78,11 +80,10 @@
   &__main {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 14px;
+    grid-gap: 1em;
     max-width: $width3;
     height: 100%;
     margin: 0 auto;
-    padding: 0 25px;
     list-style: none;
     box-sizing: border-box;
     @include sp {
