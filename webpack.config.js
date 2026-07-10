@@ -55,6 +55,7 @@ const createScssRule = ({ sourceMap, outputStyle }) => ({
       loader: 'css-loader',
       options: {
         importLoaders: 3,
+        sourceMap,
         url: {
           filter: cssUrlFilter,
         },
@@ -62,15 +63,17 @@ const createScssRule = ({ sourceMap, outputStyle }) => ({
     },
     'postcss-loader',
     {
+      // resolve-url-loaderはパーティシャル間のurl()相対パス解決にソースマップを必須とするため、
+      // 最終出力にソースマップを含めない場合でも常に有効にする
       loader: 'resolve-url-loader',
       options: {
-        sourceMap
+        sourceMap: true
       }
     },
     {
       loader: 'sass-loader',
       options: {
-        sourceMap,
+        sourceMap: true,
         implementation: require('sass'),
         sassOptions: {
           outputStyle

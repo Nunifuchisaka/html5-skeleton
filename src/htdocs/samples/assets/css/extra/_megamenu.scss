@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "sass:map";
 @use "../../../../assets/css/tool" as *;
 @use "../tool" as samples;
 
@@ -40,8 +41,8 @@
     padding: 0 $padding1--pc;
   }
   @each $content, $props in samples.$contents {
-    $color: map-get($props, color);
-    $textColor: map-get($props, textcolor);
+    $color: map.get($props, color);
+    $textColor: map.get($props, textcolor);
     .is_#{$content} & {
       background-color: $color;
       @if $textColor {
