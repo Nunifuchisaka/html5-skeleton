@@ -43,13 +43,37 @@
 */
 
 .nav_4 {
+  $block: &;
   position: relative;
   white-space: nowrap;
-  @media (max-width: $breakpoint1) {
+  &.is_scrolled {
+    display: flex;
+    align-items: center;
+    max-width: $width3;
+    margin: 0 auto;
+
+    #{$block}__main {
+      max-width: none;
+      margin: 0;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    #{$block}__sub {
+      flex: 0 0 auto;
+    }
+  }
+  @include sp {
     display: block;
     margin-top: 2em;
     padding: 0 0 1.5em;
     text-align: center;
+
+    &.is_scrolled {
+      display: block;
+      max-width: none;
+      margin: 2em 0 0;
+    }
   }
   &__main {
     display: grid;
@@ -61,7 +85,7 @@
     padding: 0 25px;
     list-style: none;
     box-sizing: border-box;
-    @media (max-width: $breakpoint1) {
+    @include sp {
       display: block;
       height: auto;
       padding: 0;
@@ -112,12 +136,12 @@
         background: #333;
         text-decoration: none !important;
         box-sizing: border-box;
-        @media (max-width: $breakpoint1) {
+        @include sp {
           display: block;
           height: auto;
           padding: .4em 0;
         }
-        @media (max-width: $breakpoint1) {
+        @include sp {
           &::after {
             content: none !important;
           }
@@ -132,7 +156,7 @@
           border-left: 0;
           border-right: 0;
           box-sizing: border-box;
-          @media (max-width: $breakpoint1) {
+          @include sp {
             display: block;
             height: auto;
             padding: 0 !important;

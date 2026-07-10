@@ -123,6 +123,21 @@ body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_awar
   position: relative;
   white-space: nowrap;
 }
+.nav_4.is_scrolled {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.nav_4.is_scrolled .nav_4__main {
+  max-width: none;
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.nav_4.is_scrolled .nav_4__sub {
+  flex: 0 0 auto;
+}
 .nav_4__main {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -273,12 +288,17 @@ li.is_socialbusiness .nav_4__main > li {
 .is_socialbusiness .megamenu_1 {
   background-color: #0064d3;
 }
-@media (max-width: 767px){
+@media (width <= 767px){
   .nav_4 {
     display: block;
     margin-top: 2em;
     padding: 0 0 1.5em;
     text-align: center;
+  }
+  .nav_4.is_scrolled {
+    display: block;
+    max-width: none;
+    margin: 2em 0 0;
   }
   .nav_4__main {
     display: block;
@@ -299,6 +319,8 @@ li.is_socialbusiness .nav_4__main > li {
     padding: 0 !important;
     border: 0 !important;
   }
+}
+@media (max-width: 767px){
   .nav_4 .megamenu_1 {
     display: none !important;
   }
