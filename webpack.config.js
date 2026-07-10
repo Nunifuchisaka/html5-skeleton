@@ -121,10 +121,14 @@ const createConfig_development = ({ outputPath }) => {
     new MiniCssExtractPlugin({
       filename: '[name]'
     }),
-    new StylelintPlugin({
-      files: [`${SRC_DIR}/**/*.scss`],
-      fix: true
-    }),
+    // 編集中は毎回のリビルドでstylelintが走ると重いため既定では無効。
+    // 実行したい時は `STYLELINT=1 npm start` のように環境変数を付けて起動する。
+    ...(process.env.STYLELINT === '1' ? [
+      new StylelintPlugin({
+        files: [`${SRC_DIR}/**/*.scss`],
+        fix: true
+      })
+    ] : []),
     {
       apply: (compiler) => {
         // 圧縮しないCSSの最初のコメントを削除

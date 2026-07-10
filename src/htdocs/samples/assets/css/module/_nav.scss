@@ -43,30 +43,23 @@
 */
 
 .nav_4 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
-  margin-top: .2em;
-  padding: 0 .5em;
-  font-size: 1.5rem;
   white-space: nowrap;
   @media (max-width: $breakpoint1) {
     display: block;
     margin-top: 2em;
     padding: 0 0 1.5em;
-    font-size: px2vw2(18);
     text-align: center;
   }
-  > ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  &__main {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 14px;
+    max-width: 1200px;
     height: 100%;
-    margin: 0;
 
-    // padding: .5em 0;
-    padding: 0;
+    // margin: 0;
+    padding: 0 25px;
     list-style: none;
     box-sizing: border-box;
     @media (max-width: $breakpoint1) {
@@ -116,6 +109,8 @@
         display: block;
         position: relative;
         height: 100%;
+        color: #fff;
+        background: #333;
         text-decoration: none !important;
         box-sizing: border-box;
         @media (max-width: $breakpoint1) {
@@ -131,6 +126,7 @@
         span {
           display: flex;
           align-items: center;
+          justify-content: center;
           height: 100%;
           padding: .5335em clamp1(14);
           border: solid 5px transparent;
@@ -152,470 +148,23 @@
       }
     }
   }
-}
-
-/*
-## .nav_3
-使用箇所：グローバルフッター
-内容：
-*/
-
-.nav_3 {
-  display: flex;
-  justify-content: center;
-  padding: 0 $padding1--pc;
-  font-size: math.div(14, 16) * 100%;
-  @media (max-width: $breakpoint1) {
-    display: block;
-    margin: 0 $padding1--sp;
-    padding: 0;
-    border-top: solid 1px #ccc;
-  }
-  br { display: none }
-  a {
-    text-decoration: none;
-  }
-  &__column {
-    width: fit-content;
-    padding-right: 3em;
-    @media (max-width: $breakpoint1) {
-      width: 100%;
-      padding-right: 0;
-    }
-    &:last-of-type {
-      padding-right: 0;
-    }
-    > div {
-      @media (max-width: $breakpoint1) {
-        border-bottom: solid 1px #ccc;
-      }
-      + div {
-        margin-top: 2em;
-        @media (max-width: $breakpoint1) {
-          margin-top: 0;
-        }
-      }
-      > a, > label {
-        position: relative;
-        font-weight: 800;
-        @media (max-width: $breakpoint1) {
-          padding: .6em px2vw2(22) .5em .7em;
-          &::after {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 50%;
-            right: px2vw2(11);
-            width: px2vw2(9);
-            aspect-ratio: 1;
-            margin-top: px2vw2(-7);
-            background: url("../../img/nav_3__arw.svg") no-repeat 0 0 / 100%;
-            transform: rotate(45deg);
-          }
-        }
-      }
-      > a { display: block }
-      > label {
-        display: none;
-        @media (max-width: $breakpoint1) {
-          display: block;
-          + a {
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  ul, li {
-    margin: .2em 0 0;
-  }
-  ul {
-    padding: 0;
-    list-style: none;
-    @media (max-width: $breakpoint1) {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height .5s;
-    }
+  &__sub {
+    display: flex;
+    justify-content: center;
     a {
-      @media (max-width: $breakpoint1) {
-        display: block;
-        padding: .3em .7em;
-      }
+      display: block;
+      padding: 1em;
     }
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  [type="checkbox"] {
-    display: none;
-    &:checked {
-      ~ ul {
-        max-height: 100vh;
-      }
-    }
-  }
-  li {
-    @media (max-width: $breakpoint1) {
-      &:last-of-type {
-        padding-bottom: 1em;
-      }
-    }
-  }
-  .logo_3 + & {
-    margin-top: 4em;
   }
 }
 
-/*
-## .nav_2
-使用箇所：header
-内容：
-*/
-
-.nav_2 {
-  $self: &;
-  $width_: 1017;
-  $width2_: 776;
-
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 100vh;
-  padding-top: $header_1__height--pc;
-  font-size: 2rem;
-  font-weight: 700;
-  background: rgb(255 255 255 / 95%);
-  box-sizing: border-box;
-  transition: width .5s;
-  z-index: 100;
-  &__checkbox {
-    display: none;
-    &:checked {
-      ~ #{$self} {
-        width: px2vw1($width_);
-      }
-      ~ #header #{$self}__toggle {
-        span {
-          &:nth-of-type(1) {
-            transform: translateY(14px) rotate(25deg);
-          }
-          &:nth-of-type(2) {
-            opacity: 0;
-          }
-          &:nth-of-type(3) {
-            transform: translateY(-14px) rotate(-25deg);
-          }
-        }
-      }
-    }
-  }
-  &__toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 80px;
-    aspect-ratio: 1.2;
-    padding: 20px;
-    box-sizing: border-box;
-    cursor: pointer;
-    z-index: 1001;
-    span {
-      flex: 0 0 2px;
-      display: block;
-      background: #000;
-      transition: all .5s;
-    }
-  }
-  a {
-    text-decoration: none;
-  }
-  &__logo {
-    a {
-      transition: opacity .5s;
-      &:hover {
-        opacity: .7;
-      }
-    }
-    img {
-      width: auto;
-      height: 56px;
-      vertical-align: top;
-    }
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  &__1 {
-    overflow: auto;
-    width: px2vw1($width_);
-    min-width: $width2_ + 0;
-    max-height: 100%;
-    padding: clamp1(86) 0 clamp1(86) clamp1(40);
-    box-sizing: border-box;
-  }
-  &__2 {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    max-width: 1116px;
-    margin: 0 auto;
-    padding: clamp1(52) $padding1--pc clamp1(64);
-  }
-  &__items {
-    display: flex;
-    flex-flow: column wrap;
-    width: 100%;
-    max-width: $width2_ + 0;
-    height: 16em;// 30rem
-    margin: -1em auto 0;
-    #{$self}__2 & {
-      margin: -1em 0 0 auto;
-    }
-    > li {
-      > input[type="checkbox"],
-      > label {
-        display: none;
-      }
-    }
-    ul {
-      padding-left: 1em;
-      font-weight: 400;
-      font-size: 1.8rem;
-    }
-  }
-  li {
-    margin-top: 1em;
-    &.is_1 {
-      padding-right: 2em;
-    }
-  }
-  @media (max-width: $breakpoint1) {
-    padding-top: $header_1__height--sp;
-    font-size: px2vw2(34);
-    font-weight: 500;
-    &__checkbox {
-      &:checked {
-        ~ #{$self} {
-          width: 100vw;
-        }
-        ~ #header #{$self}__toggle {
-          span {
-            &:nth-of-type(1) {
-              transform: translateY(2.8vw) rotate(25deg);
-            }
-            &:nth-of-type(2) {
-              opacity: 0;
-            }
-            &:nth-of-type(3) {
-              transform: translateY(-2.8vw) rotate(-25deg);
-            }
-          }
-        }
-      }
-    }
-    &__toggle {
-      width: px2vw2(154);
-      padding: px2vw2(24) px2vw2(32) px2vw2(33);
-    }
-    &__1 {
-      width: 100vw;
-      min-width: unset;
-      padding: 0;
-    }
-    &__2 {
-      display: block;
-      margin: 0;
-      padding: 0;
-    }
-    li {
-      margin-top: 0;
-      padding: 0 !important;
-      &.is_3 {
-        flex: 0 0 auto;
-
-        // width: auto;
-      }
-    }
-    a, label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      height: px2vw2(149);
-    }
-    label {
-      span {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 50%;
-        right: px2vw2(48);
-        width: px2vw2(60);
-        aspect-ratio: 1;
-        border: solid 1px #000;
-        border-radius: 50%;
-        transform: translateY(-50%);
-        &::before, &::after {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          background: #000;
-          transform: translate(-50%,-50%);
-        }
-        &::before {
-          width: px2vw2(23);
-          height: 2px;
-        }
-        &::after {
-          width: 2px;
-          height: px2vw2(23);
-        }
-        #footer & {
-          filter: brightness(0) invert(1);
-        }
-      }
-    }
-    &__items {
-      display: block;
-      height: auto;
-      margin: 0 !important;
-      ul {
-        overflow: hidden;
-        position: relative;
-        max-height: 0;
-        padding-left: 0;
-        font-size: px2vw2(28);
-        font-weight: 400;
-        transition: max-height .5s;
-        a {
-          justify-content: flex-start;
-          height: px2vw2(100);
-          padding: 0 px2vw2(98);
-        }
-      }
-      > li {
-        > input[type="checkbox"] {
-          &:checked {
-            ~ ul {
-              max-height: 200vh;
-            }
-            + label span::after {
-              display: none;
-            }
-          }
-        }
-        > label {
-          display: flex;
-          + a { display: none }
-        }
-        > a {
-
-        }
-        + li {
-          border-top: solid 1px #b2b2b2;
-        }
-      }
-      ul > li:last-of-type {
-        padding-bottom: px2vw2(25);
-      }
-      #footer & > li + li {
-        border-top-color: #808080;
-      }
-    }
-  }
-}
 
 /*
 ## .nav_1
-使用箇所：下層ページのグローバルヘッダー
+使用箇所：
 内容：グローバルナビゲーション
 */
 
 .nav_1 {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  font-size: 1.5rem;
-  white-space: nowrap;
-  @media (max-width: $breakpoint2) {
-    display: none;
-  }
-  > ul {
-    display: flex;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    > li {
-      height: 100%;
-      @each $content, $props in samples.$contents {
-        $color: map.get($props, color);
-        &.is_#{$content} {
-          > a {
-            &::after {
-              border-bottom-color: $color !important;
-            }
-            &:hover, &:focus {
-              span {
-                border-top-color: $color;
-              }
-            }
-          }
-          body.page_#{$content} & > a span {
-            border-top-color: $color;
-          }
-        }
-      }
-      @each $content, $props in samples.$contents {
-        li.is_#{$content} & {
-          border-top-color: map.get($props, color);
-        }
-      }
-      &.is_megamenu > a {
-        &:hover, &:focus {
-          &::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border: solid 8px transparent;
-            border-top: 0;
-            border-bottom: solid 13px;
-            transform: translateX(-50%);
-          }
-        }
-      }
-      > a {
-        display: block;
-        position: relative;
-        height: 100%;
-        text-decoration: none !important;
-        span {
-          display: flex;
-          align-items: center;
-          height: 100%;
-          padding: .2em clamp1(12);
-          border: solid 5px transparent;
-          border-left: 0;
-          border-right: 0;
-          box-sizing: border-box;
-        }
-        &:hover, &:focus {
-          span {
-            border-top-color: #000;
-          }
-        }
-      }
-    }
-  }
+  
 }

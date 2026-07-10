@@ -1,2 +1,2 @@
-// parts-library の gnav megamenu は一旦不使用（.megamenu_1 が samples/nav_4 のメガメニューと衝突するため）
-// @use "../../../parts-library/parts/gnav/megamenu";
+@use "sass:math";
+@use "../tool" as *;
