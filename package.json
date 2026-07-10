@@ -24,6 +24,7 @@
     "html-validate": "^9.7.1",
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^2.9.2",
+    "playwright": "^1.61.1",
     "postcss": "^8.5.6",
     "postcss-loader": "^8.1.1",
     "postcss-sort-media-queries": "^5.2.0",
