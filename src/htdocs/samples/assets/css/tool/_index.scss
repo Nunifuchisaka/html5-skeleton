@@ -1,0 +1,56 @@
+@use "sass:math";
+
+$red1: #d72831;
+$blue1: #006edd;
+$blue2: #001f5d;
+$blue3: #0064d3;
+$yellow1: #f5d86e;
+
+$admin-bar_height: (
+  pc: 32px,
+  sp: 46px
+);
+
+$contents: (
+  about: (
+    color: #481610,
+    items: ('greetings', 'future', 'students', 'entrepreneur', 'new-entrepreneur', 'support'),
+  ),
+  message: (
+    color: #f7d26d,
+  ),
+  profile: (
+    color: #a799C5,
+    items: ('philosophy', 'history', 'organization', 'projects', 'access', 'aoi', 'rules', 'accountantreport', 'privacypolicy', 'what-is-personal-data-for'),
+  ),
+  scholarship: (
+    color: #7adceb,
+    textColor: #333,
+    items: ('about', 'recruitment-requirements', 'policy', 'examples'),
+  ),
+  socialbusiness: (
+    color: $blue3,
+    items: ('about', 'concept', 'recruitment-requirements', 'policy', 'award-winners'),
+  ),
+  study-group: (
+    color: $yellow1,
+    textColor: #333,
+  ),
+  elpaso: (
+    color: $red1,
+    items: ('outline', 'fellowmember', 'membership', 'membersonly', 'study-group'),
+  ),
+  news: (
+    color: #00a355,
+  ),
+  news_column: (
+    color: #00a355,
+  ),
+  column: (
+    color: #e5a76a,
+  ),
+  donate: (
+    color: #e5a76a,
+    items: ('procedure', 'fellowmember'),
+  )
+);
