@@ -15,7 +15,7 @@ npm run validate:html   # runs html-validate against dist_uncompressed/htdocs/**
 node validate-html.js   # alternate HTML validator: uses .htmlvalidate.json and prints per-file line/column errors
 ```
 
-There is no test script and no lint script in `package.json`. Stylelint runs automatically as part of the build (see below, with `fix: true`, so it auto-fixes SCSS in place). ESLint is installed (`eslint.config.js` exists) but is **not** wired into webpack or any npm script — run it manually if needed: `npx eslint src`.
+There is no test script and no lint script in `package.json`. Stylelint (`stylelint-webpack-plugin`, `fix: true`, so it auto-fixes SCSS in place) is wired into the `uncompressed` config but only runs when the `STYLELINT` env var is set — plain `npm start` skips it (kept off during normal editing since it re-lints/re-fixes SCSS on every watch-triggered rebuild); run `STYLELINT=1 npm start` to enable it for a session. ESLint is installed (`eslint.config.js` exists) but is **not** wired into webpack or any npm script — run it manually if needed: `npx eslint src`.
 
 To build/validate a single page during development, just run `npm start` and check the corresponding file under `dist_uncompressed/htdocs/`; there's no per-file build command.
 
@@ -59,6 +59,10 @@ Pages `include()` shared partials (`_head`, `_header`, `_footer`, `_body_before`
 ### Parts library (`src/htdocs/parts-library/`)
 
 A copy-paste component warehouse, not part of the build itself — every file inside uses the `_`-prefixed partial convention, so nothing here is ever compiled as its own entry. Organized into `parts/` (single components), `layouts/` (page/section-sized pieces), `snippets/` (short fragments like meta tags, SSI, structured data), and `recipes/` (docs on combining multiple parts). Each part directory bundles its EJS/SCSS/JS together (e.g. `parts/accordion/_accordion.{ejs,scss,js}`) with a local `README.md` describing dependencies and where to copy it into a target project (e.g. `_accordion.ejs` → `src/htdocs/assets/html/parts/`, `_accordion.scss` → `assets/css/module/`, `_accordion.js` → `assets/js/components/`). Designed to be relocatable to its own repo later, so treat it as self-contained rather than reaching into project-specific paths.
+
+### Samples area (`src/htdocs/samples/`)
+
+A self-contained demo/prototype area, mirroring the main site's `assets/css/{tool,module,extra}` structure under its own `samples/assets/` root with its own aggregator (`samples/assets/css/all.scss`, imported the same way `common.scss` is). Unlike the parts library, files here follow the normal build-entry convention (non-`_`-prefixed `.ejs`/`.scss` are real webpack entries), and its SCSS imports the main site's `tool/_index.scss` (`@use "../../../assets/css/tool" as *`) for shared breakpoints/mixins while keeping its own `tool/_index.scss` for sample-specific data (e.g. `$contents` map). Pages are wired into `index.ejs` via SSI (`<!--#include virtual="/samples/assets/html/*.html" -->`), not EJS `include()`. Because it's an independent component set loaded on the same pages as `common.css`, watch out for class-name collisions with `assets/css/module/` or the parts library (e.g. both once defined `.megamenu_1`) — CSS from both bundles applies to the same DOM.
 
 ### Deployment
 
