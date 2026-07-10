@@ -11,15 +11,29 @@ $font-size: 16;
 $breakpoint1: 767px;
 $breakpoint2: 1218px;
 
-$padding1--pc: 40px;
-
 $site-width--pc: 1440; // px
 $site-width--sp: 750; // px
+
+$padding1--pc: 40px;
+$padding1--sp: 2.67vw; // 20px
 
 
 @mixin fz($size: 16) {
   font-size: math.div($size, 10) + rem;
 }
+
+@mixin sp {
+  @media (width <= $breakpoint1) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (width >= ($breakpoint1 + 1)) {
+    @content;
+  }
+}
+
 
 @function px2vw2($px){
   $px: math.div($px * 100, $site-width--sp);
@@ -65,22 +79,3 @@ $width1: 1106px;
 $width2: px2vw2(570);
 $width3_: 1200;
 $width3: $width3_ * 1px;
-
-$padding1--pc: 40px;
-$padding1--sp: 2.67vw; // 20px
-
-$header_1__height--pc: 0;
-$header_1__height--sp: 0;
-
-
-@mixin sp {
-  @media (width <= $breakpoint1) {
-    @content;
-  }
-}
-
-@mixin pc {
-  @media (width >= ($breakpoint1 + 1)) {
-    @content;
-  }
-}
