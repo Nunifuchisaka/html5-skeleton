@@ -3,7 +3,6 @@
 @use "../../../../assets/css/tool" as *;
 @use "../tool" as samples;
 
-
 /*
 ## .nav_5
 使用箇所：.megamenu_1
@@ -129,11 +128,6 @@
             content: none !important;
           }
         }
-        &:hover, &:focus {
-          span {
-            border-top-color: #000;
-          }
-        }
         span {
           display: flex;
           align-items: center;
@@ -150,11 +144,15 @@
             border: 0 !important;
           }
         }
+        &:hover, &:focus {
+          span {
+            border-top-color: #000;
+          }
+        }
       }
     }
   }
 }
-
 
 /*
 ## .nav_3
@@ -173,15 +171,10 @@
     padding: 0;
     border-top: solid 1px #ccc;
   }
-  [type="checkbox"] {
-    display: none;
-    &:checked {
-      ~ ul {
-        max-height: 100vh;
-      }
-    }
-  }
   br { display: none }
+  a {
+    text-decoration: none;
+  }
   &__column {
     width: fit-content;
     padding-right: 3em;
@@ -251,6 +244,17 @@
       }
     }
   }
+  a:hover {
+    text-decoration: underline;
+  }
+  [type="checkbox"] {
+    display: none;
+    &:checked {
+      ~ ul {
+        max-height: 100vh;
+      }
+    }
+  }
   li {
     @media (max-width: $breakpoint1) {
       &:last-of-type {
@@ -258,17 +262,10 @@
       }
     }
   }
-  a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
   .logo_3 + & {
     margin-top: 4em;
   }
 }
-
 
 /*
 ## .nav_2
@@ -337,9 +334,6 @@
   }
   a {
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
   }
   &__logo {
     a {
@@ -353,6 +347,9 @@
       height: 56px;
       vertical-align: top;
     }
+  }
+  a:hover {
+    text-decoration: underline;
   }
   &__1 {
     overflow: auto;
@@ -436,55 +433,6 @@
       margin: 0;
       padding: 0;
     }
-    &__items {
-      display: block;
-      height: auto;
-      margin: 0 !important;
-      > li {
-        > input[type="checkbox"] {
-          &:checked {
-            ~ ul {
-              max-height: 200vh;
-            }
-            + label span::after {
-              display: none;
-            }
-          }
-        }
-        > label {
-          display: flex;
-          + a { display: none }
-        }
-        > a {
-          
-        }
-        + li {
-          border-top: solid 1px #b2b2b2;
-          #footer & {
-            border-top-color: #808080;
-          }
-        }
-      }
-      ul {
-        overflow: hidden;
-        position: relative;
-        max-height: 0;
-        padding-left: 0;
-        font-size: px2vw2(28);
-        font-weight: 400;
-        transition: max-height .5s;
-        > li {
-          &:last-of-type {
-            padding-bottom: px2vw2(25);
-          }
-        }
-        a {
-          justify-content: flex-start;
-          height: px2vw2(100);
-          padding: 0 px2vw2(98);
-        }
-      }
-    }
     li {
       margin-top: 0;
       padding: 0 !important;
@@ -533,6 +481,53 @@
         #footer & {
           filter: brightness(0) invert(1);
         }
+      }
+    }
+    &__items {
+      display: block;
+      height: auto;
+      margin: 0 !important;
+      ul {
+        overflow: hidden;
+        position: relative;
+        max-height: 0;
+        padding-left: 0;
+        font-size: px2vw2(28);
+        font-weight: 400;
+        transition: max-height .5s;
+        a {
+          justify-content: flex-start;
+          height: px2vw2(100);
+          padding: 0 px2vw2(98);
+        }
+      }
+      > li {
+        > input[type="checkbox"] {
+          &:checked {
+            ~ ul {
+              max-height: 200vh;
+            }
+            + label span::after {
+              display: none;
+            }
+          }
+        }
+        > label {
+          display: flex;
+          + a { display: none }
+        }
+        > a {
+
+        }
+        + li {
+          border-top: solid 1px #b2b2b2;
+        }
+      }
+      ul > li:last-of-type {
+        padding-bottom: px2vw2(25);
+      }
+      #footer & > li + li {
+        border-top-color: #808080;
       }
     }
   }
@@ -605,11 +600,6 @@
         position: relative;
         height: 100%;
         text-decoration: none !important;
-        &:hover, &:focus {
-          span {
-            border-top-color: #000;
-          }
-        }
         span {
           display: flex;
           align-items: center;
@@ -619,6 +609,11 @@
           border-left: 0;
           border-right: 0;
           box-sizing: border-box;
+        }
+        &:hover, &:focus {
+          span {
+            border-top-color: #000;
+          }
         }
       }
     }

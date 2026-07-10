@@ -21,6 +21,9 @@
   color: #fff;
   box-sizing: border-box;
   z-index: 1;
+  .header_1 & {
+    margin-top: -6px;
+  }
   .nav_4 > ul > li:hover &,
   .nav_4 > ul > li:focus &,
   .nav_1 > ul > li:hover &,
@@ -31,9 +34,6 @@
     .nav_4 & {
       display: none !important;
     }
-  }
-  .header_1 & {
-    margin-top: -6px;
   }
   &__inner {
     max-width: 1000px;
