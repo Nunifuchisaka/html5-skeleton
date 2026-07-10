@@ -10,6 +10,9 @@ const SITE_DATA = {
 
 const BROWSER_SYNC_CONFIG = {
   startPath: SITE_DATA.START_PATH,
+  // npm start再起動時などに新しいタブを開かず、既に開いているタブを自動リロードする
+  open: false,
+  reloadOnRestart: true,
 };
 
 const IMAGE_OPTIMIZATION_CONFIG = {
