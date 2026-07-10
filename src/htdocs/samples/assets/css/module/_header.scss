@@ -14,5 +14,9 @@
   &__1 {
     max-width: $width3;
     margin: 0 auto;
+    @include sp {
+      padding-right: px2vw2(60);
+      box-sizing: border-box;
+    }
   }
 }

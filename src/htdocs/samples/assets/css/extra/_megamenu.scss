@@ -24,21 +24,35 @@
   .header_1 & {
     margin-top: -6px;
   }
-  .nav_4 > ul > li:hover &,
-  .nav_4 > ul > li:focus &,
+  @include pc {
+    .nav_4 li.is_megamenu:hover &,
+    .nav_4 li.is_megamenu:focus-within & {
+      display: block;
+    }
+  }
   .nav_1 > ul > li:hover &,
   .nav_1 > ul > li:focus & {
     display: block;
   }
-  @media (max-width: $breakpoint1) {
+  @include sp {
     .nav_4 & {
-      display: none !important;
+      display: none;
+      position: static;
+      width: auto;
+      margin: 0;
+      padding: 1em 0;
+    }
+    .nav_4 li.is_open > & {
+      display: block;
     }
   }
   &__inner {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 $padding1--pc;
+    @include sp {
+      padding: 0 1em;
+    }
   }
   @each $content, $props in samples.$contents {
     $color: map.get($props, color);

@@ -14,13 +14,17 @@
   margin: 0 auto;
 }
 
+html.is_nav4_open, html.is_nav4_open body {
+  overflow: hidden;
+}
+
 /*
 ## .nav_5
 使用箇所：.megamenu_1
 内容：
 */
 .nav_5 {
-  font-size: 18px;
+  font-size: 112.5%;
 }
 .nav_5__h1 {
   margin-bottom: 1.5em;
@@ -123,7 +127,7 @@ body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_awar
   position: relative;
   white-space: nowrap;
 }
-.nav_4.is_scrolled {
+.nav_4.is_scrolled .nav_4__body {
   display: flex;
   align-items: center;
   max-width: 1200px;
@@ -139,6 +143,9 @@ body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_awar
 .nav_4.is_scrolled .nav_4__sub {
   flex: 0 0 auto;
   font-size: 75%;
+}
+.nav_4__trigger {
+  display: none;
 }
 .nav_4__main {
   display: grid;
@@ -241,12 +248,10 @@ li.is_socialbusiness .nav_4__main > li {
   display: block;
   padding: 1em;
 }
+.nav_4__megatoggle {
+  display: none;
+}
 
-/*
-## .nav_1
-使用箇所：
-内容：グローバルナビゲーション
-*/
 /*
 ## .megamenu_1
 使用箇所：グローバルヘッダー
@@ -266,7 +271,7 @@ li.is_socialbusiness .nav_4__main > li {
 .header_1 .megamenu_1 {
   margin-top: -6px;
 }
-.nav_4 > ul > li:hover .megamenu_1, .nav_4 > ul > li:focus .megamenu_1, .nav_1 > ul > li:hover .megamenu_1, .nav_1 > ul > li:focus .megamenu_1 {
+.nav_1 > ul > li:hover .megamenu_1, .nav_1 > ul > li:focus .megamenu_1 {
   display: block;
 }
 .megamenu_1__inner {
@@ -290,21 +295,88 @@ li.is_socialbusiness .nav_4__main > li {
   background-color: #0064d3;
 }
 @media (width <= 767px){
-  .nav_4 {
-    display: block;
-    margin-top: 2em;
-    padding: 0 0 1.5em;
-    text-align: center;
+  .header_1__1 {
+    padding-right: 8vw;
+    box-sizing: border-box;
   }
-  .nav_4.is_scrolled {
+  .nav_5__h1 {
+    margin-bottom: 0.75em;
+  }
+  .nav_5 ul {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.75em 0.5em;
+  }
+  .nav_4 {
+    text-align: center;
+    white-space: normal;
+  }
+  .nav_4__trigger {
     display: block;
-    max-width: none;
-    margin: 2em 0 0;
+    position: fixed;
+    top: 1.33vw;
+    right: 1.33vw;
+    width: 5.87vw;
+    height: 5.87vw;
+    padding: 0;
+    border: 0;
+    border-radius: 0.53vw;
+    background: #333;
+    cursor: pointer;
+    z-index: 11;
+  }
+  .nav_4__trigger::before, .nav_4__trigger::after {
+    content: "";
+  }
+  .nav_4__trigger::before, .nav_4__trigger::after,
+  .nav_4__trigger .nav_4__trigger_bar {
+    position: absolute;
+    left: 1.33vw;
+    right: 1.33vw;
+    top: 50%;
+    height: 0.27vw;
+    margin-top: -0.13vw;
+    background: #fff;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav_4__trigger::before {
+    transform: translateY(-1.07vw);
+  }
+  .nav_4__trigger::after {
+    transform: translateY(1.07vw);
+  }
+  .nav_4.is_open .nav_4__trigger::before {
+    transform: rotate(45deg);
+  }
+  .nav_4.is_open .nav_4__trigger::after {
+    transform: rotate(-45deg);
+  }
+  .nav_4.is_open .nav_4__trigger .nav_4__trigger_bar {
+    opacity: 0;
+  }
+  .nav_4__body {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 9.33vw 2.67vw 2em;
+    background: #333;
+    box-sizing: border-box;
+  }
+  .nav_4.is_open .nav_4__body {
+    display: block;
   }
   .nav_4__main {
     display: block;
     height: auto;
     padding: 0;
+  }
+  .nav_4__main > li {
+    position: relative;
+  }
+  .nav_4__main > li.is_open .nav_4__megatoggle::before {
+    transform: rotate(-135deg);
   }
   .nav_4__main > li > a {
     display: block;
@@ -320,9 +392,46 @@ li.is_socialbusiness .nav_4__main > li {
     padding: 0 !important;
     border: 0 !important;
   }
-}
-@media (max-width: 767px){
+  .nav_4__megatoggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2.6em;
+    height: 2.2em;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  .nav_4__megatoggle::before {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    border: solid currentColor;
+    border-width: 0 0.27vw 0.27vw 0;
+    transform: rotate(45deg) translateY(-15%);
+    transition: transform 0.3s;
+  }
   .nav_4 .megamenu_1 {
-    display: none !important;
+    display: none;
+    position: static;
+    width: auto;
+    margin: 0;
+    padding: 1em 0;
+  }
+  .nav_4 li.is_open > .megamenu_1 {
+    display: block;
+  }
+  .megamenu_1__inner {
+    padding: 0 1em;
+  }
+}
+@media (width >= 768px){
+  .nav_4 li.is_megamenu:hover .megamenu_1, .nav_4 li.is_megamenu:focus-within .megamenu_1 {
+    display: block;
   }
 }

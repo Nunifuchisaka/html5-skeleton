@@ -3,6 +3,12 @@
 @use "../../../../assets/css/tool" as *;
 @use "../tool" as samples;
 
+html.is_nav4_open {
+  &, body {
+    overflow: hidden;
+  }
+}
+
 /*
 ## .nav_5
 使用箇所：.megamenu_1
@@ -10,11 +16,14 @@
 */
 
 .nav_5 {
-  font-size: 18px;
+  font-size: math.div(18, $font-size) * 100%;
   &__h1 {
     margin-bottom: 1.5em;
     font-size: math.div(20, 18) * 100%;
     font-weight: 800;
+    @include sp {
+      margin-bottom: .75em;
+    }
   }
   ul {
     display: grid;
@@ -23,6 +32,10 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    @include sp {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: .75em .5em;
+    }
   }
   li {
     @each $content, $props in samples.$contents {
@@ -47,10 +60,12 @@
   position: relative;
   white-space: nowrap;
   &.is_scrolled {
-    display: flex;
-    align-items: center;
-    max-width: $width3;
-    margin: 0 auto;
+    #{$block}__body {
+      display: flex;
+      align-items: center;
+      max-width: $width3;
+      margin: 0 auto;
+    }
 
     #{$block}__main {
       max-width: none;
@@ -66,15 +81,78 @@
     }
   }
   @include sp {
-    display: block;
-    margin-top: 2em;
-    padding: 0 0 1.5em;
     text-align: center;
-
-    &.is_scrolled {
+    white-space: normal;
+  }
+  &__trigger {
+    display: none;
+    @include sp {
       display: block;
-      max-width: none;
-      margin: 2em 0 0;
+      position: fixed;
+      top: px2vw2(10);
+      right: px2vw2(10);
+      width: px2vw2(44);
+      height: px2vw2(44);
+      padding: 0;
+      border: 0;
+      border-radius: px2vw2(4);
+      background: #333;
+      cursor: pointer;
+      z-index: 11;
+
+      &::before,
+      &::after {
+        content: "";
+      }
+      &::before,
+      &::after,
+      #{$block}__trigger_bar {
+        position: absolute;
+        left: px2vw2(10);
+        right: px2vw2(10);
+        top: 50%;
+        height: px2vw2(2);
+        margin-top: px2vw2(-1);
+        background: #fff;
+        transition: transform .3s, opacity .3s;
+      }
+      &::before {
+        transform: translateY(px2vw2(-8));
+      }
+      &::after {
+        transform: translateY(px2vw2(8));
+      }
+    }
+  }
+  &.is_open #{$block}__trigger {
+    @include sp {
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+      }
+      #{$block}__trigger_bar {
+        opacity: 0;
+      }
+    }
+  }
+  &__body {
+    @include sp {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: px2vw2(70) $padding1--sp 2em;
+      background: #333;
+      box-sizing: border-box;
+    }
+  }
+  &.is_open #{$block}__body {
+    @include sp {
+      display: block;
     }
   }
   &__main {
@@ -93,6 +171,9 @@
     }
     > li {
       height: 100%;
+      @include sp {
+        position: relative;
+      }
       @each $content, $props in samples.$contents {
         $color: map.get($props, color);
         &.is_#{$content} {
@@ -127,6 +208,11 @@
             border-bottom: solid 13px;
             transform: translateX(-50%);
           }
+        }
+      }
+      &.is_open #{$block}__megatoggle::before {
+        @include sp {
+          transform: rotate(-135deg);
         }
       }
       > a {
@@ -180,15 +266,32 @@
       padding: 1em;
     }
   }
-}
+  &__megatoggle {
+    display: none;
+    @include sp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2.6em;
+      height: 2.2em;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
 
-
-/*
-## .nav_1
-使用箇所：
-内容：グローバルナビゲーション
-*/
-
-.nav_1 {
-  
+      &::before {
+        content: "";
+        width: .5em;
+        height: .5em;
+        border: solid currentColor;
+        border-width: 0 px2vw2(2) px2vw2(2) 0;
+        transform: rotate(45deg) translateY(-15%);
+        transition: transform .3s;
+      }
+    }
+  }
 }
