@@ -1,6 +1,20 @@
 
 @charset "UTF-8";
 /*
+## .header_1
+使用箇所：
+内容：
+*/
+.header_1 {
+  position: sticky;
+  top: 0;
+}
+.header_1__1 {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/*
 ## .nav_5
 使用箇所：.megamenu_1
 内容：
@@ -115,6 +129,7 @@ body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_awar
   grid-gap: 14px;
   max-width: 1200px;
   height: 100%;
+  margin: 0 auto;
   padding: 0 25px;
   list-style: none;
   box-sizing: border-box;

@@ -1,0 +1,18 @@
+@use "sass:math";
+@use "../../../../assets/css/tool" as *;
+@use "../tool" as samples;
+
+/*
+## .header_1
+使用箇所：
+内容：
+*/
+
+.header_1 {
+  position: sticky;
+  top: 0;
+  &__1 {
+    max-width: $width3;
+    margin: 0 auto;
+  }
+}

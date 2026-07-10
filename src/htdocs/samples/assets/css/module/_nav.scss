@@ -55,10 +55,9 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 14px;
-    max-width: 1200px;
+    max-width: $width3;
     height: 100%;
-
-    // margin: 0;
+    margin: 0 auto;
     padding: 0 25px;
     list-style: none;
     box-sizing: border-box;
