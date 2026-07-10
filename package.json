@@ -2,11 +2,14 @@
   "author": "",
   "scripts": {
     "start": "webpack",
-    "validate:html": "npx html-validate \"dist_uncompressed/htdocs/**/*.html\""
+    "validate:html": "npx html-validate \"dist_uncompressed/htdocs/**/*.html\"",
+    "type-check": "node ./node_modules/typescript-native/bin/tsc --noEmit"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.29.7",
+    "@types/jquery": "^4.0.1",
     "autoprefixer": "^10.4.20",
     "babel-loader": "^10.0.0",
     "browser-sync": "^2.29.1",
@@ -37,6 +40,9 @@
     "stylelint-webpack-plugin": "^5.0.1",
     "terser": "^5.43.1",
     "terser-webpack-plugin": "^5.3.10",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.63.0",
+    "typescript-native": "npm:typescript@^7.0.2",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
     "webpack-remove-empty-scripts": "^1.0.4"

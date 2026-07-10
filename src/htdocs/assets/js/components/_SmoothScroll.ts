@@ -1,14 +1,19 @@
+interface SmoothScrollOptions {
+  target: string;
+  gnav: { close: () => void } | null;
+}
+
 // ページ内リンク(ハッシュ)クリック時にアニメーション付きでスムーススクロールする
 export default class {
 
-  #option;
-  #selector;
+  #option: SmoothScrollOptions;
+  #selector: string;
   #interrupted = false;
   #SPEED_DEFAULT = 800; // 最初の速度
   #SPEED_REPEAT = 800; // 繰り返し時の速度
   #POSITION_EPSILON = 1; // 目的地のズレをこの範囲(px)以内なら「到達済み」とみなす
 
-  constructor(opts) {
+  constructor(opts?: Partial<SmoothScrollOptions>) {
     this.#option = Object.assign({
       target: '[data-smooth-scroll]',
       gnav: null,
@@ -26,19 +31,19 @@ export default class {
     this.#interrupted = true;
   };
 
-  #easeSwing(progress) {
+  #easeSwing(progress: number) {
     return 0.5 - Math.cos(progress * Math.PI) / 2;
   }
 
-  #targetPosition(target) {
+  #targetPosition(target: Element) {
     return target.getBoundingClientRect().top + window.scrollY;
   }
 
-  #scrollAnimate = (target, scrollSpeed) => {
+  #scrollAnimate = (target: Element, scrollSpeed: number) => {
     const startY = window.scrollY;
     const startTime = performance.now();
 
-    const step = (now) => {
+    const step = (now: number) => {
       if ( this.#interrupted ) {
         return;
       }
@@ -66,8 +71,8 @@ export default class {
     requestAnimationFrame(step);
   };
 
-  #click = (e) => {
-    const anchor = e.target.closest(this.#selector);
+  #click = (e: MouseEvent) => {
+    const anchor = (e.target as Element | null)?.closest(this.#selector);
     if ( !anchor ) {
       return;
     }
@@ -87,8 +92,8 @@ export default class {
     }
   };
 
-  #extractHash(href) {
-    const hash = href.match(/#(.*)/);
+  #extractHash(href: string | null) {
+    const hash = href?.match(/#(.*)/);
     return hash ? hash[0] : null;
   }
 

@@ -222,15 +222,15 @@ const createConfig_production = ({ outputPath }) => {
       ],
     },
     target: ['web'],
-    resolve: { extensions: ['.js'] },
+    resolve: { extensions: ['.ts', '.js'] },
   };
 
-  // JS
-  glob.sync('**/*.js', { cwd: SRC_PATH, ignore: '**/_*.js' }).forEach(key => {
-    config.entry[key.replace('.js', '')] = path.resolve(SRC_PATH, key);
+  // JS/TS
+  glob.sync('**/*.{js,ts}', { cwd: SRC_PATH, ignore: '**/_*.{js,ts}' }).forEach(key => {
+    config.entry[key.replace(/\.(js|ts)$/, '')] = path.resolve(SRC_PATH, key);
   });
   config.module.rules.push({
-    test: /\.js$/,
+    test: /\.(js|ts)$/,
     exclude: /node_modules/,
     use: 'babel-loader'
   });
