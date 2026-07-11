@@ -4,29 +4,30 @@
       <a href="/">サイト名</a>
     </p>
     <div class="header_2__utility">
-      <ul class="header_2__utility__list">
-        <li class="header_2__utility__list__item header_2__utility__list__item--feature">
+      <ul class="header_2__utility_list">
+        <li class="header_2__utility_item is_feature">
           <a href="#">特設サイトへ</a>
         </li>
-        <li class="header_2__utility__list__item"><a href="#">English</a></li>
-        <li class="header_2__utility__list__item"><a href="#">お問い合わせ</a></li>
+        <li class="header_2__utility_item"><a href="#">English</a></li>
+        <li class="header_2__utility_item"><a href="#">お問い合わせ</a></li>
       </ul>
     </div><!-- /.header_2__utility -->
     <div class="header_2__textsize">
-      <p class="header_2__textsize__label">テキストサイズ</p>
-      <ul class="header_2__textsize__list">
-        <li class="header_2__textsize__btn is_on" tabindex="0">標準</li>
-        <li class="header_2__textsize__btn" tabindex="0">大</li>
+      <p class="header_2__textsize_label">テキストサイズ</p>
+      <ul class="header_2__textsize_list">
+        <li><button type="button" class="header_2__textsize_btn is_on" aria-pressed="true">標準</button></li>
+        <li><button type="button" class="header_2__textsize_btn" aria-pressed="false">大</button></li>
       </ul>
     </div><!-- /.header_2__textsize -->
     <div class="header_2__search">
-      <button type="button" class="header_2__search__icon" aria-expanded="false" aria-controls="header_2_search_box" aria-label="検索を開く"></button>
-      <div class="header_2__search__box" id="header_2_search_box">
-        <form action="#" class="header_2__search__form">
-          <input type="text" name="q" class="header_2__search__input" placeholder="検索キーワード">
-          <button type="submit" class="header_2__search__submit">検索</button>
+      <button type="button" class="header_2__search_icon" aria-expanded="false" aria-controls="header_2_search_box" aria-label="検索を開く"></button>
+      <div class="header_2__search_box" id="header_2_search_box">
+        <form action="#" class="header_2__search_form">
+          <label class="header_2__search_label" for="header_2_search_input">サイト内検索</label>
+          <input type="search" name="q" id="header_2_search_input" class="header_2__search_input" placeholder="検索キーワード">
+          <button type="submit" class="header_2__search_submit">検索</button>
         </form>
-      </div><!-- /.header_2__search__box -->
+      </div><!-- /.header_2__search_box -->
     </div><!-- /.header_2__search -->
   </div><!-- /.header_2__inner -->
   <%- include("nav_1") %>

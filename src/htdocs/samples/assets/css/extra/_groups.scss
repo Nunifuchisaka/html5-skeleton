@@ -16,8 +16,17 @@
   @include sp {
     grid-template-columns: repeat(2, 1fr);
   }
+  &__item {
+    min-width: 0;
+    padding: .75em;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: .35em;
+    background: rgba(255, 255, 255, .08);
+  }
   &__title {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: .5em;
     margin-bottom: .5em;
     color: inherit;
     font-size: math.div(20, 18) * 100%;
@@ -26,18 +35,52 @@
     &:hover {
       text-decoration: underline !important;
     }
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: .25em;
+    }
+    &::after {
+      content: "";
+      flex: 0 0 auto;
+      width: .45em;
+      height: .45em;
+      margin-left: auto;
+      border: solid currentColor;
+      border-width: 1px 1px 0 0;
+      transform: rotate(45deg);
+    }
   }
   &__subs {
     margin: 0;
-    padding-left: 1em;
-    li {
+    padding: 0;
+    list-style: none;
+    > li {
       margin-bottom: .4em;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
     a {
+      display: inline-flex;
+      align-items: baseline;
+      gap: .4em;
       color: inherit;
-      text-decoration: underline;
+      text-decoration: none;
+      &::before {
+        content: "";
+        flex: 0 0 auto;
+        width: .35em;
+        height: .35em;
+        border: solid currentColor;
+        border-width: 1px 1px 0 0;
+        transform: rotate(45deg) translateY(-.1em);
+      }
       &:hover {
-        text-decoration: none;
+        text-decoration: underline;
+      }
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: .2em;
       }
     }
   }

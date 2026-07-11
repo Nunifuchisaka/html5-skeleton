@@ -26,15 +26,27 @@
       &:hover {
         text-decoration: underline !important;
       }
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: .25em;
+      }
     }
   }
   &__icon {
-    display: block;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
     width: 2em;
     height: 2em;
     margin: 0 auto .5em;
     border-radius: 50%;
-    background: rgba(255, 255, 255, .3);
+    background: rgba(255, 255, 255, .22);
+    > img {
+      display: block;
+      width: 65%;
+      height: 65%;
+      object-fit: contain;
+    }
   }
   &__txt {
     display: block;

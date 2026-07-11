@@ -15,6 +15,7 @@
   background: #fff;
   z-index: 100;
   &__inner {
+    min-height: 54px;
     max-width: $width3;
     margin: 0 auto;
     padding: .5em 20px;
@@ -36,25 +37,28 @@
     }
   }
   &__utility {
-    &__list {
+    @include sp {
+      display: none;
+    }
+    &_list {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5em;
       list-style: none;
       margin: 0;
       padding: 0;
-      &__item {
-        a {
-          color: #333;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
+    }
+    &_item {
+      a {
+        color: #333;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
         }
-        &--feature a {
-          color: #663000;
-          font-weight: bold;
-        }
+      }
+      &.is_feature a {
+        color: #663000;
+        font-weight: bold;
       }
     }
   }
@@ -63,18 +67,22 @@
     align-items: center;
     gap: .3em;
     margin-left: 2em;
-    &__label {
+    @include sp {
+      display: none;
+    }
+    &_label {
       font-size: 72%;
       color: #666;
     }
-    &__list {
+    &_list {
       display: flex;
       gap: 2px;
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    &__btn {
+    &_btn {
+      border: 0;
       background: #666;
       color: #fff;
       border-radius: 2px;
@@ -90,7 +98,7 @@
   &__search {
     position: relative;
     margin-left: auto;
-    &__icon {
+    &_icon {
       position: relative;
       border: 2px solid #ccc;
       border-radius: 4px;
@@ -128,7 +136,7 @@
         transform: scale(1.1);
       }
     }
-    &__box {
+    &_box {
       display: none;
       position: absolute;
       top: 100%;
@@ -138,13 +146,21 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
     }
     &.is_open {
-      #{$block}__search__box {
+      #{$block}__search_box {
         display: block;
       }
     }
-    &__form {
+    &_form {
       display: flex;
       gap: .3em;
+    }
+    &_label {
+      position: absolute;
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
   }
 }
