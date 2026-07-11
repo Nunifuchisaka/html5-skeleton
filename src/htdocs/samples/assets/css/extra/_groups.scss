@@ -1,0 +1,44 @@
+@use "sass:math";
+@use "../../../../assets/css/tool" as *;
+
+/*
+## .groups_1
+使用箇所：.megamenu_1
+内容：見出し付きリンクをカテゴリごとにグルーピングした一覧
+*/
+
+.groups_1 {
+  font-size: math.div(18, $font-size) * 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1.5em 1em;
+  margin: 0;
+  @include sp {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &__title {
+    display: block;
+    margin-bottom: .5em;
+    color: inherit;
+    font-size: math.div(20, 18) * 100%;
+    font-weight: 800;
+    text-decoration: none !important;
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+  &__subs {
+    margin: 0;
+    padding-left: 1em;
+    li {
+      margin-bottom: .4em;
+    }
+    a {
+      color: inherit;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

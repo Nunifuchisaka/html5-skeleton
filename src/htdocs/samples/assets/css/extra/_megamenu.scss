@@ -6,7 +6,7 @@
 /*
 ## .megamenu_1
 使用箇所：グローバルヘッダー
-内容：
+内容：メガメニューのドロップダウンパネル（中身は.tiles_1/.linklist_1/.feature_1/.groups_1/.subnav_1などの独立したパーツを任意に組み合わせて配置する）
 関連：.nav_1
 */
 
@@ -54,6 +54,26 @@
     padding: 0 $padding1--pc;
     @include sp {
       padding: 0 1em;
+    }
+  }
+  &__row {
+    display: flex;
+    gap: 2em;
+    @include sp {
+      flex-direction: column;
+      gap: 1em;
+    }
+  }
+  &__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  &__side {
+    flex: 0 0 auto;
+    width: 20%;
+    @include sp {
+      width: auto;
+      margin-top: 1em;
     }
   }
   &__close {

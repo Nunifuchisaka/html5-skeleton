@@ -3,6 +3,153 @@
 @use "../tool" as samples;
 
 /*
+## .header_2
+使用箇所：
+内容：グローバルヘッダー（ロゴ・上部ユーティリティリンク・テキストサイズ切替・検索、ナビゲーションは.nav_1/.megamenu_1に委譲）
+*/
+
+.header_2 {
+  $block: &;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  &__inner {
+    max-width: $width3;
+    margin: 0 auto;
+    padding: .5em 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    @include sp {
+      padding: .5em px2vw2(20);
+    }
+  }
+  &__logo {
+    margin: 0 2em 0 0;
+    a {
+      text-decoration: none;
+      transition: opacity .5s;
+      &:hover {
+        opacity: .7;
+      }
+    }
+  }
+  &__utility {
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      &__item {
+        a {
+          color: #333;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        &--feature a {
+          color: #663000;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  &__textsize {
+    display: flex;
+    align-items: center;
+    gap: .3em;
+    margin-left: 2em;
+    &__label {
+      font-size: 72%;
+      color: #666;
+    }
+    &__list {
+      display: flex;
+      gap: 2px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    &__btn {
+      background: #666;
+      color: #fff;
+      border-radius: 2px;
+      padding: 1px 6px;
+      font-size: 86%;
+      cursor: pointer;
+      &.is_on {
+        background: #999;
+        cursor: auto;
+      }
+    }
+  }
+  &__search {
+    position: relative;
+    margin-left: auto;
+    &__icon {
+      position: relative;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      box-sizing: border-box;
+      width: 1.8em;
+      height: 1.8em;
+      transition: border-color .2s, transform .2s;
+      &::before {
+        // 虫眼鏡アイコン（円部分）。アイコンフォントは使わずCSSのみで描画。
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: 26%;
+        width: .6em;
+        height: .6em;
+        border: 2px solid #054c9c;
+        border-radius: 50%;
+      }
+      &::after {
+        // 虫眼鏡アイコン（持ち手部分）
+        content: "";
+        position: absolute;
+        top: 62%;
+        left: 62%;
+        width: .5em;
+        height: 2px;
+        background: #054c9c;
+        transform: rotate(45deg);
+        transform-origin: left center;
+      }
+      &:hover {
+        border-color: #0079fc;
+        transform: scale(1.1);
+      }
+    }
+    &__box {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      padding: .5em;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    }
+    &.is_open {
+      #{$block}__search__box {
+        display: block;
+      }
+    }
+    &__form {
+      display: flex;
+      gap: .3em;
+    }
+  }
+}
+
+/*
 ## .header_1
 使用箇所：
 内容：グローバルヘッダー

@@ -1,0 +1,43 @@
+@use "sass:math";
+@use "../../../../assets/css/tool" as *;
+
+/*
+## .tiles_1
+使用箇所：.megamenu_1
+内容：画像付きリンクをタイル状に並べる一覧
+*/
+
+.tiles_1 {
+  font-size: math.div(18, $font-size) * 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em .5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  @include sp {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: .75em .5em;
+  }
+  > li {
+    a {
+      display: block;
+      color: inherit;
+      text-decoration: none !important;
+      &:hover {
+        text-decoration: underline !important;
+      }
+    }
+  }
+  &__img {
+    display: block;
+    aspect-ratio: 4 / 3;
+    margin-bottom: .5em;
+    border-radius: .5em;
+    background: rgba(255, 255, 255, .3);
+  }
+  &__ttl {
+    display: block;
+    font-size: math.div(13, 18) * 100%;
+  }
+}

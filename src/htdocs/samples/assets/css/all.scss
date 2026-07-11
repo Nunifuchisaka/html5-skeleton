@@ -4,4 +4,9 @@
 @use "module/header";
 @use "module/nav";
 
+@use "extra/tiles";
+@use "extra/linklist";
+@use "extra/feature";
+@use "extra/groups";
+@use "extra/subnav";
 @use "extra/megamenu";
