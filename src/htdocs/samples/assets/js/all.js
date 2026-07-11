@@ -1,2 +1,2 @@
-import $ from 'jquery';
-import './components/_nav4';
+// import $ from 'jquery';
+import './components/_nav_1';

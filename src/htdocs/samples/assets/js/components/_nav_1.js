@@ -1,21 +1,21 @@
-const nav4 = document.querySelector(".nav_4");
+const nav_1 = document.querySelector(".nav_1");
 
-if (nav4) {
-  const trigger = nav4.querySelector(".nav_4__trigger");
-  const megaToggles = nav4.querySelectorAll(".nav_4__megatoggle");
-  // Keep in sync with $breakpoint1 (767px) in assets/css/tool/_index.scss
+if (nav_1) {
+  const trigger = nav_1.querySelector(".nav_1__trigger");
+  const megaToggles = nav_1.querySelectorAll(".nav_1__megatoggle");
+  // assets/css/tool/_index.scss の $breakpoint1 (767px) と同期させてください。
   const spQuery = window.matchMedia("(max-width: 767px)");
 
   const toggleScrolled = () => {
-    nav4.classList.toggle("is_scrolled", window.scrollY > 0 && !spQuery.matches);
+    nav_1.classList.toggle("is_scrolled", window.scrollY > 0 && !spQuery.matches);
   };
 
   const setDrawer = (open) => {
-    nav4.classList.toggle("is_open", open);
+    nav_1.classList.toggle("is_open", open);
     if (trigger) {
       trigger.setAttribute("aria-expanded", String(open));
     }
-    document.documentElement.classList.toggle("is_nav4_open", open);
+    document.documentElement.classList.toggle("is_nav_1_open", open);
   };
 
   const closeAll = () => {
@@ -31,7 +31,7 @@ if (nav4) {
 
   if (trigger) {
     trigger.addEventListener("click", () => {
-      setDrawer(!nav4.classList.contains("is_open"));
+      setDrawer(!nav_1.classList.contains("is_open"));
     });
   }
 
@@ -44,12 +44,12 @@ if (nav4) {
     });
   });
 
-  nav4.querySelectorAll(".nav_4__body a").forEach((link) => {
+  nav_1.querySelectorAll(".nav_1__body a").forEach((link) => {
     link.addEventListener("click", closeAll);
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && nav4.classList.contains("is_open")) {
+    if (event.key === "Escape" && nav_1.classList.contains("is_open")) {
       closeAll();
       if (trigger) {
         trigger.focus();

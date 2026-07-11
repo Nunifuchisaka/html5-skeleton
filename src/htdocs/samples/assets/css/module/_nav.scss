@@ -3,19 +3,19 @@
 @use "../../../../assets/css/tool" as *;
 @use "../tool" as samples;
 
-html.is_nav4_open {
+html.is_nav_1_open {
   &, body {
     overflow: hidden;
   }
 }
 
 /*
-## .nav_5
+## .nav_2
 使用箇所：.megamenu_1
 内容：
 */
 
-.nav_5 {
+.nav_2 {
   font-size: math.div(18, $font-size) * 100%;
   &__h1 {
     margin-bottom: 1.5em;
@@ -50,15 +50,19 @@ html.is_nav4_open {
 }
 
 /*
-## .nav_4
-使用箇所：homeのグローバルヘッダー
+## .nav_1
+使用箇所：
 内容：グローバルナビゲーション
 */
 
-.nav_4 {
+.nav_1 {
   $block: &;
   position: relative;
   white-space: nowrap;
+  @include sp {
+    text-align: center;
+    white-space: normal;
+  }
   &.is_scrolled {
     #{$block}__body {
       display: flex;
@@ -66,7 +70,6 @@ html.is_nav4_open {
       max-width: $width3;
       margin: 0 auto;
     }
-
     #{$block}__main {
       max-width: none;
       margin: 0;
@@ -74,15 +77,10 @@ html.is_nav4_open {
       min-width: 0;
       font-size: math.div(12, $font-size) * 100%;
     }
-
     #{$block}__sub {
       flex: 0 0 auto;
       font-size: math.div(12, $font-size) * 100%;
     }
-  }
-  @include sp {
-    text-align: center;
-    white-space: normal;
   }
   &__trigger {
     display: none;
@@ -99,7 +97,6 @@ html.is_nav4_open {
       background: #333;
       cursor: pointer;
       z-index: 11;
-
       &::before,
       &::after {
         content: "";
@@ -282,7 +279,6 @@ html.is_nav4_open {
       background: transparent;
       color: #fff;
       cursor: pointer;
-
       &::before {
         content: "";
         width: .5em;
@@ -294,4 +290,4 @@ html.is_nav4_open {
       }
     }
   }
-}
+} // .nav_1

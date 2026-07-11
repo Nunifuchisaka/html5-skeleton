@@ -12,27 +12,29 @@ const meta = {
 </head>
 <body>
 <%- include("assets/html/_body_before") %>
-<!-- <%- include("assets/html/_header",{path:path}) %> -->
-<!--#include virtual="/samples/assets/html/header_1.html" -->
+<%- include("assets/html/_header",{path:path}) %>
 
 <!--#include virtual="/assets/html/test.html" -->
 
 <main id="main">
+
+  <ul>
+    <li><a href="samples/">サンプル一覧</a></li>
+  </ul>
+
   <%- include("assets/html/test") %>
-  
+
   <div id="icon-1"></div>
 
-  <div style="height: 500vh;"></div>
-  
   <!-- <picture>
     <source srcset="img/photo1.webp" media="(max-width: 767px)">
     <img src="img/photo1.webp" alt="" style="width: 400px">
   </picture> -->
-  
+
   <!-- <figure>
     <img src="img/howto8.webp" alt="">
   </figure> -->
-  
+
 </main>
 <!-- <p>a</p> -->
 

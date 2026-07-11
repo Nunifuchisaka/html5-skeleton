@@ -12,24 +12,24 @@ $admin-bar_height: (
 );
 
 $contents: (
-  about: (
+  hoge1: (
     color: #481610,
-    items: ('greetings', 'future', 'students', 'entrepreneur', 'new-entrepreneur', 'support'),
+    items: ('hoge', 'fuga', 'piyo'),
   ),
-  message: (
+  hoge2: (
     color: #f7d26d,
   ),
-  profile: (
+  hoge3: (
     color: #a799C5,
-    items: ('philosophy', 'history', 'organization', 'projects', 'access', 'aoi', 'rules', 'accountantreport', 'privacypolicy', 'what-is-personal-data-for'),
+    items: ('hoge', 'fuga', 'piyo'),
   ),
-  scholarship: (
+  hoge4: (
     color: #7adceb,
     textColor: #333,
-    items: ('about', 'recruitment-requirements', 'policy', 'examples'),
+    items: ('hoge', 'fuga', 'piyo'),
   ),
-  socialbusiness: (
+  hoge5: (
     color: $blue3,
-    items: ('about', 'concept', 'recruitment-requirements', 'policy', 'award-winners'),
+    items: ('hoge', 'fuga', 'piyo'),
   )
 );

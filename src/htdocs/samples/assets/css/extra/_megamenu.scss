@@ -7,12 +7,11 @@
 ## .megamenu_1
 使用箇所：グローバルヘッダー
 内容：
+関連：.nav_1
 */
 
 .megamenu_1 {
   display: none;
-
-  // display: block;
   position: absolute;
   top: 100%;
   left: 0;
@@ -25,8 +24,8 @@
     margin-top: -6px;
   }
   @include pc {
-    .nav_4 li.is_megamenu:hover &,
-    .nav_4 li.is_megamenu:focus-within & {
+    .nav_1 li.is_megamenu:hover &,
+    .nav_1 li.is_megamenu:focus-within & {
       display: block;
     }
   }
@@ -35,14 +34,14 @@
     display: block;
   }
   @include sp {
-    .nav_4 & {
+    .nav_1 & {
       display: none;
       position: static;
       width: auto;
       margin: 0;
       padding: 1em 0;
     }
-    .nav_4 li.is_open > & {
+    .nav_1 li.is_open > & {
       display: block;
     }
   }

@@ -3,7 +3,7 @@
 /*
 ## .header_1
 使用箇所：
-内容：
+内容：グローバルヘッダー
 */
 .header_1 {
   position: sticky;
@@ -12,26 +12,34 @@
 .header_1__1 {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0.5em 0;
+}
+.header_1 h1 a {
+  text-decoration: none;
+  transition: opactiy 0.5s;
+}
+.header_1 h1 a:hover {
+  opacity: 0.7;
 }
 
-html.is_nav4_open, html.is_nav4_open body {
+html.is_nav_1_open, html.is_nav_1_open body {
   overflow: hidden;
 }
 
 /*
-## .nav_5
+## .nav_2
 使用箇所：.megamenu_1
 内容：
 */
-.nav_5 {
+.nav_2 {
   font-size: 112.5%;
 }
-.nav_5__h1 {
+.nav_2__h1 {
   margin-bottom: 1.5em;
   font-size: 111.1111111111%;
   font-weight: 800;
 }
-.nav_5 ul {
+.nav_2 ul {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 1em 0.5em;
@@ -39,115 +47,76 @@ html.is_nav4_open, html.is_nav4_open body {
   padding: 0;
   list-style: none;
 }
-body.page_about.page_greetings .is_about .nav_5 li.is_greetings {
+body.page_hoge1.page_hoge .is_hoge1 .nav_2 li.is_hoge {
   opacity: 0.5;
 }
-body.page_about.page_future .is_about .nav_5 li.is_future {
+body.page_hoge1.page_fuga .is_hoge1 .nav_2 li.is_fuga {
   opacity: 0.5;
 }
-body.page_about.page_students .is_about .nav_5 li.is_students {
+body.page_hoge1.page_piyo .is_hoge1 .nav_2 li.is_piyo {
   opacity: 0.5;
 }
-body.page_about.page_entrepreneur .is_about .nav_5 li.is_entrepreneur {
+body.page_hoge2.page_ .is_hoge2 .nav_2 li.is_ {
   opacity: 0.5;
 }
-body.page_about.page_new-entrepreneur .is_about .nav_5 li.is_new-entrepreneur {
+body.page_hoge3.page_hoge .is_hoge3 .nav_2 li.is_hoge {
   opacity: 0.5;
 }
-body.page_about.page_support .is_about .nav_5 li.is_support {
+body.page_hoge3.page_fuga .is_hoge3 .nav_2 li.is_fuga {
   opacity: 0.5;
 }
-body.page_message.page_ .is_message .nav_5 li.is_ {
+body.page_hoge3.page_piyo .is_hoge3 .nav_2 li.is_piyo {
   opacity: 0.5;
 }
-body.page_profile.page_philosophy .is_profile .nav_5 li.is_philosophy {
+body.page_hoge4.page_hoge .is_hoge4 .nav_2 li.is_hoge {
   opacity: 0.5;
 }
-body.page_profile.page_history .is_profile .nav_5 li.is_history {
+body.page_hoge4.page_fuga .is_hoge4 .nav_2 li.is_fuga {
   opacity: 0.5;
 }
-body.page_profile.page_organization .is_profile .nav_5 li.is_organization {
+body.page_hoge4.page_piyo .is_hoge4 .nav_2 li.is_piyo {
   opacity: 0.5;
 }
-body.page_profile.page_projects .is_profile .nav_5 li.is_projects {
+body.page_hoge5.page_hoge .is_hoge5 .nav_2 li.is_hoge {
   opacity: 0.5;
 }
-body.page_profile.page_access .is_profile .nav_5 li.is_access {
+body.page_hoge5.page_fuga .is_hoge5 .nav_2 li.is_fuga {
   opacity: 0.5;
 }
-body.page_profile.page_aoi .is_profile .nav_5 li.is_aoi {
-  opacity: 0.5;
-}
-body.page_profile.page_rules .is_profile .nav_5 li.is_rules {
-  opacity: 0.5;
-}
-body.page_profile.page_accountantreport .is_profile .nav_5 li.is_accountantreport {
-  opacity: 0.5;
-}
-body.page_profile.page_privacypolicy .is_profile .nav_5 li.is_privacypolicy {
-  opacity: 0.5;
-}
-body.page_profile.page_what-is-personal-data-for .is_profile .nav_5 li.is_what-is-personal-data-for {
-  opacity: 0.5;
-}
-body.page_scholarship.page_about .is_scholarship .nav_5 li.is_about {
-  opacity: 0.5;
-}
-body.page_scholarship.page_recruitment-requirements .is_scholarship .nav_5 li.is_recruitment-requirements {
-  opacity: 0.5;
-}
-body.page_scholarship.page_policy .is_scholarship .nav_5 li.is_policy {
-  opacity: 0.5;
-}
-body.page_scholarship.page_examples .is_scholarship .nav_5 li.is_examples {
-  opacity: 0.5;
-}
-body.page_socialbusiness.page_about .is_socialbusiness .nav_5 li.is_about {
-  opacity: 0.5;
-}
-body.page_socialbusiness.page_concept .is_socialbusiness .nav_5 li.is_concept {
-  opacity: 0.5;
-}
-body.page_socialbusiness.page_recruitment-requirements .is_socialbusiness .nav_5 li.is_recruitment-requirements {
-  opacity: 0.5;
-}
-body.page_socialbusiness.page_policy .is_socialbusiness .nav_5 li.is_policy {
-  opacity: 0.5;
-}
-body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_award-winners {
+body.page_hoge5.page_piyo .is_hoge5 .nav_2 li.is_piyo {
   opacity: 0.5;
 }
 
 /*
-## .nav_4
-使用箇所：homeのグローバルヘッダー
+## .nav_1
+使用箇所：
 内容：グローバルナビゲーション
 */
-.nav_4 {
+.nav_1 {
   position: relative;
   white-space: nowrap;
 }
-.nav_4.is_scrolled .nav_4__body {
+.nav_1.is_scrolled .nav_1__body {
   display: flex;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
 }
-.nav_4.is_scrolled .nav_4__main {
+.nav_1.is_scrolled .nav_1__main {
   max-width: none;
   margin: 0;
   flex: 1 1 auto;
   min-width: 0;
   font-size: 75%;
 }
-.nav_4.is_scrolled .nav_4__sub {
+.nav_1.is_scrolled .nav_1__sub {
   flex: 0 0 auto;
   font-size: 75%;
 }
-.nav_4__trigger {
+.nav_1__trigger {
   display: none;
 }
-.nav_4__main {
+.nav_1__main {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1em;
@@ -157,55 +126,55 @@ body.page_socialbusiness.page_award-winners .is_socialbusiness .nav_5 li.is_awar
   list-style: none;
   box-sizing: border-box;
 }
-.nav_4__main > li {
+.nav_1__main > li {
   height: 100%;
 }
-.nav_4__main > li.is_about > a::after {
+.nav_1__main > li.is_hoge1 > a::after {
   border-bottom-color: #481610 !important;
 }
-.nav_4__main > li.is_about > a:hover span, .nav_4__main > li.is_about > a:focus span {
+.nav_1__main > li.is_hoge1 > a:hover span, .nav_1__main > li.is_hoge1 > a:focus span {
   border-top-color: #481610;
 }
-.nav_4__main > li.is_message > a::after {
+.nav_1__main > li.is_hoge2 > a::after {
   border-bottom-color: #f7d26d !important;
 }
-.nav_4__main > li.is_message > a:hover span, .nav_4__main > li.is_message > a:focus span {
+.nav_1__main > li.is_hoge2 > a:hover span, .nav_1__main > li.is_hoge2 > a:focus span {
   border-top-color: #f7d26d;
 }
-.nav_4__main > li.is_profile > a::after {
+.nav_1__main > li.is_hoge3 > a::after {
   border-bottom-color: #a799C5 !important;
 }
-.nav_4__main > li.is_profile > a:hover span, .nav_4__main > li.is_profile > a:focus span {
+.nav_1__main > li.is_hoge3 > a:hover span, .nav_1__main > li.is_hoge3 > a:focus span {
   border-top-color: #a799C5;
 }
-.nav_4__main > li.is_scholarship > a::after {
+.nav_1__main > li.is_hoge4 > a::after {
   border-bottom-color: #7adceb !important;
 }
-.nav_4__main > li.is_scholarship > a:hover span, .nav_4__main > li.is_scholarship > a:focus span {
+.nav_1__main > li.is_hoge4 > a:hover span, .nav_1__main > li.is_hoge4 > a:focus span {
   border-top-color: #7adceb;
 }
-.nav_4__main > li.is_socialbusiness > a::after {
+.nav_1__main > li.is_hoge5 > a::after {
   border-bottom-color: #0064d3 !important;
 }
-.nav_4__main > li.is_socialbusiness > a:hover span, .nav_4__main > li.is_socialbusiness > a:focus span {
+.nav_1__main > li.is_hoge5 > a:hover span, .nav_1__main > li.is_hoge5 > a:focus span {
   border-top-color: #0064d3;
 }
-li.is_about .nav_4__main > li {
+li.is_hoge1 .nav_1__main > li {
   border-top-color: #481610;
 }
-li.is_message .nav_4__main > li {
+li.is_hoge2 .nav_1__main > li {
   border-top-color: #f7d26d;
 }
-li.is_profile .nav_4__main > li {
+li.is_hoge3 .nav_1__main > li {
   border-top-color: #a799C5;
 }
-li.is_scholarship .nav_4__main > li {
+li.is_hoge4 .nav_1__main > li {
   border-top-color: #7adceb;
 }
-li.is_socialbusiness .nav_4__main > li {
+li.is_hoge5 .nav_1__main > li {
   border-top-color: #0064d3;
 }
-.nav_4__main > li.is_megamenu > a:hover::after, .nav_4__main > li.is_megamenu > a:focus::after {
+.nav_1__main > li.is_megamenu > a:hover::after, .nav_1__main > li.is_megamenu > a:focus::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -217,7 +186,7 @@ li.is_socialbusiness .nav_4__main > li {
   border-bottom: solid 13px;
   transform: translateX(-50%);
 }
-.nav_4__main > li > a {
+.nav_1__main > li > a {
   display: block;
   position: relative;
   height: 100%;
@@ -226,7 +195,7 @@ li.is_socialbusiness .nav_4__main > li {
   text-decoration: none !important;
   box-sizing: border-box;
 }
-.nav_4__main > li > a span {
+.nav_1__main > li > a span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,18 +206,18 @@ li.is_socialbusiness .nav_4__main > li {
   border-right: 0;
   box-sizing: border-box;
 }
-.nav_4__main > li > a:hover span, .nav_4__main > li > a:focus span {
+.nav_1__main > li > a:hover span, .nav_1__main > li > a:focus span {
   border-top-color: #000;
 }
-.nav_4__sub {
+.nav_1__sub {
   display: flex;
   justify-content: center;
 }
-.nav_4__sub a {
+.nav_1__sub a {
   display: block;
   padding: 1em;
 }
-.nav_4__megatoggle {
+.nav_1__megatoggle {
   display: none;
 }
 
@@ -256,6 +225,7 @@ li.is_socialbusiness .nav_4__main > li {
 ## .megamenu_1
 使用箇所：グローバルヘッダー
 内容：
+関連：.nav_1
 */
 .megamenu_1 {
   display: none;
@@ -279,19 +249,19 @@ li.is_socialbusiness .nav_4__main > li {
   margin: 0 auto;
   padding: 0 40px;
 }
-.is_about .megamenu_1 {
+.is_hoge1 .megamenu_1 {
   background-color: #481610;
 }
-.is_message .megamenu_1 {
+.is_hoge2 .megamenu_1 {
   background-color: #f7d26d;
 }
-.is_profile .megamenu_1 {
+.is_hoge3 .megamenu_1 {
   background-color: #a799C5;
 }
-.is_scholarship .megamenu_1 {
+.is_hoge4 .megamenu_1 {
   background-color: #7adceb;
 }
-.is_socialbusiness .megamenu_1 {
+.is_hoge5 .megamenu_1 {
   background-color: #0064d3;
 }
 @media (width <= 767px){
@@ -299,18 +269,18 @@ li.is_socialbusiness .nav_4__main > li {
     padding-right: 8vw;
     box-sizing: border-box;
   }
-  .nav_5__h1 {
+  .nav_2__h1 {
     margin-bottom: 0.75em;
   }
-  .nav_5 ul {
+  .nav_2 ul {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 0.75em 0.5em;
   }
-  .nav_4 {
+  .nav_1 {
     text-align: center;
     white-space: normal;
   }
-  .nav_4__trigger {
+  .nav_1__trigger {
     display: block;
     position: fixed;
     top: 1.33vw;
@@ -324,11 +294,11 @@ li.is_socialbusiness .nav_4__main > li {
     cursor: pointer;
     z-index: 11;
   }
-  .nav_4__trigger::before, .nav_4__trigger::after {
+  .nav_1__trigger::before, .nav_1__trigger::after {
     content: "";
   }
-  .nav_4__trigger::before, .nav_4__trigger::after,
-  .nav_4__trigger .nav_4__trigger_bar {
+  .nav_1__trigger::before, .nav_1__trigger::after,
+  .nav_1__trigger .nav_1__trigger_bar {
     position: absolute;
     left: 1.33vw;
     right: 1.33vw;
@@ -338,22 +308,22 @@ li.is_socialbusiness .nav_4__main > li {
     background: #fff;
     transition: transform 0.3s, opacity 0.3s;
   }
-  .nav_4__trigger::before {
+  .nav_1__trigger::before {
     transform: translateY(-1.07vw);
   }
-  .nav_4__trigger::after {
+  .nav_1__trigger::after {
     transform: translateY(1.07vw);
   }
-  .nav_4.is_open .nav_4__trigger::before {
+  .nav_1.is_open .nav_1__trigger::before {
     transform: rotate(45deg);
   }
-  .nav_4.is_open .nav_4__trigger::after {
+  .nav_1.is_open .nav_1__trigger::after {
     transform: rotate(-45deg);
   }
-  .nav_4.is_open .nav_4__trigger .nav_4__trigger_bar {
+  .nav_1.is_open .nav_1__trigger .nav_1__trigger_bar {
     opacity: 0;
   }
-  .nav_4__body {
+  .nav_1__body {
     display: none;
     position: fixed;
     inset: 0;
@@ -364,35 +334,35 @@ li.is_socialbusiness .nav_4__main > li {
     background: #333;
     box-sizing: border-box;
   }
-  .nav_4.is_open .nav_4__body {
+  .nav_1.is_open .nav_1__body {
     display: block;
   }
-  .nav_4__main {
+  .nav_1__main {
     display: block;
     height: auto;
     padding: 0;
   }
-  .nav_4__main > li {
+  .nav_1__main > li {
     position: relative;
   }
-  .nav_4__main > li.is_open .nav_4__megatoggle::before {
+  .nav_1__main > li.is_open .nav_1__megatoggle::before {
     transform: rotate(-135deg);
   }
-  .nav_4__main > li > a {
+  .nav_1__main > li > a {
     display: block;
     height: auto;
     padding: 0.4em 0;
   }
-  .nav_4__main > li > a::after {
+  .nav_1__main > li > a::after {
     content: none !important;
   }
-  .nav_4__main > li > a span {
+  .nav_1__main > li > a span {
     display: block;
     height: auto;
     padding: 0 !important;
     border: 0 !important;
   }
-  .nav_4__megatoggle {
+  .nav_1__megatoggle {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -407,7 +377,7 @@ li.is_socialbusiness .nav_4__main > li {
     color: #fff;
     cursor: pointer;
   }
-  .nav_4__megatoggle::before {
+  .nav_1__megatoggle::before {
     content: "";
     width: 0.5em;
     height: 0.5em;
@@ -416,14 +386,14 @@ li.is_socialbusiness .nav_4__main > li {
     transform: rotate(45deg) translateY(-15%);
     transition: transform 0.3s;
   }
-  .nav_4 .megamenu_1 {
+  .nav_1 .megamenu_1 {
     display: none;
     position: static;
     width: auto;
     margin: 0;
     padding: 1em 0;
   }
-  .nav_4 li.is_open > .megamenu_1 {
+  .nav_1 li.is_open > .megamenu_1 {
     display: block;
   }
   .megamenu_1__inner {
@@ -431,7 +401,7 @@ li.is_socialbusiness .nav_4__main > li {
   }
 }
 @media (width >= 768px){
-  .nav_4 li.is_megamenu:hover .megamenu_1, .nav_4 li.is_megamenu:focus-within .megamenu_1 {
+  .nav_1 li.is_megamenu:hover .megamenu_1, .nav_1 li.is_megamenu:focus-within .megamenu_1 {
     display: block;
   }
 }
