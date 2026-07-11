@@ -1,69 +1,68 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、このリポジトリで作業する Claude Code (claude.ai/code) 向けのガイダンスを提供する。
 
-## Project overview
+## プロジェクト概要
 
-A static-site frontend build skeleton (EJS + SCSS + ES6 JS) built on Webpack 5. There is no application server or test suite — the only output is a `dist/` folder of static HTML/CSS/JS meant to be uploaded to a webhost.
+Webpack 5 上に構築された静的サイト向けフロントエンドビルドスケルトン（EJS + SCSS + ES6 JS）。アプリケーションサーバーやテストスイートは存在せず、成果物は Web ホストにアップロードする静的な HTML/CSS/JS 一式（`dist/`）のみ。
 
-## Commands
+## コマンド
 
 ```bash
-npm install       # install dependencies
-npm start         # runs `webpack`: builds once, then watches src/ and serves dist/htdocs via BrowserSync
-npm run validate:html   # runs html-validate against dist_uncompressed/htdocs/**/*.html
-node validate-html.js   # alternate HTML validator: uses .htmlvalidate.json and prints per-file line/column errors
+npm install       # 依存パッケージのインストール
+npm start         # `webpack` を実行：一度ビルドした後、src/ を監視しつつ dist/htdocs を BrowserSync で配信
+npm run validate:html   # dist_uncompressed/htdocs/**/*.html に対して html-validate を実行
+node validate-html.js   # 代替の HTML バリデータ：.htmlvalidate.json を使い、ファイルごとに行/列付きでエラーを表示
+npm run type-check      # src/**/*.ts に対して tsc --noEmit を実行（実際に型チェックを行う唯一の手段。詳細は後述）
 ```
 
-There is no test script and no lint script in `package.json`. Stylelint (`stylelint-webpack-plugin`, `fix: true`, so it auto-fixes SCSS in place) is wired into the `uncompressed` config but only runs when the `STYLELINT` env var is set — plain `npm start` skips it (kept off during normal editing since it re-lints/re-fixes SCSS on every watch-triggered rebuild); run `STYLELINT=1 npm start` to enable it for a session. ESLint is installed (`eslint.config.js` exists) but is **not** wired into webpack or any npm script — run it manually if needed: `npx eslint src`.
+`package.json` にテスト用スクリプトや lint 用スクリプトは無い。Stylelint（`stylelint-webpack-plugin`、`fix: true` のため SCSS をその場で自動修正する）は `uncompressed` 設定に組み込まれているが、`STYLELINT` 環境変数が設定されている時のみ動作する — 素の `npm start` では実行されない（watch による再ビルドのたびに SCSS を再 lint・再修正してしまうため、通常の編集時はオフにしてある）。そのセッションだけ有効にしたい場合は `STYLELINT=1 npm start` を実行する。ESLint はインストール済みで（`eslint.config.js` があり、`.ts` 用に `typescript-eslint` のブロックもある）webpack や npm スクリプトには組み込まれて**いない** — 必要なら手動で `npx eslint src` を実行する。
 
-To build/validate a single page during development, just run `npm start` and check the corresponding file under `dist_uncompressed/htdocs/`; there's no per-file build command.
+`.ts` ファイルは `.js` と並行してサポートされている（`webpack.config.js` が `.ts` を `resolve` に含め、エントリー探索も `**/*.{js,ts}` で glob している）が、変換は `babel-loader` + `@babel/preset-typescript` によるもので、これは型を単に取り除くだけで型チェックは行わない。型エラーを検出できるのは `npm run type-check` だけであり、webpack のビルドは型エラーを含んだ JS でも問題なく出力してしまう。
 
-## Architecture
+開発中に単一ページだけをビルド・確認したい場合は、`npm start` を実行して `dist_uncompressed/htdocs/` 配下の該当ファイルを見ればよい。ファイル単位のビルドコマンドは存在しない。
 
-### Two-pass multi-config build
+## アーキテクチャ
 
-`webpack.config.js` exports an **array of two configs**, both built by one `webpack` invocation:
+### 2パス構成のマルチコンフィグビルド
 
-1. **`uncompressed`** (dev config) → writes to `dist_uncompressed/`. Compiles only SCSS → CSS and EJS → HTML (no JS). Not minified.
-2. **`production`** → writes to `dist/`. Compiles JS (Babel + Terser) and SCSS → CSS (compressed) directly, but for HTML/other static files it **copies from `dist_uncompressed/`** via `CopyPlugin`, minifying HTML in the process (`html-minifier-terser`).
+`webpack.config.js` は**2つの設定を配列でエクスポート**しており、どちらも一度の `webpack` 呼び出しでビルドされる：
 
-Because `production` reads from `dist_uncompressed`, the `production` config declares `name: 'production'` + `dependencies: ['uncompressed']` so Webpack's MultiCompiler builds `uncompressed` first — don't remove this or the two configs can race.
+1. **`uncompressed`**（開発用設定）→ `dist_uncompressed/` に出力。SCSS → CSS と EJS → HTML のみをコンパイルする（JS は扱わない）。圧縮なし。
+2. **`production`** → `dist/` に出力。JS（Babel + Terser）と SCSS → CSS（圧縮）を直接コンパイルするが、HTML など静的ファイルは `CopyPlugin` 経由で `dist_uncompressed/` から**コピー**しつつ HTML を圧縮する（`html-minifier-terser`）。
 
-`BrowserSyncPlugin` (attached to the `production` config) serves `dist/htdocs` and injects SSI via `browsersync-ssi` (see below).
+`production` は `dist_uncompressed` を読み込むため、`production` 設定側で `name: 'production'` と `dependencies: ['uncompressed']` を宣言し、Webpack の MultiCompiler が `uncompressed` を先にビルドするようにしている — これを外すと2つの設定がレースコンディションを起こしうるので削除しないこと。
 
-### Entry discovery is convention-based (glob), not manually listed
+`BrowserSyncPlugin`（`production` 設定に付随）が `dist/htdocs` を配信し、`browsersync-ssi` により SSI を注入する（詳細は後述）。
 
-Both configs use `glob.sync()` over `src/htdocs` to build `entry` automatically:
-- `**/*.scss` (excluding `_*.scss`) → one CSS entry per file
-- `**/*.js` (excluding `_*.js`, production only) → one JS entry per file
-- `**/*.ejs` (excluding `_*.ejs`) → one `HtmlWebpackPlugin` per file
+### エントリー探索は glob による規約ベースであり、手動列挙ではない
 
-**Filename convention**: a leading underscore (`_head.ejs`, `_reset.scss`, `_ignite.js`) marks a partial that is only ever pulled in via `@use`/`include()`/`import` from another file — it is never built as its own output. Files without the underscore (`base.scss`, `common.scss`, `index.ejs`, `common.js`) are standalone build entries. Adding a new page/stylesheet/script just means adding a correctly-named file under `src/htdocs`; nothing needs to be registered in webpack.config.js.
+両設定とも `src/htdocs` に対して `glob.sync()` を使い、`entry` を自動的に構築する：
+- `**/*.scss`（`_*.scss` を除く）→ ファイルごとに1つの CSS エントリー
+- `**/*.{js,ts}`（`_*.js`/`_*.ts` を除く、production のみ）→ ファイルごとに1つの JS/TS エントリー
+- `**/*.ejs`（`_*.ejs` を除く）→ ファイルごとに1つの `HtmlWebpackPlugin`
 
-### SCSS structure
+**ファイル名の規約**：先頭のアンダースコア（`_head.ejs`、`_reset.scss`、`_ignite.js`）は、他のファイルから `@use`/`include()`/`import` で取り込まれるだけのパーシャルであることを示し、それ自体が単独の出力としてビルドされることはない。アンダースコアの無いファイル（`base.scss`、`common.scss`、`index.ejs`、`common.js`）は単独のビルドエントリーとなる。新しいページ/スタイルシート/スクリプトを追加するには、`src/htdocs` 配下に正しい命名規則のファイルを置くだけでよく、`webpack.config.js` への登録は不要。
 
-`src/htdocs/assets/css/tool/_index.scss` holds shared variables/mixins/functions (breakpoint `$breakpoint1: 767px`, `pc`/`sp` mixins, `px2vw1/2`, `clamp1`, `min1`, `max1`) and is imported with `@use "tool" as *` at the top of both `base.scss` and `common.scss`. `base.scss` handles reset/font/foundation; `common.scss` aggregates `module/` (per-component styles), `layout/`, `extra/`, and `animation/` partials.
+### SCSS 構造
 
-The `css-loader` `url.filter` in `createScssRule()` deliberately skips rewriting any image URL that ends in `--pc`/`--sp`/`--exc` before the extension, or starts with `/` — these are left as literal paths rather than processed as webpack modules.
+`src/htdocs/assets/css/tool/_index.scss` は共有の変数・mixin・関数（ブレークポイント `$breakpoint1: 767px`、`pc`/`sp` mixin、`px2vw1/2`、`clamp1`、`min1`、`max1`）を保持し、`base.scss` と `common.scss` の両方の先頭で `@use "tool" as *` としてインポートされる。`base.scss` は `base/reset`、`base/font`、`base/foundation`、`base/javascript` に加えて `state`（`.is_pc_none_1`/`.is_sp_none_1`/`.is_none` などの PC/SP 表示切り替え用ユーティリティクラス）を集約する。`common.scss` は `module/`（コンポーネント単位のスタイル）、`layout/`、`extra/`、`animation/` の各パーシャルを集約する。
 
-### EJS/HTML composition
+`createScssRule()` 内の `css-loader` の `url.filter` は、拡張子の前に `--pc`/`--sp`/`--exc` が付く画像 URL、および `/` から始まる画像 URL を意図的に書き換え対象から除外している — これらは webpack モジュールとして処理されず、リテラルなパスのまま残される。
 
-Pages `include()` shared partials (`_head`, `_header`, `_footer`, `_body_before`, `_body_after`) and receive `SITE_DATA` (site name/URL) injected via `ejs-plain-loader`. Separately, `<!--#include virtual="..." -->` comments are **SSI directives**, not EJS — they're resolved at serve-time by BrowserSync's `browsersync-ssi` middleware, not at build time.
+### EJS/HTML の構成
 
-### Image pipeline (two independent systems)
+各ページは共有パーシャル（`_head`、`_header`、`_footer`、`_body_before`、`_body_after`）を `include()` し、`ejs-plain-loader` により注入される `SITE_DATA`（サイト名/URL）を受け取る。これとは別に、`<!--#include virtual="..." -->` というコメントは EJS ではなく **SSI ディレクティブ**であり、ビルド時ではなく BrowserSync の `browsersync-ssi` ミドルウェアによって配信時に解決される。
 
-- Images referenced under `src/` and inlined via the `asset/inline` rule (jpg/png/webp/svg/etc., excluding the `img2webp` dir) are base64-inlined into CSS/JS.
-- `img2webp/` (project root, outside `src/`) is a separate staging folder: any `.jpg`/`.png`/`.jpeg` placed there is converted to WebP by `sharp` via `CopyPlugin` and written back **in place** in `img2webp/` (not into `dist/`). `webpackOptions.watchOptions.ignored` explicitly excludes `img2webp/**/*.webp` to avoid a watch/rebuild loop from files the build itself just wrote. Converted `.webp`/original `.jpg`/`.png` files in `img2webp/` are gitignored.
+### 画像パイプライン（独立した2つの仕組み）
 
-### Parts library (`src/htdocs/parts-library/`)
+- `src/` 配下から参照され `asset/inline` ルールでインライン化される画像（jpg/png/webp/svg など、`img2webp` ディレクトリは除く）は CSS/JS に base64 でインライン化される。
+- `img2webp/`（プロジェクトルート、`src/` の外）は別系統のステージングフォルダ：ここに置かれた `.jpg`/`.png`/`.jpeg` は `sharp` により `CopyPlugin` 経由で WebP に変換され、`img2webp/` 内に**その場で**書き戻される（`dist/` には出力されない）。ビルド自身が書き出した `.webp` ファイルによる監視・再ビルドの無限ループを避けるため、`webpackOptions.watchOptions.ignored` で `img2webp/**/*.webp` を明示的に除外している。`img2webp/` 内の変換済み `.webp`/元の `.jpg`/`.png` は gitignore 対象。
 
-A copy-paste component warehouse, not part of the build itself — every file inside uses the `_`-prefixed partial convention, so nothing here is ever compiled as its own entry. Organized into `parts/` (single components), `layouts/` (page/section-sized pieces), `snippets/` (short fragments like meta tags, SSI, structured data), and `recipes/` (docs on combining multiple parts). Each part directory bundles its EJS/SCSS/JS together (e.g. `parts/accordion/_accordion.{ejs,scss,js}`) with a local `README.md` describing dependencies and where to copy it into a target project (e.g. `_accordion.ejs` → `src/htdocs/assets/html/parts/`, `_accordion.scss` → `assets/css/module/`, `_accordion.js` → `assets/js/components/`). Designed to be relocatable to its own repo later, so treat it as self-contained rather than reaching into project-specific paths.
+### サンプルエリア（`src/htdocs/samples/`）
 
-### Samples area (`src/htdocs/samples/`)
+メインサイトの `assets/css/{tool,module,extra}` 構造を、独自の `samples/assets/` ルート配下にミラーリングした自己完結型のデモ/プロトタイプエリアで、独自のアグリゲーター（`samples/assets/css/all.scss`、`common.scss` と同じ方法でインポートされる）を持つ。ここに置かれたファイルは通常のビルドエントリー規約に従う（`_` プレフィックスの無い `.ejs`/`.scss` は実際の webpack エントリーになる）。SCSS はブレークポイント/mixin を共有するためメインサイトの `tool/_index.scss` を `@use "../../../assets/css/tool" as *` でインポートしつつ、サンプル固有のデータ（例：`$contents` マップ）のために自身の `tool/_index.scss` も保持する。各ページは EJS の `include()` ではなく SSI（`<!--#include virtual="/samples/assets/html/*.html" -->`）で `index.ejs` に組み込まれる。`common.css` と同じページに読み込まれる独立したコンポーネント群であるため、`assets/css/module/` とのクラス名衝突に注意すること。
 
-A self-contained demo/prototype area, mirroring the main site's `assets/css/{tool,module,extra}` structure under its own `samples/assets/` root with its own aggregator (`samples/assets/css/all.scss`, imported the same way `common.scss` is). Unlike the parts library, files here follow the normal build-entry convention (non-`_`-prefixed `.ejs`/`.scss` are real webpack entries), and its SCSS imports the main site's `tool/_index.scss` (`@use "../../../assets/css/tool" as *`) for shared breakpoints/mixins while keeping its own `tool/_index.scss` for sample-specific data (e.g. `$contents` map). Pages are wired into `index.ejs` via SSI (`<!--#include virtual="/samples/assets/html/*.html" -->`), not EJS `include()`. Because it's an independent component set loaded on the same pages as `common.css`, watch out for class-name collisions with `assets/css/module/` or the parts library (e.g. both once defined `.megamenu_1`) — CSS from both bundles applies to the same DOM.
+### デプロイ
 
-### Deployment
-
-`.vscode/sftp.json` configures the VSCode SFTP extension to upload `dist/` (context: `dist`) to remote `staging`/`production` FTP profiles (credentials are blank placeholders, filled in locally per environment). Deployment is not part of any npm script.
+`.vscode/sftp.json` が VSCode SFTP 拡張機能の設定として、`dist/`（コンテキスト：`dist`）をリモートの `staging`/`production` FTP プロファイルにアップロードするよう構成している（認証情報は空のプレースホルダーで、ローカル環境ごとに個別に埋める）。デプロイは npm スクリプトには含まれていない。
