@@ -120,6 +120,7 @@ body.page_hoge5.page_piyo .is_hoge5 .nav_2 li.is_piyo {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1em;
+  position: relative;
   max-width: 1200px;
   height: 100%;
   margin: 0 auto;
@@ -238,8 +239,8 @@ li.is_hoge5 .nav_1__main > li {
   box-sizing: border-box;
   z-index: 1;
 }
-.header_1 .megamenu_1 {
-  margin-top: -6px;
+.nav_1 .megamenu_1 {
+  margin-top: -1px;
 }
 .nav_1 > ul > li:hover .megamenu_1, .nav_1 > ul > li:focus .megamenu_1 {
   display: block;
@@ -248,6 +249,35 @@ li.is_hoge5 .nav_1__main > li {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 40px;
+}
+.megamenu_1__close {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.megamenu_1__close::before, .megamenu_1__close::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  background: #fff;
+}
+.megamenu_1__close::before {
+  transform: rotate(45deg);
+}
+.megamenu_1__close::after {
+  transform: rotate(-45deg);
 }
 .is_hoge1 .megamenu_1 {
   background-color: #481610;
@@ -388,7 +418,7 @@ li.is_hoge5 .nav_1__main > li {
   }
   .nav_1 .megamenu_1 {
     display: none;
-    position: static;
+    position: relative;
     width: auto;
     margin: 0;
     padding: 1em 0;
@@ -399,9 +429,23 @@ li.is_hoge5 .nav_1__main > li {
   .megamenu_1__inner {
     padding: 0 1em;
   }
+  .megamenu_1__close {
+    top: 1.33vw;
+    right: 1.33vw;
+    width: 4.27vw;
+    height: 4.27vw;
+  }
+  .megamenu_1__close::before, .megamenu_1__close::after {
+    width: 1.87vw;
+    height: 0.27vw;
+    margin: -0.13vw 0 0 -0.93vw;
+  }
 }
 @media (width >= 768px){
   .nav_1 li.is_megamenu:hover .megamenu_1, .nav_1 li.is_megamenu:focus-within .megamenu_1 {
     display: block;
+  }
+  .nav_1 li.is_megamenu.is_closed .megamenu_1 {
+    display: none;
   }
 }

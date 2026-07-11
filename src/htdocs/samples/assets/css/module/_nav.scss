@@ -156,6 +156,7 @@ html.is_nav_1_open {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 1em;
+    position: relative;
     max-width: $width3;
     height: 100%;
     margin: 0 auto;

@@ -20,13 +20,16 @@
   color: #fff;
   box-sizing: border-box;
   z-index: 1;
-  .header_1 & {
-    margin-top: -6px;
+  .nav_1 & {
+    margin-top: -1px;
   }
   @include pc {
     .nav_1 li.is_megamenu:hover &,
     .nav_1 li.is_megamenu:focus-within & {
       display: block;
+    }
+    .nav_1 li.is_megamenu.is_closed & {
+      display: none;
     }
   }
   .nav_1 > ul > li:hover &,
@@ -36,7 +39,7 @@
   @include sp {
     .nav_1 & {
       display: none;
-      position: static;
+      position: relative;
       width: auto;
       margin: 0;
       padding: 1em 0;
@@ -51,6 +54,48 @@
     padding: 0 $padding1--pc;
     @include sp {
       padding: 0 1em;
+    }
+  }
+  &__close {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .2);
+    cursor: pointer;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      margin: -1px 0 0 -7px;
+      background: #fff;
+    }
+    &::before {
+      transform: rotate(45deg);
+    }
+    &::after {
+      transform: rotate(-45deg);
+    }
+    @include sp {
+      top: px2vw2(10);
+      right: px2vw2(10);
+      width: px2vw2(32);
+      height: px2vw2(32);
+      &::before,
+      &::after {
+        width: px2vw2(14);
+        height: px2vw2(2);
+        margin: px2vw2(-1) 0 0 px2vw2(-7);
+      }
     }
   }
   @each $content, $props in samples.$contents {
