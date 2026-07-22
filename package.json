@@ -50,6 +50,7 @@
     "webpack-remove-empty-scripts": "^1.0.4"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "slick-carousel": "^1.8.1"
   }
 }
