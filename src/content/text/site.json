@@ -1,5 +1,5 @@
 {
-  "START_PATH": "",
-  "SITE_URL": "https://example.com/",
-  "SITE_NAME": "ダミーサイト名"
+  "SITE_NAME": "架空商店ダミー",
+  "SITE_URL": "https://dummy-example-shop.test/",
+  "START_PATH": ""
 }

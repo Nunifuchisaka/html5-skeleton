@@ -1,7 +1,8 @@
 {
   "meta": {
-    "type": "article",
-    "title": "サンプル一覧",
-    "description": ""
+    "title": "架空商店ダミー サンプルページ",
+    "titleSeparator": " | ",
+    "description": "サンプルパーツ検証用の架空ダミーページです。実在の企業・商品とは一切関係ありません。",
+    "keywords": "ダミー,テスト,サンプル"
   }
 }

@@ -60,6 +60,15 @@ const getScssEntries = () => {
   return entries;
 };
 
+const createImageInlineRule = () => ({
+  test: /\.(jpg|jpeg|png|webp|svg|gif|eot|ttf|woff)$/i,
+  type: 'asset/inline',
+  exclude: [
+    /node_modules/,
+    path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
+  ],
+});
+
 const createScssRule = ({ sourceMap, outputStyle }) => ({
   test: /\.scss$/,
   use: [
@@ -110,14 +119,7 @@ const createConfig_development = ({ outputPath }) => {
     },
     module: {
       rules: [
-        {
-          test: /\.(jpg|jpeg|png|webp|svg|gif|eot|ttf|woff)$/i,
-          type: 'asset/inline',
-          exclude: [
-            /node_modules/,
-            path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
-          ],
-        },
+        createImageInlineRule(),
       ]
     },
     plugins: [
@@ -203,7 +205,9 @@ const createConfig_production = ({ outputPath }) => {
       assetModuleFilename: 'assets/[name][ext][query]',
     },
     module: {
-      rules: [],
+      rules: [
+        createImageInlineRule(),
+      ],
     },
     plugins: [
       new RemoveEmptyScriptsPlugin(),

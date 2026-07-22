@@ -1,10 +1,11 @@
 {
   "meta": {
-    "type": "website",
-    "title": "",
-    "description": ""
+    "title": "架空商店ダミー トップページ",
+    "titleSeparator": " | ",
+    "description": "これは検証用に作成した架空のダミーテキストです。実在の企業・商品とは一切関係ありません。",
+    "keywords": "ダミー,テスト,架空商店"
   },
   "body": {
-    "samplesLinkText": "サンプル一覧"
+    "samplesLinkText": "サンプル一覧を見る（ダミーテキスト）"
   }
 }

@@ -1,2 +1,10 @@
 @use "sass:math";
 @use "../tool" as *;
+
+// src/content/img 配下の画像がasset/inlineパイプラインで処理されることを検証するためのテスト用スタイル
+#icon-1 {
+  width: 40px;
+  height: 40px;
+  background-image: url("../../../../content/img/dummy_1.webp");
+  background-size: cover;
+}
