@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(./src/htdocs/**)",
+      "Edit(./src/htdocs/**)",
+      "Bash(npm start *)",
+      "Bash(npx webpack *)",
+      "Bash(npx stylelint *)",
+      "Bash(pgrep -f \"^webpack$\")",
+      "Bash(pkill -f \"webpack\")"
+    ],
+    "deny": [
+      "Read(./node_modules/**)",
+      "Edit(./node_modules/**)",
+      "Read(./src/content/**)",
+      "Grep(./src/content/**)",
+      "Glob(./src/content/**)",
+      "Read(./dist/**)",
+      "Grep(./dist/**)",
+      "Glob(./dist/**)",
+      "Read(./dist_uncompressed/**)",
+      "Grep(./dist_uncompressed/**)",
+      "Glob(./dist_uncompressed/**)",
+      "Bash(cat ./src/content/*)",
+      "Bash(cat ./dist/*)",
+      "Bash(cat ./dist_uncompressed/*)",
+      "Bash(less ./src/content/*)",
+      "Bash(less ./dist/*)",
+      "Bash(less ./dist_uncompressed/*)",
+      "Bash(more ./src/content/*)",
+      "Bash(more ./dist/*)",
+      "Bash(more ./dist_uncompressed/*)",
+      "Bash(head ./src/content/*)",
+      "Bash(head ./dist/*)",
+      "Bash(head ./dist_uncompressed/*)",
+      "Bash(tail ./src/content/*)",
+      "Bash(tail ./dist/*)",
+      "Bash(tail ./dist_uncompressed/*)"
+    ]
+  }
+}
