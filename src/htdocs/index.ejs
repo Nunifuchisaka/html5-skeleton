@@ -2,11 +2,7 @@
 <html lang="ja">
 <head><%
 const path = "./";
-const meta = {
-  type: "website",
-  title: "",
-  description: "",
-};
+const meta = PAGES.index.meta;
 %>
 <%- include("assets/html/_head",{meta:meta}) %>
 </head>
@@ -19,7 +15,7 @@ const meta = {
 <main id="main">
 
   <ul>
-    <li><a href="samples/">サンプル一覧</a></li>
+    <li><a href="samples/"><%= PAGES.index.body.samplesLinkText %></a></li>
   </ul>
 
   <%- include("assets/html/test") %>

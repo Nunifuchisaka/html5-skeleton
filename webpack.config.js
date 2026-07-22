@@ -1,17 +1,7 @@
 const SRC_DIR = './src',
       DIST_DIR = './dist',
-      DIST_UNCOMPRESSED_DIR = './dist_uncompressed';
-
-const SITE_DATA = {
-  START_PATH: '',
-  SITE_URL: 'https://example.com/',
-  SITE_NAME: 'ダミーサイト名',
-};
-
-const BROWSER_SYNC_CONFIG = {
-  startPath: SITE_DATA.START_PATH,
-  reloadOnRestart: true,
-};
+      DIST_UNCOMPRESSED_DIR = './dist_uncompressed',
+      CONTENT_TEXT_DIR = './src/content/text';
 
 const IMAGE_OPTIMIZATION_CONFIG = {
   IMG_TO_WEBP_SRC_DIR: './img2webp',
@@ -19,6 +9,7 @@ const IMAGE_OPTIMIZATION_CONFIG = {
 };
 
 const path = require('path'),
+      fs = require('fs'),
       glob = require('glob'),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts'),
       BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
@@ -33,7 +24,28 @@ const path = require('path'),
       StylelintPlugin = require('stylelint-webpack-plugin'),
       SRC_PATH = path.resolve(__dirname, SRC_DIR),
       DIST_PATH = path.resolve(__dirname, DIST_DIR),
-      DIST_UNCOMPRESSED_PATH = path.resolve(__dirname, DIST_UNCOMPRESSED_DIR);
+      DIST_UNCOMPRESSED_PATH = path.resolve(__dirname, DIST_UNCOMPRESSED_DIR),
+      CONTENT_TEXT_PATH = path.resolve(__dirname, CONTENT_TEXT_DIR);
+
+// src/content/text/site.json（SITE_NAME等）とpages/**/*.json（ページ単位のmeta/本文）をまとめて読み込み、
+// ejs-plain-loaderのdataとしてEJS側に注入する。JSONはwebpack設定の評価時に一度だけ読み込まれるため、
+// 編集を反映するには npm start の再起動が必要（EJS/SCSS/JSのようなwatchによる自動反映はされない）。
+const loadContentData = () => {
+  const siteData = JSON.parse(fs.readFileSync(path.join(CONTENT_TEXT_PATH, 'site.json'), 'utf-8'));
+  const PAGES = {};
+  glob.sync('pages/**/*.json', { cwd: CONTENT_TEXT_PATH }).forEach(key => {
+    const pageKey = key.replace(/^pages\//, '').replace(/\.json$/, '');
+    PAGES[pageKey] = JSON.parse(fs.readFileSync(path.join(CONTENT_TEXT_PATH, key), 'utf-8'));
+  });
+  return { ...siteData, PAGES };
+};
+
+const CONTENT_DATA = loadContentData();
+
+const BROWSER_SYNC_CONFIG = {
+  startPath: CONTENT_DATA.START_PATH,
+  reloadOnRestart: true,
+};
 
 const CSS_URL_SKIP_PATTERN = /(--pc|--sp|--exc)\.(jpg|jpeg|png|webp|svg|gif)(\?\d+)?$/i;
 
@@ -170,7 +182,7 @@ const createConfig_development = ({ outputPath }) => {
       }, {
         loader: 'ejs-plain-loader',
         options: {
-          data: SITE_DATA
+          data: CONTENT_DATA
         }
       }
     ]
