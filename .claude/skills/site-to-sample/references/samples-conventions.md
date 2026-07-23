@@ -129,7 +129,7 @@ jQueryはグローバルで使用可能だが、既存コードは基本vanilla 
 
 ## 登録（アグリゲーターへの追記）
 
-`webpack.config.js` の編集は一切不要（globで自動検出される）。以下の3ファイルのみ編集する：
+`config/webpack.config.js` の編集は一切不要（globで自動検出される）。以下の3ファイルのみ編集する：
 
 1. `assets/css/all.scss` — 該当グループ（`module`/`extra`）の末尾に `@use "module/<name>";` または `@use "extra/<name>";` を追記。
    ```scss

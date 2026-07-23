@@ -1,15 +1,18 @@
-const SRC_DIR = './src',
-      DIST_DIR = './dist',
-      DIST_UNCOMPRESSED_DIR = './dist_uncompressed',
-      CONTENT_TEXT_DIR = './src/content/text';
+const path = require('path');
+
+const CONFIG_DIR = __dirname,
+      PROJECT_ROOT = path.resolve(CONFIG_DIR, '..'),
+      SRC_DIR = 'src',
+      DIST_DIR = 'dist',
+      DIST_UNCOMPRESSED_DIR = 'dist_uncompressed',
+      CONTENT_TEXT_DIR = 'src/content/text';
 
 const IMAGE_OPTIMIZATION_CONFIG = {
-  IMG_TO_WEBP_SRC_DIR: './img2webp',
+  IMG_TO_WEBP_SRC_DIR: 'img2webp',
   WEBP_QUALITY: 90,
 };
 
-const path = require('path'),
-      fs = require('fs'),
+const fs = require('fs'),
       glob = require('glob'),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts'),
       BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
@@ -22,10 +25,10 @@ const path = require('path'),
       sharp = require('sharp'),
       postcss = require('postcss'),
       StylelintPlugin = require('stylelint-webpack-plugin'),
-      SRC_PATH = path.resolve(__dirname, SRC_DIR),
-      DIST_PATH = path.resolve(__dirname, DIST_DIR),
-      DIST_UNCOMPRESSED_PATH = path.resolve(__dirname, DIST_UNCOMPRESSED_DIR),
-      CONTENT_TEXT_PATH = path.resolve(__dirname, CONTENT_TEXT_DIR);
+      SRC_PATH = path.resolve(PROJECT_ROOT, SRC_DIR),
+      DIST_PATH = path.resolve(PROJECT_ROOT, DIST_DIR),
+      DIST_UNCOMPRESSED_PATH = path.resolve(PROJECT_ROOT, DIST_UNCOMPRESSED_DIR),
+      CONTENT_TEXT_PATH = path.resolve(PROJECT_ROOT, CONTENT_TEXT_DIR);
 
 // src/content/text/site.json（SITE_NAME等）とpages/**/*.json（ページ単位のmeta/本文）をまとめて読み込み、
 // ejs-plain-loaderのdataとしてEJS側に注入する。JSONはwebpack設定の評価時に一度だけ読み込まれるため、
@@ -65,7 +68,7 @@ const createImageInlineRule = () => ({
   type: 'asset/inline',
   exclude: [
     /node_modules/,
-    path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
+    path.resolve(PROJECT_ROOT, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
   ],
 });
 
@@ -83,7 +86,12 @@ const createScssRule = ({ sourceMap, outputStyle }) => ({
         },
       }
     },
-    'postcss-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: require(path.resolve(CONFIG_DIR, 'postcss.config.js')),
+      }
+    },
     {
       // resolve-url-loaderはパーティシャル間のurl()相対パス解決にソースマップを必須とするため、
       // 最終出力にソースマップを含めない場合でも常に有効にする
@@ -109,6 +117,7 @@ const createConfig_development = ({ outputPath }) => {
 
   const config = {
     name: 'uncompressed',
+    context: PROJECT_ROOT,
     mode: 'development',
     devtool: false,
     entry: {},
@@ -141,6 +150,7 @@ const createConfig_development = ({ outputPath }) => {
     ...(process.env.STYLELINT === '1' ? [
       new StylelintPlugin({
         files: [`${SRC_DIR}/**/*.scss`],
+        configFile: path.resolve(CONFIG_DIR, 'stylelint.config.js'),
         fix: true
       })
     ] : []),
@@ -196,6 +206,7 @@ const createConfig_development = ({ outputPath }) => {
 const createConfig_production = ({ outputPath }) => {
   const config = {
     name: 'production',
+    context: PROJECT_ROOT,
     dependencies: ['uncompressed'],
     mode: 'production',
     entry: {},
@@ -232,7 +243,7 @@ const createConfig_production = ({ outputPath }) => {
         '**/node_modules/**',
         '**/.DS_Store',
         '**/Thumbs.db',
-        path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.webp').replace(/\\/g, '/'),
+        path.resolve(PROJECT_ROOT, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.webp').replace(/\\/g, '/'),
       ],
     },
     target: ['web'],
@@ -246,7 +257,12 @@ const createConfig_production = ({ outputPath }) => {
   config.module.rules.push({
     test: /\.(js|ts)$/,
     exclude: /node_modules/,
-    use: 'babel-loader'
+    use: {
+      loader: 'babel-loader',
+      options: {
+        configFile: path.resolve(CONFIG_DIR, 'babel.config.js'),
+      }
+    }
   });
 
   // CSS
@@ -258,7 +274,7 @@ const createConfig_production = ({ outputPath }) => {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.{jpg,jpeg,png}'),
+          from: path.resolve(PROJECT_ROOT, IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR, '**/*.{jpg,jpeg,png}'),
           to(pathData) {
             const sourceDir = path.dirname(pathData.absoluteFilename);
             const sourceName = path.parse(pathData.absoluteFilename).name;
@@ -304,18 +320,18 @@ const createConfig_production = ({ outputPath }) => {
       ...BROWSER_SYNC_CONFIG,
       host: 'localhost',
       server: {
-        baseDir: [ path.join(DIST_DIR, 'htdocs') ],
+        baseDir: [ path.join(PROJECT_ROOT, DIST_DIR, 'htdocs') ],
         middleware: [
           ssi({
-            baseDir: path.join(DIST_DIR, 'htdocs'),
+            baseDir: path.join(PROJECT_ROOT, DIST_DIR, 'htdocs'),
             ext: '.html'
           })
         ]
       },
       files: [
-        DIST_DIR + '/**/*.html',
-        DIST_DIR + '/**/*.css',
-        DIST_DIR + '/**/*.js'
+        path.join(DIST_PATH, '**/*.html').replace(/\\/g, '/'),
+        path.join(DIST_PATH, '**/*.css').replace(/\\/g, '/'),
+        path.join(DIST_PATH, '**/*.js').replace(/\\/g, '/')
       ],
       ghostMode: false,
     }, { reload: true })

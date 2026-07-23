@@ -1,7 +1,7 @@
 {
   "author": "",
   "scripts": {
-    "start": "webpack",
+    "start": "webpack --config config/webpack.config.js",
     "webp": "node scripts/watch-webp.js",
     "validate:html": "npx html-validate \"dist_uncompressed/htdocs/**/*.html\"",
     "type-check": "node ./node_modules/typescript-native/bin/tsc --noEmit"
