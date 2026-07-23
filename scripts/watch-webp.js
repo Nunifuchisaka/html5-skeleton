@@ -1,9 +1,7 @@
 const path = require('path'),
       chokidar = require('chokidar'),
-      sharp = require('sharp');
-
-const IMG_TO_WEBP_SRC_DIR = './img2webp',
-      WEBP_QUALITY = 75;
+      sharp = require('sharp'),
+      { IMG_TO_WEBP_SRC_DIR, WEBP_QUALITY } = require('../config/image-optimization.config');
 
 const SRC_PATH = path.resolve(__dirname, '..', IMG_TO_WEBP_SRC_DIR);
 

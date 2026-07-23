@@ -7,10 +7,7 @@ const CONFIG_DIR = __dirname,
       DIST_UNCOMPRESSED_DIR = 'dist_uncompressed',
       CONTENT_TEXT_DIR = 'src/content/text';
 
-const IMAGE_OPTIMIZATION_CONFIG = {
-  IMG_TO_WEBP_SRC_DIR: 'img2webp',
-  WEBP_QUALITY: 90,
-};
+const IMAGE_OPTIMIZATION_CONFIG = require('./image-optimization.config');
 
 const fs = require('fs'),
       glob = require('glob'),
@@ -36,7 +33,7 @@ const fs = require('fs'),
 const loadContentData = () => {
   const siteData = JSON.parse(fs.readFileSync(path.join(CONTENT_TEXT_PATH, 'site.json'), 'utf-8'));
   const PAGES = {};
-  glob.sync('pages/**/*.json', { cwd: CONTENT_TEXT_PATH }).forEach(key => {
+  glob.sync('pages/**/*.json', { cwd: CONTENT_TEXT_PATH, posix: true }).forEach(key => {
     const pageKey = key.replace(/^pages\//, '').replace(/\.json$/, '');
     PAGES[pageKey] = JSON.parse(fs.readFileSync(path.join(CONTENT_TEXT_PATH, key), 'utf-8'));
   });
