@@ -1,38 +1,4 @@
 'use strict';
 
-const globals = require('globals');
-const js = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-
-module.exports = tseslint.config(
-  js.configs.recommended,
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        $: 'readonly',
-        jQuery: 'readonly'
-      }
-    },
-    rules: {
-      'semi': ['error', 'always'],
-      'no-unused-vars': 'warn',
-    }
-  },
-  {
-    files: ['**/*.ts'],
-    extends: [...tseslint.configs.recommended],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        $: 'readonly',
-        jQuery: 'readonly'
-      }
-    },
-    rules: {
-      'semi': ['error', 'always'],
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn'
-    }
-  }
-);
+// 実設定は html5-skeleton-core が提供する。案件固有の上書きが必要な場合はここで合成する。
+module.exports = require('../packages/html5-skeleton-core/config/eslint.config.js');
