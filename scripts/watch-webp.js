@@ -1,28 +1,8 @@
-const path = require('path'),
-      chokidar = require('chokidar'),
-      sharp = require('sharp'),
-      { IMG_TO_WEBP_SRC_DIR, WEBP_QUALITY } = require('../config/image-optimization.config');
+'use strict';
 
-const SRC_PATH = path.resolve(__dirname, '..', IMG_TO_WEBP_SRC_DIR);
+// WebP変換watcherの実体は html5-skeleton-core に切り出した。
+// このファイルは npm run webp の起動パスを維持するための薄いラッパー。
+const path = require('path');
+const { startWatchWebp } = require('../packages/html5-skeleton-core/lib/watch-webp');
 
-const convert = async (filePath) => {
-  const dir = path.dirname(filePath);
-  const name = path.parse(filePath).name;
-  const outPath = path.join(dir, `${name}.webp`);
-  try {
-    await sharp(filePath).webp({ quality: WEBP_QUALITY }).toFile(outPath);
-    console.log(`[webp] 変換しました: ${path.relative(process.cwd(), outPath)}`);
-  } catch (err) {
-    console.error(`[webp] 変換に失敗しました: ${filePath}`, err);
-  }
-};
-
-chokidar
-  .watch('**/*.{jpg,jpeg,png}', {
-    cwd: SRC_PATH,
-    ignoreInitial: false,
-  })
-  .on('add', (relPath) => convert(path.join(SRC_PATH, relPath)))
-  .on('change', (relPath) => convert(path.join(SRC_PATH, relPath)));
-
-console.log(`[webp] watch開始: ${SRC_PATH}`);
+startWatchWebp({ rootDir: path.resolve(__dirname, '..') });

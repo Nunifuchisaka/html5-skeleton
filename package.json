@@ -2,6 +2,10 @@
   "author": "",
   "scripts": {
     "start": "webpack --config config/webpack.config.js",
+    "build:once": "node scripts/build-once.js",
+    "hash:baseline": "node scripts/hash-dist.js baseline",
+    "hash:verify": "node scripts/hash-dist.js verify",
+    "test:core": "node --test packages/html5-skeleton-core/test/*.test.js",
     "webp": "node scripts/watch-webp.js",
     "validate:html": "npx html-validate \"dist_uncompressed/htdocs/**/*.html\"",
     "type-check": "node ./node_modules/typescript-native/bin/tsc --noEmit"

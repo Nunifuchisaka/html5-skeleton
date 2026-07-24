@@ -1,0 +1,89 @@
+{
+  "name": "html5-skeleton-core",
+  "version": "1.0.0",
+  "description": "html5-skeleton のビルド基盤（webpack 2パス構成・EJS/SCSS/TS・WebP変換）を提供する共有パッケージ",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./babel": "./config/babel.config.js",
+    "./postcss": "./config/postcss.config.js",
+    "./stylelint": "./config/stylelint.config.js",
+    "./eslint": "./config/eslint.config.js",
+    "./htmlvalidate": "./config/htmlvalidate.json",
+    "./image-optimization": "./config/image-optimization.config.js",
+    "./webp": "./lib/webp.js",
+    "./watch-webp": "./lib/watch-webp.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "html5-skeleton-webp": "./bin/watch-webp.js"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "config/",
+    "bin/",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "npm": ">=10.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.29.7",
+    "autoprefixer": "^10.4.20",
+    "babel-loader": "^10.0.0",
+    "browser-sync": "^3.0.4",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "browsersync-ssi": "^0.2.4",
+    "chokidar": "^3.6.0",
+    "copy-webpack-plugin": "^14.0.0",
+    "css-loader": "^7.1.2",
+    "ejs-plain-loader": "^1.4.1",
+    "glob": "^11.0.0",
+    "html-loader": "^5.1.0",
+    "html-minifier-terser": "^7.2.0",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1",
+    "postcss-sort-media-queries": "^5.2.0",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.89.0",
+    "sass-loader": "^16.0.5",
+    "sharp": "^0.35.0",
+    "stylelint": "^16.21.1",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-webpack-plugin": "^5.0.1",
+    "terser": "^5.43.1",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-remove-empty-scripts": "^1.0.4"
+  },
+  "peerDependencies": {
+    "@eslint/js": "*",
+    "eslint": ">=9",
+    "globals": ">=16",
+    "typescript-eslint": ">=8"
+  },
+  "peerDependenciesMeta": {
+    "@eslint/js": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
+    "globals": {
+      "optional": true
+    },
+    "typescript-eslint": {
+      "optional": true
+    }
+  }
+}

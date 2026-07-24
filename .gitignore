@@ -5,7 +5,7 @@ Thumbs.db
 *.ai
 /gitignore/
 .sass-cache/
-/node_modules/
+node_modules/
 /tmp/
 /release.zip
 /release/

@@ -1,16 +1,4 @@
 'use strict';
 
-module.exports = {
-  extends: 'stylelint-config-standard-scss',
-  rules: {
-    'no-descending-specificity': null,
-    'keyframes-name-pattern': null,
-    'at-rule-empty-line-before': null,
-    'block-no-empty': null,
-    'selector-class-pattern': null,
-    'rule-empty-line-before': null,
-    'scss/dollar-variable-pattern': null,
-    'scss/dollar-variable-empty-line-before': null,
-    'scss/percent-placeholder-pattern': null,
-  },
-};
+// 実設定は html5-skeleton-core が提供する。案件固有の上書きが必要な場合はここで合成する。
+module.exports = require('../packages/html5-skeleton-core/config/stylelint.config.js');
