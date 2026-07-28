@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ja">
 <head><%
-const path = "./";
+const path = "";
 const meta = PAGES.index.meta;
 %>
 <%- include("assets/html/_head",{meta:meta}) %>
@@ -16,6 +16,12 @@ const meta = PAGES.index.meta;
 
   <ul>
     <li><a href="samples/"><%= PAGES.index.body.samplesLinkText %></a></li>
+  </ul>
+
+  <ul>
+    <% for (const val of (PAGES?.index?.body?.list01 || [])) { %>
+      <li><%= val %></li>
+    <% } %>
   </ul>
 
   <%- include("assets/html/test") %>

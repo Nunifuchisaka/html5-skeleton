@@ -1,7 +1,8 @@
 @use "sass:math";
 @use "tool" as *;
 
-@use "base/reset";
+// @use "base/reset";
+@use "modern-normalize/modern-normalize.css";
 
 @use "base/font";
 @use "base/foundation";

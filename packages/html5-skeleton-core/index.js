@@ -141,7 +141,7 @@ const createConfig_uncompressed = ({ paths, contentData, options }) => {
     },
     module: {
       rules: [
-        createImageInlineRule(paths),
+        // createImageInlineRule(paths),
       ]
     },
     plugins: [

@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "jquery": "^3.7.1",
+    "modern-normalize": "^3.0.1",
     "slick-carousel": "^1.8.1"
   }
 }
