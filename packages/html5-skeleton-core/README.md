@@ -25,11 +25,21 @@ module.exports = createConfig({
 | `distDir` | `./dist` | 本番出力先 |
 | `distUncompressedDir` | `./dist_uncompressed` | 非圧縮出力先 |
 | `contentTextDir` | `./src/content/text` | content JSON置き場 |
+| `contentImgStaticDir` | `./src/content/img/static` | そのままコピー配信する静的画像置き場 |
 | `imgToWebpSrcDir` | `./img2webp` | WebP変換ステージング |
 | `webpQuality` | `90` | WebP品質 |
 | `stylelint` | `process.env.STYLELINT === '1'` | StylelintPluginの有効化 |
 
 相対パスはすべて `rootDir` 基準で解決される。
+
+### static画像のミラーコピー
+
+uncompressed設定は `CopyPlugin` で `contentImgStaticDir`（既定 `./src/content/img/static`）配下を、
+ディレクトリ構造を保ったまま `dist_uncompressed/htdocs/` 直下へコピーする
+（例: `static/img/photo1.webp` → `dist_uncompressed/htdocs/img/photo1.webp`）。
+production側は従来どおり `dist_uncompressed` を `dist` へコピーするため、static画像は `dist/htdocs/` にも同じパスで出力される。
+`static/` が存在しないプロジェクトでも壊れないよう `noErrorOnMissing: true` としている。
+なお SCSS/EJS から import して base64 埋め込みされる画像（`src/content/img/inline/` 等）はこの仕組みの対象外で、従来の `asset/inline` ルールを通る。
 
 ### 拡張オプション（用途別・第一級API）
 

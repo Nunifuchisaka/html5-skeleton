@@ -125,6 +125,22 @@ test('resolve.aliasは両設定に適用される', () => {
   assert.deepEqual(production.resolve.alias, alias);
 });
 
+test('uncompressed設定にCopyPluginがあり、src/content/img/static を dist_uncompressed/htdocs へミラーする', () => {
+  const [uncompressed] = createConfig({ rootDir: PROJ1 });
+  const copyPlugins = findPlugin(uncompressed, 'CopyPlugin');
+  assert.equal(copyPlugins.length, 1);
+  const pattern = copyPlugins[0].patterns[0];
+  assert.equal(pattern.from, path.resolve(PROJ1, 'src/content/img/static'), 'コピー元はstatic画像ディレクトリ');
+  assert.equal(pattern.to, path.resolve(PROJ1, 'dist_uncompressed/htdocs'), 'コピー先はdist_uncompressed/htdocs');
+  assert.equal(pattern.noErrorOnMissing, true, 'static/ が無いプロジェクトでもエラーにしない');
+});
+
+test('contentImgStaticDirオプションはrootDir基準で解決される', () => {
+  const [uncompressed] = createConfig({ rootDir: PROJ1, contentImgStaticDir: './content-img' });
+  const pattern = findPlugin(uncompressed, 'CopyPlugin')[0].patterns[0];
+  assert.equal(pattern.from, path.resolve(PROJ1, 'content-img'));
+});
+
 test('copyPatternsは標準パターンの後に連結される', () => {
   const extra = { from: path.join(PROJ1, 'src/content/text/site.json'), to: 'copied/site.json' };
   const [, production] = createConfig({ rootDir: PROJ1, copyPatterns: [extra] });

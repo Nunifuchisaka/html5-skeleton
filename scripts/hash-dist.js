@@ -7,30 +7,19 @@
 
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+
+const { collectHashes: collectDirHashes } = require('./lib/hash-tree');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const TARGET_DIRS = ['dist', 'dist_uncompressed'];
-const IGNORE_BASENAMES = new Set(['.DS_Store', 'Thumbs.db']);
 const BASELINE_PATH = path.join(PROJECT_ROOT, 'tmp', 'core-migration-baseline.json');
 
 const collectHashes = () => {
   const hashes = {};
-  const walk = (absDir, relDir) => {
-    for (const entry of fs.readdirSync(absDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
-      if (IGNORE_BASENAMES.has(entry.name)) continue;
-      const absPath = path.join(absDir, entry.name);
-      const relPath = `${relDir}/${entry.name}`;
-      if (entry.isDirectory()) {
-        walk(absPath, relPath);
-      } else if (entry.isFile()) {
-        hashes[relPath] = crypto.createHash('sha256').update(fs.readFileSync(absPath)).digest('hex');
-      }
-    }
-  };
   for (const dir of TARGET_DIRS) {
-    const absDir = path.join(PROJECT_ROOT, dir);
-    if (fs.existsSync(absDir)) walk(absDir, dir);
+    for (const [relPath, hash] of Object.entries(collectDirHashes(path.join(PROJECT_ROOT, dir)))) {
+      hashes[`${dir}/${relPath}`] = hash;
+    }
   }
   return hashes;
 };

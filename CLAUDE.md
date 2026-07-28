@@ -6,7 +6,7 @@
 
 ## プロジェクト概要
 
-Webpack 5 上に構築された静的サイト向けフロントエンドビルドスケルトン（EJS + SCSS + ES6 JS）。アプリケーションサーバーやテストスイートは存在せず、成果物は Web ホストにアップロードする静的な HTML/CSS/JS 一式（`dist/`）のみ。
+Webpack 5 上に構築された静的サイト向けフロントエンドビルドスケルトン（EJS + SCSS + ES6 JS）。アプリケーションサーバーやテストスイートは存在せず、成果物は Web ホストにアップロードする静的な HTML/CSS/JS 一式（`dist/`）のみ。`dist/` はGit追跡対象外（`.gitignore` の `/dist/`）で、納品はハッシュマニフェスト方式の差分納品（後述）で管理する。`dist_uncompressed/` は差分確認のため追跡を継続している。
 
 ## コマンド
 
@@ -20,6 +20,11 @@ npm run test:core       # packages/html5-skeleton-core の単体テスト（node
 npm run build:once      # watch・BrowserSyncなしの単発フルビルド（成果物検証・CI用）
 npm run hash:baseline   # dist/ と dist_uncompressed/ の全ファイルSHA-256を tmp/ に記録
 npm run hash:verify     # 現在の成果物を baseline と照合（ビルド基盤変更時の同一性検証用）
+npm run test:delivery   # 差分納品スクリプト（scripts/lib/）の単体テスト（node --test）
+npm run delivery:diff:staging       # フルビルド後、dist/htdocs を delivery/manifest.staging.json と照合し差分zipを release/ に生成
+npm run delivery:diff:production    # 同上（productionマニフェスト）
+npm run delivery:baseline:staging   # 現在の dist/htdocs のハッシュで delivery/manifest.staging.json を上書き（納品確定後に手動実行）
+npm run delivery:baseline:production # 同上（productionマニフェスト）
 ```
 
 `package.json` にテスト用スクリプトや lint 用スクリプトは無い。Stylelint（`stylelint-webpack-plugin`、`fix: true` のため SCSS をその場で自動修正する）は `uncompressed` 設定に組み込まれているが、`STYLELINT` 環境変数が設定されている時のみ動作する — 素の `npm start` では実行されない（watch による再ビルドのたびに SCSS を再 lint・再修正してしまうため、通常の編集時はオフにしてある）。そのセッションだけ有効にしたい場合は `STYLELINT=1 npm start` を実行する。ESLintは必要に応じて`npx eslint src`で実行する。Babel・PostCSS・ESLint・Stylelintの実設定は`packages/html5-skeleton-core/config/`にあり、`config/`配下の同名ファイルがそれを読み込む薄いラッパー、さらにルートの同名設定ファイルが`config/`を読み込む（各ツールの自動検出を維持するための2段ラッパー構成）。案件固有の上書きが必要な場合は`config/`側のラッパーで合成する。
@@ -72,18 +77,28 @@ webpack設定の生成ロジック・各ツールの既定設定・WebP変換は
 - `src/content/text/pages/`：ページ単位の content JSON。ファイルパスは対応する EJS のパスと一致させる（例：`src/htdocs/samples/index.ejs` → `pages/samples/index.json`）。中身は `meta`（title/description 等）と、必要に応じて本文テキストを持つ最小限の構造でよい。
 - `config/webpack.config.js`（`uncompressed` 設定側）がこれらを glob で一括読み込みし、`ejs-plain-loader` の `data` に `{SITE_NAME, SITE_URL, START_PATH, PAGES}` として注入する。`PAGES` はキーが上記のページパス（例：`PAGES.index`、`PAGES['samples/index']`）。EJS 側は `<%= SITE_NAME %>` や `<%= PAGES.index.meta.title %>` のような変数参照のみを行い、テキストを直書きしない。
 - content JSON は webpack 設定の評価時に一度だけ読み込まれるため、編集を反映するには `npm start` の再起動が必要（EJS/SCSS/JS のような watch による自動反映はされない）。
-- 画像は `src/content/img/` に置き、SCSS/EJS から相対パスで import する。ビルドパイプライン自体（`asset/inline` ルール）は従来の `src/htdocs/assets/img` と同じものをそのまま使う。
+- 画像は `src/content/img/` に置き、用途で2つのサブディレクトリを使い分ける（詳細は `src/content/img/README.md`）：
+  - `inline/` … SCSS/EJS から相対パスで import して base64 埋め込みする画像。ビルドパイプライン自体（`asset/inline` ルール）は従来の `src/htdocs/assets/img` と同じものをそのまま使う。
+  - `static/` … 配下のディレクトリ構造を `htdocs/` 直下へミラーして、そのままコピー配信する画像（例：`static/img/photo1.webp` → `htdocs/img/photo1.webp`）。core の uncompressed 設定の CopyPlugin が `dist_uncompressed/htdocs/` へコピーし、production 側の dist_uncompressed → dist コピーで `dist/` にも流れる。`<img src>` で URL 参照する画像はこちら。`dist/` へ画像を直置きしない。
 - `src/htdocs/samples/` は自己完結型のデモ/プロトタイプエリアという性質上、コンポーネントのダミー文言（`nav_1.ejs` のメガメニュー中身など）まではこの仕組みの対象にしていない。ロゴ表記など全ページ共通のサイト名表記のみ `SITE_NAME` 参照に置き換えている。
 
-### 画像パイプライン（独立した2つの仕組み）
+### 画像パイプライン（独立した3つの仕組み）
 
-- `src/` 配下から参照され `asset/inline` ルールでインライン化される画像（jpg/png/webp/svg など、`img2webp` ディレクトリは除く）は CSS/JS に base64 でインライン化される。
+- `src/` 配下から参照され `asset/inline` ルールでインライン化される画像（jpg/png/webp/svg など、`img2webp` ディレクトリは除く）は CSS/JS に base64 でインライン化される。`src/content/img/inline/` もこの仕組みを通る。
+- `src/content/img/static/` 配下は uncompressed 設定の CopyPlugin により、相対パスを維持したまま `dist_uncompressed/htdocs/` 直下へコピーされる（`noErrorOnMissing: true` のため `static/` が無くても壊れない）。production 側の dist_uncompressed → dist コピーで `dist/htdocs/` にも同じパスで出力される。
 - `img2webp/`（プロジェクトルート、`src/` の外）は別系統のステージングフォルダ：ここに置かれた `.jpg`/`.png`/`.jpeg` は `sharp` により `CopyPlugin` 経由で WebP に変換され、`img2webp/` 内に**その場で**書き戻される（`dist/` には出力されない）。ビルド自身が書き出した `.webp` ファイルによる監視・再ビルドの無限ループを避けるため、`webpackOptions.watchOptions.ignored` で `img2webp/**/*.webp` を明示的に除外している。`img2webp/` 内の変換済み `.webp`/元の `.jpg`/`.png` は gitignore 対象。変換対象ディレクトリと品質値（`WEBP_QUALITY: 90`）は `config/image-optimization.config.js` に集約されており、webpack ビルドと `npm run webp`（`scripts/watch-webp.js`）の両方がこれを参照する。
 
 ### サンプルエリア（`src/htdocs/samples/`）
 
 メインサイトの `assets/css/{tool,module,extra}` 構造を、独自の `samples/assets/` ルート配下にミラーリングした自己完結型のデモ/プロトタイプエリアで、独自のアグリゲーター（`samples/assets/css/all.scss`、`common.scss` と同じ方法でインポートされる）を持つ。ここに置かれたファイルは通常のビルドエントリー規約に従う（`_` プレフィックスの無い `.ejs`/`.scss` は実際の webpack エントリーになる）。SCSS はブレークポイント/mixin を共有するためメインサイトの `tool/_index.scss` を `@use "../../../assets/css/tool" as *` でインポートしつつ、サンプル固有のデータ（例：`$contents` マップ）のために自身の `tool/_index.scss` も保持する。各ページは EJS の `include()` ではなく SSI（`<!--#include virtual="/samples/assets/html/*.html" -->`）で `index.ejs` に組み込まれる。`common.css` と同じページに読み込まれる独立したコンポーネント群であるため、`assets/css/module/` とのクラス名衝突に注意すること。
 
-### デプロイ
+### デプロイと差分納品（`delivery/` + `release/`）
 
-`.vscode/sftp.json` が VSCode SFTP 拡張機能の設定として、`dist/`（コンテキスト：`dist`）をリモートの `staging`/`production` FTP プロファイルにアップロードするよう構成している（認証情報は空のプレースホルダーで、ローカル環境ごとに個別に埋める）。デプロイは npm スクリプトには含まれていない。
+`.vscode/sftp.json` が VSCode SFTP 拡張機能の設定として、`dist/`（コンテキスト：`dist`）をリモートの `staging`/`production` FTP プロファイルにアップロードするよう構成している（認証情報は空のプレースホルダーで、ローカル環境ごとに個別に埋める）。自動デプロイの npm スクリプトは無い。
+
+差分納品はハッシュマニフェスト方式で行う（実装は `scripts/delivery.js` と `scripts/lib/`、詳細は `document/manual-delivery.md`）：
+
+- `delivery/manifest.staging.json` / `delivery/manifest.production.json`（Git管理対象）が「前回納品時点の dist/htdocs 全ファイルのSHA-256一覧」を環境別に保持する。
+- `npm run delivery:diff:<env>` … `build:once` 相当で `dist/` を再生成 → マニフェストと照合 → 変更・追加ファイルを htdocs の構造のまま `release/<env>_YYYYMMDD/` に集め、`release/<env>_YYYYMMDD.zip` を生成する。zipには `_delivery_note.txt`（変更・追加・削除されたファイルの一覧。削除はFTP手上げでは自動で消えないため手動削除が必要）を同梱する。**マニフェストは更新しない。**
+- `npm run delivery:baseline:<env>` … 納品が確定した後に手動で実行し、現在の `dist/htdocs` のハッシュで該当マニフェストを上書きする。
+- `release/` はgitignore済み。zip生成は依存パッケージ無しの自前実装（`scripts/lib/zip.js`）でWindowsでも動く。

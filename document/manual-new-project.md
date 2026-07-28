@@ -74,9 +74,27 @@ npm start
 
 `dist/htdocs/index.html` を開き、サイト名・タイトル・OGPなどが新しい値になっているか確認する。使い方の基本（ページ追加・画像追加・デプロイなど）は [document/manual-usage.md](manual-usage.md) を参照する。
 
-## 補足：`dist` はGit管理下にある
+### 7. 実案件では `src/content/` の読み取りをClaude Codeから遮断する
 
-`.gitignore` に `dist/` / `dist_uncompressed/` の除外は無く、追跡対象になっている。複製直後にコミットすると雛形のダミー出力（仮のサイト名・URL）がそのまま入り込むため、**サイト情報を書き換えて `npm start` で作り直した後に最初のコミットをする**こと。
+実案件の `src/content/` にはクライアントの商品画像・本文テキストが入るため、Claude Codeが不用意に内容を読み込まないよう、新規案件側の `.claude/settings.json` に読み取りdenyを設定する（複製後の実案件側で行う手順であり、雛形からの必須コピー対象ではない）。
+
+```json
+{
+  "permissions": {
+    "deny": [
+      "Read(./src/content/**)",
+      "Grep(./src/content/**)",
+      "Glob(./src/content/**)"
+    ]
+  }
+}
+```
+
+必要に応じて `Bash(cat ./src/content/*)` 等のコマンド経由の読み取りも同様にdenyへ追加する。ビルド成果物（`dist/`・`dist_uncompressed/`）にも同じコンテンツが展開されるため、遮断を徹底したい案件ではそちらへの `Read`/`Grep`/`Glob` denyも合わせて設定する。
+
+## 補足：`dist` はGit追跡対象外、`dist_uncompressed` は追跡対象
+
+`.gitignore` に `/dist/` があり、`dist/` は追跡されない（納品物の管理は [manual-delivery.md](manual-delivery.md) のハッシュマニフェスト方式で行う）。`dist_uncompressed/` は差分確認用に追跡対象のままなので、複製直後にコミットすると雛形のダミー出力（仮のサイト名・URL）がそのまま入り込む。**サイト情報を書き換えて `npm start` で作り直した後に最初のコミットをする**こと。
 
 ## 今後：本当のPrefab Variant的な運用にしたい場合
 

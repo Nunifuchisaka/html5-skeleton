@@ -46,6 +46,7 @@ const resolvePaths = (options) => {
     distDir: resolve(options.distDir ?? './dist'),
     distUncompressedDir: resolve(options.distUncompressedDir ?? './dist_uncompressed'),
     contentTextDir: resolve(options.contentTextDir ?? './src/content/text'),
+    contentImgStaticDir: resolve(options.contentImgStaticDir ?? './src/content/img/static'),
     imgToWebpSrcDir: resolve(options.imgToWebpSrcDir ?? IMAGE_OPTIMIZATION_CONFIG.IMG_TO_WEBP_SRC_DIR),
   };
 };
@@ -197,6 +198,23 @@ const createConfig_uncompressed = ({ paths, contentData, options }) => {
     );
   });
   config.module.rules.push(createEjsRule(contentData));
+
+  // static画像: src/content/img/static 配下を相対パス維持で htdocs/ 直下へミラーする。
+  // ここで dist_uncompressed に入れば、production側の dist_uncompressed→dist コピーで dist にも流れる
+  config.plugins.push(
+    new CopyPlugin({
+      patterns: [
+        {
+          from: paths.contentImgStaticDir,
+          to: path.join(paths.distUncompressedDir, 'htdocs'),
+          globOptions: {
+            ignore: ['**/.DS_Store', '**/Thumbs.db'],
+          },
+          noErrorOnMissing: true,
+        },
+      ],
+    })
+  );
 
   // 用途別オプション: uncompressed設定への追加プラグイン
   config.plugins.push(...(options.plugins?.uncompressed ?? []));

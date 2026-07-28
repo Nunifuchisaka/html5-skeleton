@@ -7,6 +7,7 @@ Thumbs.db
 .sass-cache/
 node_modules/
 /tmp/
+/dist/
 /release.zip
 /release/
 img2webp/**/*.webp

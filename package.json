@@ -5,7 +5,12 @@
     "build:once": "node scripts/build-once.js",
     "hash:baseline": "node scripts/hash-dist.js baseline",
     "hash:verify": "node scripts/hash-dist.js verify",
+    "delivery:diff:staging": "node scripts/delivery.js diff staging",
+    "delivery:diff:production": "node scripts/delivery.js diff production",
+    "delivery:baseline:staging": "node scripts/delivery.js baseline staging",
+    "delivery:baseline:production": "node scripts/delivery.js baseline production",
     "test:core": "node --test packages/html5-skeleton-core/test/*.test.js",
+    "test:delivery": "node --test scripts/test/*.test.js",
     "webp": "node scripts/watch-webp.js",
     "validate:html": "npx html-validate \"dist_uncompressed/htdocs/**/*.html\"",
     "type-check": "node ./node_modules/typescript-native/bin/tsc --noEmit"
