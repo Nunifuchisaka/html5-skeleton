@@ -15,10 +15,6 @@ const meta = PAGES.index.meta;
 <main id="main">
 
   <ul>
-    <li><a href="samples/"><%= PAGES.index.body.samplesLinkText %></a></li>
-  </ul>
-
-  <ul>
     <% for (const val of (PAGES?.index?.body?.list01 || [])) { %>
       <li><%= val %></li>
     <% } %>
