@@ -14,3 +14,8 @@ img2webp/**/*.webp
 img2webp/**/*.jpg
 img2webp/**/*.jpeg
 img2webp/**/*.png
+
+# uncompressed設定にはcreateImageInlineRuleが適用されないため、css内でurl()参照される
+# src/content/img/inline配下の画像がwebpack5のデフォルトasset/resource扱いとなりここに出力される
+# （dist/assets/への伝播元でもある）。htdocs配下ではなく納品・差分確認には無関係な副産物のため追跡しない。
+/dist_uncompressed/assets/

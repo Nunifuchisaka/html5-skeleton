@@ -1,0 +1,7 @@
+# dist_uncompressed のテキスト系成果物（html/css/js）はビルド時にLF固定で出力される。
+# core.autocrlf=true な環境ではワーキングツリー上のLFとチェックアウト想定のCRLFがズレて
+# git status が常時 M を表示してしまうため、改行変換の対象から外す。
+# 画像等のバイナリはこの指定に含めない（誤ってCRLF/LF変換されると破損するため）。
+/dist_uncompressed/**/*.html text eol=lf
+/dist_uncompressed/**/*.css text eol=lf
+/dist_uncompressed/**/*.js text eol=lf
